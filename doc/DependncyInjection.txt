@@ -1,0 +1,9 @@
+For now only constructor injection is used. 
+Method injection is possible but no currenly used. 
+Property injection is strongly discouraged.
+
+Registraion order:
+1) Providers
+2) Repositories
+3) Services
+4) Handlers

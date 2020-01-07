@@ -1,0 +1,11 @@
+Tests pack of the application consists of the following of unit tests and system (integration) tests. 
+The border between unit tests and integration tests lies in the presence of external dependencies such as database and web services. One may argue that some tests defined as "unit tests" are not really "unit" ones because they span multiple units (such as handler tests comprising mulitple services) or don't deal with functional units at all but are rather code analyzers.
+
+1.Unit tests
+1.1. Core tests: check logic in Core project
+1.2  Domain services tests: check scenarios for each method in sub-domains services
+1.3. Domain handler tests: check scenarios for command handlers in sub-domains
+1.4. Architecture tests: intended for code analysis
+2. System tests
+2.1. Presentation tests: not implemented; intended for testing of presentation layer with the persistance layer being faked with in-memory storage.
+2.2  Persistance tests: not implemented; intended for testing of interaction with a specific db technology; devoid of presentation layer.
