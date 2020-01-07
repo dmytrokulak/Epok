@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Epok.Core\Epok.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shops\Queries\" />
+  </ItemGroup>
+
+</Project>
