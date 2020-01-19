@@ -18,15 +18,15 @@ namespace Epok.Domain.Payroll.Entities
         /// <summary>
         /// Contact info: person name, email and phone.
         /// </summary>
-        public Contact Contact { get; set; }
+        public virtual Contact Contact { get; set; }
 
         /// <summary>
         /// Position within the company operating the system.
         /// </summary>
-        public string Position { get; set; }
+        public virtual string Position { get; set; }
 
-        public decimal Salary { get; set; }
-        public Address Address { get; internal set; }
+        public virtual decimal Salary { get; set; }
+        public virtual Address Address { get; internal set; }
 
     }
 }

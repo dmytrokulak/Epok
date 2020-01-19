@@ -14,11 +14,11 @@ namespace Epok.Domain.Suppliers.Entities
         {
         }
 
-        public HashSet<Article> SuppliableArticles { get; set; } = new HashSet<Article>();
-        public HashSet<MaterialRequest> MaterialRequests { get; set; } = new HashSet<MaterialRequest>();
-        public Address ShippingAddress { get; set; }
-        public HashSet<Contact> Contacts { get; set; } = new HashSet<Contact>();
-        public Contact PrimaryContact
+        public virtual HashSet<Article> SuppliableArticles { get; set; } = new HashSet<Article>();
+        public virtual HashSet<MaterialRequest> MaterialRequests { get; set; } = new HashSet<MaterialRequest>();
+        public virtual Address ShippingAddress { get; set; }
+        public virtual HashSet<Contact> Contacts { get; set; } = new HashSet<Contact>();
+        public virtual Contact PrimaryContact
             => Contacts.Single(c => c.Primary);
     }
 }

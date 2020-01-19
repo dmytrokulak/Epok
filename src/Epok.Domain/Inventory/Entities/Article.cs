@@ -21,36 +21,36 @@ namespace Epok.Domain.Inventory.Entities
         /// <summary>
         /// Material, component, product etc
         /// </summary>
-        public ArticleType ArticleType { get; set; }
+        public virtual ArticleType ArticleType { get; set; }
 
         /// <summary>
         /// Human readable code of this article.
         /// </summary>
-        public string Code { get; set; }
+        public virtual string Code { get; set; }
 
         /// <summary>
         /// Units of measurement.
         /// </summary>
-        public Uom UoM { get; set; }
+        public virtual Uom UoM { get; set; }
 
         /// <summary>
         /// Calculation of input of other articles 
         /// required to produce specified amount of this article.
         /// </summary>
-        public HashSet<BillOfMaterial> BillsOfMaterial { get; set; } = new HashSet<BillOfMaterial>();
+        public virtual HashSet<BillOfMaterial> BillsOfMaterial { get; set; } = new HashSet<BillOfMaterial>();
 
-        public BillOfMaterial PrimaryBillOfMaterial => BillsOfMaterial.SingleOrDefault(bom => bom.Primary);
+        public virtual BillOfMaterial PrimaryBillOfMaterial => BillsOfMaterial.SingleOrDefault(bom => bom.Primary);
 
         /// <summary>
         /// Shops category able to handle production of this article.
         /// </summary>
 
-        public ShopCategory ProductionShopCategory { get; set; }
+        public virtual ShopCategory ProductionShopCategory { get; set; }
 
         /// <summary>
         /// Nominal time required to produce a unit of this article.
         /// </summary>
 
-        public TimeSpan? TimeToProduce { get; set; }
+        public virtual TimeSpan? TimeToProduce { get; set; }
     }
 }

@@ -12,10 +12,10 @@ namespace Epok.Domain.Suppliers.Entities
         {
         }
 
-        public Supplier Supplier { get; set; }
-        public MaterialRequestStatus Status { get; set; }
-        public List<InventoryItem> ItemsRequested { get; set; }
+        public virtual Supplier Supplier { get; set; }
+        public virtual MaterialRequestStatus Status { get; set; }
+        public virtual List<InventoryItem> ItemsRequested { get; set; }
 
-        public DateTimeOffset CreatedAt { get; set; }
+        public virtual DateTimeOffset CreatedAt { get; set; }
     }
 }

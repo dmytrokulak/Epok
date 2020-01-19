@@ -14,8 +14,8 @@ namespace Epok.Domain.Inventory.Entities
         {
         }
 
-        public InventoryItem Item { get; set; }
-        public string Reason { get; set; }
-        public DateTimeOffset TimeOfReport { get; set; } = DateTimeOffset.Now;
+        public virtual InventoryItem Item { get; set; }
+        public virtual string Reason { get; set; }
+        public virtual DateTimeOffset TimeOfReport { get; set; } = DateTimeOffset.Now;
     }
 }

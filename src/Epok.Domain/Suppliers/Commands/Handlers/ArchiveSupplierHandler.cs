@@ -1,10 +1,10 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
-using Epok.Core.Domain.Persistence;
 using Epok.Domain.Suppliers.Entities;
 using System.Linq;
 using System.Threading.Tasks;
+using Epok.Core.Persistence;
 using static Epok.Domain.Suppliers.ExceptionCauses;
 
 namespace Epok.Domain.Suppliers.Commands.Handlers

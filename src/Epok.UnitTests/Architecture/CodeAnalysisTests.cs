@@ -1,6 +1,5 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
-using Epok.Core.Domain.Persistence;
 using Epok.Core.Domain.Queries;
 using Epok.Core.Domain.Services;
 using Epok.Core.Providers;
@@ -8,6 +7,7 @@ using NUnit.Framework;
 using System;
 using System.Linq;
 using System.Reflection;
+using Epok.Core.Persistence;
 
 namespace Epok.UnitTests.Architecture
 {

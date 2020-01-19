@@ -20,16 +20,16 @@ namespace Epok.Domain.Inventory.Entities
             Reusable = reusable;
         }
 
-        public Article Article { get; set; }
+        public virtual Article Article { get; set; }
 
         /// <summary>
         /// Can be fixed into an article.
         /// </summary>
-        public bool Fixable { get; set; }
+        public virtual bool Fixable { get; set; }
 
         /// <summary>
         /// Can be reused as an input in a bom.
         /// </summary>
-        public bool Reusable { get; set; }
+        public virtual bool Reusable { get; set; }
     }
 }

@@ -16,31 +16,31 @@ namespace Epok.Domain.Contacts.Entities
         /// <summary>
         /// House number, street.
         /// </summary>
-        public string AddressLine1 { get; set; }
+        public virtual string AddressLine1 { get; set; }
 
         /// <summary>
         /// Apartment or office number.
         /// </summary>
-        public string AddressLine2 { get; set; }
+        public virtual string AddressLine2 { get; set; }
 
         /// <summary>
         /// Settlement: city, town, village etc.
         /// </summary>
-        public string City { get; set; }
+        public virtual string City { get; set; }
 
         /// <summary>
-        /// Region: provice, state, district etc.
+        /// Region: province, state, district etc.
         /// </summary>
-        public string Province { get; set; }
+        public virtual string Province { get; set; }
 
         /// <summary>
         /// State or territory.
         /// </summary>
-        public string Country { get; set; }
+        public virtual string Country { get; set; }
 
         /// <summary>
         /// Postal identifier: postal code, zip code etc.
         /// </summary>
-        public string PostalCode { get; set; }
+        public virtual string PostalCode { get; set; }
     }
 }

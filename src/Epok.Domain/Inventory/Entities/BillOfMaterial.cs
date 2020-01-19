@@ -18,9 +18,9 @@ namespace Epok.Domain.Inventory.Entities
         {
         }
 
-        public Article Article { get; set; }
-        public HashSet<InventoryItem> Input { get; set; }
-        public decimal Output { get; set; }
-        public bool Primary { get; set; }
+        public virtual Article Article { get; set; }
+        public virtual HashSet<InventoryItem> Input { get; set; }
+        public virtual decimal Output { get; set; }
+        public virtual bool Primary { get; set; }
     }
 }

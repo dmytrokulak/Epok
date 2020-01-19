@@ -1,17 +1,16 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
-using Epok.Core.Domain.Persistence;
 using Epok.Core.Utilities;
 using Epok.Domain.Customers.Entities;
 using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Inventory.Services;
 using Epok.Domain.Orders.Entities;
-using Epok.Domain.Orders.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Epok.Core.Persistence;
 using static Epok.Domain.Inventory.ExceptionCauses;
 using static Epok.Domain.Orders.ExceptionCauses;
 
@@ -29,11 +28,11 @@ namespace Epok.Domain.Orders.Commands.Handlers
     public class CreateOrderHandler : ICommandHandler<CreateOrder>
     {
         private readonly IReadOnlyRepository _repo;
-        private readonly IOrderRepository _orderRepo;
+        private readonly IRepository<Order> _orderRepo;
         private readonly IInventoryService _inventoryService;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public CreateOrderHandler(IOrderRepository orderRepo, IReadOnlyRepository repo,
+        public CreateOrderHandler(IRepository<Order> orderRepo, IReadOnlyRepository repo,
             IInventoryService inventoryService, IEventTransmitter eventTransmitter)
         {
             _repo = repo;

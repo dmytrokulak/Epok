@@ -4,9 +4,9 @@ using Epok.Core.Domain.Exceptions;
 using Epok.Domain.Inventory.Services;
 using Epok.Domain.Orders.Entities;
 using Epok.Domain.Orders.Events;
-using Epok.Domain.Orders.Repositories;
 using System;
 using System.Threading.Tasks;
+using Epok.Core.Persistence;
 using static Epok.Domain.Orders.ExceptionCauses;
 
 namespace Epok.Domain.Orders.Commands.Handlers
@@ -16,11 +16,11 @@ namespace Epok.Domain.Orders.Commands.Handlers
     /// </summary>
     public class EnactOrderHandler : ICommandHandler<EnactOrder>
     {
-        private readonly IOrderRepository _orderRepo;
+        private readonly IRepository<Order> _orderRepo;
         private readonly IInventoryService _inventoryService;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public EnactOrderHandler(IOrderRepository orderRepo, IInventoryService inventoryService,
+        public EnactOrderHandler(IRepository<Order> orderRepo, IInventoryService inventoryService,
             IEventTransmitter eventTransmitter)
         {
             _orderRepo = orderRepo;

@@ -3,6 +3,7 @@ using Epok.Domain.Shops.Entities;
 using FakeItEasy;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Epok.UnitTests.Domain.Setup
 {
@@ -95,7 +96,7 @@ namespace Epok.UnitTests.Domain.Setup
             A.CallTo(() => ShopRepo.LoadAsync(ProductAssemblyShop.Id)).Returns(ProductAssemblyShop);
             A.CallTo(() => ShopRepo.GetAsync(ProductAssemblyShop.Id)).Returns(ProductAssemblyShop);
 
-            A.CallTo(() => ShopRepo.GetAllAsync()).Returns(Shops);
+            A.CallTo(() => ShopRepo.GetAllAsync()).Returns(Shops.ToList());
             A.CallTo(() => ShopRepo.GetEntryPoint()).Returns(MaterialStockpileShop);
             A.CallTo(() => ShopRepo.GetExitPoint()).Returns(ProductStockpileShop);
 

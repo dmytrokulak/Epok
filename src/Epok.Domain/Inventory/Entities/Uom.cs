@@ -11,6 +11,10 @@ namespace Epok.Domain.Inventory.Entities
     [Serializable]
     public class Uom : EntityBase
     {
+        //orm ctor
+        protected Uom()
+        {
+        }
         public Uom(Guid id, string name, UomType uomType) : base(id, name)
         {
             Type = uomType;
@@ -19,18 +23,18 @@ namespace Epok.Domain.Inventory.Entities
         /// <summary>
         /// Piece, length, weight etc.
         /// </summary>
-        public UomType Type { get; set; }
+        public virtual UomType Type { get; set; }
 
         /// <summary>
         /// Conversion to benchmark measurement
         /// </summary>
-        public decimal BasePoints { get; set; }
+        public virtual decimal BasePoints { get; set; }
 
         /// <summary>
         /// Whether this UoM is one from
         /// International System of Units of Measurements
         /// or a custom (non-metric) one.
         /// </summary>
-        public bool Custom { get; set; }
+        public virtual bool Custom { get; set; }
     }
 }

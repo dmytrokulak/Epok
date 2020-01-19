@@ -1,27 +1,27 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
-using Epok.Core.Domain.Persistence;
 using Epok.Domain.Users.Entities;
 using Epok.Domain.Users.Repositories;
 using System;
 using System.Threading.Tasks;
+using Epok.Core.Persistence;
 using static Epok.Domain.Users.ExceptionCauses;
 
 namespace Epok.Domain.Users.Commands.Handlers
 {
     /// <summary>
-    /// Grant permission to a user on a CQRS resource.
+    /// Grant permission to a user on a domain resource.
     /// </summary>
     public class GrantPermissionHandler : ICommandHandler<GrantPermission>
     {
         private readonly IPermissionRepository _permissionRepo;
         private readonly IRepository<User> _userRepo;
-        private readonly IRepository<CqrsResource> _resourceRepo;
+        private readonly IRepository<DomainResource> _resourceRepo;
         private readonly IEventTransmitter _eventTransmitter;
 
         public GrantPermissionHandler(IPermissionRepository permissionRepo, IRepository<User> userRepo,
-            IRepository<CqrsResource> resourceRepo, IEventTransmitter eventTransmitter)
+            IRepository<DomainResource> resourceRepo, IEventTransmitter eventTransmitter)
 
         {
             _userRepo = userRepo;
@@ -33,17 +33,17 @@ namespace Epok.Domain.Users.Commands.Handlers
         public async Task HandleAsync(GrantPermission command)
         {
             var user = await _userRepo.LoadAsync(command.UserId);
-            var handler = await _resourceRepo.LoadAsync(command.HandleId);
+            var resource = await _resourceRepo.LoadAsync(command.ResourceId);
 
-            var permission = await _permissionRepo.Find(user, handler);
+            var permission = await _permissionRepo.Find(user, resource);
             if (permission != null)
                 throw new DomainException(DuplicatingGrant(permission));
 
-            permission = new Permission(Guid.NewGuid(), $"Grant on {handler.Name} for {user.Name}")
+            permission = new Permission(Guid.NewGuid(), $"Grant on {resource.Name} for {user.Name}")
             {
                 User = user,
-                Handler = handler,
-                Restriction = command.Restriction,
+                Resource = resource,
+                //ToDo:4 Restriction = command.Restriction,
             };
 
             await _permissionRepo.AddAsync(permission);

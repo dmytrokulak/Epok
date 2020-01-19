@@ -1,13 +1,13 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
-using Epok.Core.Domain.Persistence;
 using Epok.Core.Utilities;
 using Epok.Domain.Inventory.Services;
 using Epok.Domain.Orders.Entities;
 using Epok.Domain.Orders.Events;
 using Epok.Domain.Orders.Services;
 using System.Threading.Tasks;
+using Epok.Core.Persistence;
 using static Epok.Domain.Orders.ExceptionCauses;
 
 namespace Epok.Domain.Orders.Commands.Handlers

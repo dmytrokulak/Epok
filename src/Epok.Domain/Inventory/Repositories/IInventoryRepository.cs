@@ -1,10 +1,10 @@
-﻿using Epok.Core.Domain.Persistence;
-using Epok.Domain.Inventory.Entities;
+﻿using Epok.Domain.Inventory.Entities;
 using System.Threading.Tasks;
+using Epok.Core.Persistence;
 
 namespace Epok.Domain.Inventory.Repositories
 {
-    public interface IInventoryRepository : IRepository<Article>
+    public interface IInventoryRepository : IRepository<InventoryItem>
     {
         /// <summary>
         /// Finds total amount of inventory for specified article across all shops.
@@ -19,13 +19,11 @@ namespace Epok.Domain.Inventory.Repositories
         /// <param name="article"></param>
         /// <returns></returns>
         Task<decimal> FindSpareInventoryAsync(Article article);
-        
+
         /// <summary>
-        /// Finds a spoiled article which corresponds to the specified article.
+        /// Total amount of items ordered in active (not yet 
+        /// shipped and not cancelled) orders.
         /// </summary>
-        /// <param name="article"></param>
-        /// <param name="fixable"></param>
-        /// <returns></returns>
-        Task<SpoiledArticle> FindSpoiledCounterpartAsync(Article article, bool fixable);
+        Task<decimal> FindTotalAmountInOrdersAsync(Article article);
     }
 }

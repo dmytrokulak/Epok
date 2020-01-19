@@ -1,6 +1,5 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
-using Epok.Core.Domain.Persistence;
 using Epok.Domain.Inventory.Events;
 using Epok.Domain.Inventory.Services;
 using Epok.Domain.Orders.Entities;
@@ -9,6 +8,7 @@ using Epok.Domain.Shops.Entities;
 using Epok.Domain.Shops.Events;
 using System.Threading.Tasks;
 using Epok.Core.Domain.Exceptions;
+using Epok.Core.Persistence;
 
 namespace Epok.Domain.Inventory.Commands.Handlers
 {

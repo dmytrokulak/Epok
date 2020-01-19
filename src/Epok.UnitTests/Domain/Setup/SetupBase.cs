@@ -1,12 +1,10 @@
 ﻿using Epok.Core.Domain.Entities;
 using Epok.Core.Domain.Events;
-using Epok.Core.Domain.Persistence;
 using Epok.Core.Providers;
 using Epok.Domain.Customers.Entities;
 using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Inventory.Repositories;
 using Epok.Domain.Inventory.Services;
-using Epok.Domain.Orders.Repositories;
 using Epok.Domain.Orders.Services;
 using Epok.Domain.Shops.Entities;
 using Epok.Domain.Shops.Repositories;
@@ -18,6 +16,8 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Epok.Core.Persistence;
+using Epok.Domain.Orders.Entities;
 
 namespace Epok.UnitTests.Domain.Setup
 {
@@ -30,9 +30,10 @@ namespace Epok.UnitTests.Domain.Setup
 
         protected static IReadOnlyRepository ReadOnlyRepo = A.Fake<IReadOnlyRepository>();
         protected static IRepository<User> UserRepo = A.Fake<IRepository<User>>();
-        protected static IRepository<CqrsResource> HandlerRepo = A.Fake<IRepository<CqrsResource>>();
+        protected static IRepository<DomainResource> HandlerRepo = A.Fake<IRepository<DomainResource>>();
         protected static IPermissionRepository PermissionRepo = A.Fake<IPermissionRepository>();
-        protected static IOrderRepository OrderRepo = A.Fake<IOrderRepository>();
+        protected static IRepository<Order> OrderRepo = A.Fake<IRepository<Order>>();
+        protected static IArticleRepository ArticleRepo = A.Fake<IArticleRepository>();
         protected static IInventoryRepository InventoryRepo = A.Fake<IInventoryRepository>();
         protected static IRepository<Customer> CustomerRepo = A.Fake<IRepository<Customer>>();
         protected static IRepository<Supplier> SupplierRepo = A.Fake<IRepository<Supplier>>();
@@ -43,7 +44,7 @@ namespace Epok.UnitTests.Domain.Setup
         protected static IRepository<BillOfMaterial> BomRepo = A.Fake<IRepository<BillOfMaterial>>();
         protected static IRepository<SpoilageReport> SpoilageRepo = A.Fake<IRepository<SpoilageReport>>();
 
-        protected static IInventoryService InventoryService = new InventoryService(InventoryRepo, TimeProvider);
+        protected static IInventoryService InventoryService = new InventoryService(InventoryRepo, ArticleRepo, TimeProvider);
         protected static IOrderService OrderService = new OrderService(TimeProvider);
 
 

@@ -1,11 +1,11 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
-using Epok.Core.Domain.Persistence;
 using Epok.Core.Utilities;
 using Epok.Domain.Contacts.Entities;
 using Epok.Domain.Inventory.Repositories;
 using Epok.Domain.Suppliers.Entities;
 using System.Threading.Tasks;
+using Epok.Core.Persistence;
 
 namespace Epok.Domain.Suppliers.Commands.Handlers
 {
@@ -15,22 +15,27 @@ namespace Epok.Domain.Suppliers.Commands.Handlers
     public class RegisterSupplierHandler : ICommandHandler<RegisterSupplier>
     {
         private readonly IRepository<Supplier> _supplierRepo;
-        private readonly IInventoryRepository _inventoryRepo;
+        private readonly IArticleRepository _articleRepo;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public RegisterSupplierHandler(IRepository<Supplier> supplierRepo, IInventoryRepository inventoryRepo,
+        public RegisterSupplierHandler(IRepository<Supplier> supplierRepo, IArticleRepository articleRepo,
             IEventTransmitter eventTransmitter)
         {
             _supplierRepo = supplierRepo;
-            _inventoryRepo = inventoryRepo;
+            _articleRepo = articleRepo;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(RegisterSupplier command)
         {
-            var contact = new Contact(
-                new PersonName(command.PrimaryContactFirstName, command.PrimaryContactLastName),
-                command.PrimaryContactPhone, command.PrimaryContactEmail, true);
+            var contact = new Contact
+            {
+                FirstName = command.PrimaryContactFirstName,
+                LastName = command.PrimaryContactLastName,
+                PhoneNumber = command.PrimaryContactPhone,
+                Email = command.PrimaryContactEmail,
+                Primary = true
+            };
 
             var address = new Address(command.Id, $"{command.Name} shipping address.")
             {
@@ -42,7 +47,7 @@ namespace Epok.Domain.Suppliers.Commands.Handlers
                 PostalCode = command.ShippingAddressPostalCode
             };
 
-            var articles = await _inventoryRepo.GetSomeAsync(command.SuppliableArticleIds);
+            var articles = await _articleRepo.GetSomeAsync(command.SuppliableArticleIds);
 
             var supplier = new Supplier(command.Id, command.Name)
             {

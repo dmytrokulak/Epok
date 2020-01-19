@@ -1,9 +1,9 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
-using Epok.Core.Domain.Persistence;
 using Epok.Domain.Users.Entities;
 using System.Threading.Tasks;
+using Epok.Core.Persistence;
 using static Epok.Domain.Users.ExceptionCauses;
 
 namespace Epok.Domain.Users.Commands.Handlers

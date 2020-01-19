@@ -26,8 +26,8 @@ namespace Epok.UnitTests.Domain.Setup
 
         protected User GlobalAdmin = new User(Guid.NewGuid(), "GlobalAdmin");
 
-        protected CqrsResource ProduceInventoryItemHandler =
-            new CqrsResource(Guid.NewGuid(), "ProduceInventoryItemHandler");
+        protected DomainResource ProduceInventoryItemHandler =
+            new DomainResource(Guid.NewGuid(), "ProduceInventoryItemHandler");
 
         protected Permission UserWithPermissionsOnProduceInventoryItemHandler
             = new Permission(Guid.NewGuid(), "UserWithPermissionsOnProduceInventoryItemHandler");
@@ -40,10 +40,10 @@ namespace Epok.UnitTests.Domain.Setup
             GlobalAdmin.UserType = Epok.Domain.Users.UserType.GlobalAdmin;
 
             UserWithPermissionsOnProduceInventoryItemHandler.User = UserWithPermissions;
-            UserWithPermissionsOnProduceInventoryItemHandler.Handler = ProduceInventoryItemHandler;
+            UserWithPermissionsOnProduceInventoryItemHandler.Resource = ProduceInventoryItemHandler;
 
             GlobalAdminOnProduceInventoryItemHandler.User = GlobalAdmin;
-            GlobalAdminOnProduceInventoryItemHandler.Handler = ProduceInventoryItemHandler;
+            GlobalAdminOnProduceInventoryItemHandler.Resource = ProduceInventoryItemHandler;
 
             ManagerOfProductAssemblyShop.IsShopManager = true;
             ManagerOfProductAssemblyShop.Shop = ProductAssemblyShop;

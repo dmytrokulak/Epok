@@ -14,14 +14,13 @@ namespace Epok.Domain.Users.Entities
         {
         }
 
-        public bool IsShopManager { get; set; }
+        public virtual bool IsShopManager { get; set; }
 
         /// <summary>
         /// The shop user may be assigned to. 
         /// </summary>
-        public Shop Shop { get; set; }
-
-        public UserType UserType { get; set; }
-        public string Email { get; set; }
+        public virtual Shop Shop { get; set; }
+        public virtual UserType UserType { get; set; }
+        public virtual string Email { get; set; }
     }
 }

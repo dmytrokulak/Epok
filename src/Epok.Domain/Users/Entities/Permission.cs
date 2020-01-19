@@ -1,6 +1,5 @@
 ﻿using Epok.Core.Domain.Entities;
 using System;
-using System.Collections.Generic;
 
 namespace Epok.Domain.Users.Entities
 {
@@ -10,12 +9,10 @@ namespace Epok.Domain.Users.Entities
         {
         }
 
-        public User User { get; set; }
-        public CqrsResource Handler { get; set; }
+        public virtual User User { get; set; }
+        public virtual DomainResource Resource { get; set; }
 
-        /// <summary>
-        /// Filter to restrict by a key entity id
-        /// </summary>
-        public IEnumerable<Guid> Restriction { get; set; }
+        // Filter to restrict by a key entity id
+        //ToDo:4 public virtual IEnumerable<Guid> Restriction { get; set; }
     }
 }

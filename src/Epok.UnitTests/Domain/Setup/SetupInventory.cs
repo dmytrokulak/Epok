@@ -178,54 +178,54 @@ namespace Epok.UnitTests.Domain.Setup
 
         private void StubInventoryRepositories()
         {
-            A.CallTo(() => InventoryRepo.LoadAsync(Product1InteriorDoor.Id)).Returns(Product1InteriorDoor);
-            A.CallTo(() => InventoryRepo.GetAsync(Product1InteriorDoor.Id)).Returns(Product1InteriorDoor);
+            A.CallTo(() => ArticleRepo.LoadAsync(Product1InteriorDoor.Id)).Returns(Product1InteriorDoor);
+            A.CallTo(() => ArticleRepo.GetAsync(Product1InteriorDoor.Id)).Returns(Product1InteriorDoor);
 
             A.CallTo(() => ReadOnlyRepo.LoadAsync<Article>(Product1InteriorDoor.Id)).Returns(Product1InteriorDoor);
             A.CallTo(() => ReadOnlyRepo.GetAsync<Article>(Product1InteriorDoor.Id)).Returns(Product1InteriorDoor);
 
-            A.CallTo(() => InventoryRepo.LoadAsync(Product2InteriorDoor.Id)).Returns(Product2InteriorDoor);
-            A.CallTo(() => InventoryRepo.GetAsync(Product2InteriorDoor.Id)).Returns(Product2InteriorDoor);
+            A.CallTo(() => ArticleRepo.LoadAsync(Product2InteriorDoor.Id)).Returns(Product2InteriorDoor);
+            A.CallTo(() => ArticleRepo.GetAsync(Product2InteriorDoor.Id)).Returns(Product2InteriorDoor);
 
-            A.CallTo(() => InventoryRepo.LoadAsync(Material1Timber.Id)).Returns(Material1Timber);
-            A.CallTo(() => InventoryRepo.GetAsync(Material1Timber.Id)).Returns(Material1Timber);
+            A.CallTo(() => ArticleRepo.LoadAsync(Material1Timber.Id)).Returns(Material1Timber);
+            A.CallTo(() => ArticleRepo.GetAsync(Material1Timber.Id)).Returns(Material1Timber);
 
             A.CallTo(() => ReadOnlyRepo.LoadAsync<Article>(Material1Timber.Id)).Returns(Material1Timber);
             A.CallTo(() => ReadOnlyRepo.GetAsync<Article>(Material1Timber.Id)).Returns(Material1Timber);
 
-            A.CallTo(() => InventoryRepo.LoadAsync(Material2Foil.Id)).Returns(Material2Foil);
-            A.CallTo(() => InventoryRepo.GetAsync(Material2Foil.Id)).Returns(Material2Foil);
+            A.CallTo(() => ArticleRepo.LoadAsync(Material2Foil.Id)).Returns(Material2Foil);
+            A.CallTo(() => ArticleRepo.GetAsync(Material2Foil.Id)).Returns(Material2Foil);
 
-            A.CallTo(() => InventoryRepo.LoadAsync(Material4TintedGlass.Id)).Returns(Material4TintedGlass);
-            A.CallTo(() => InventoryRepo.GetAsync(Material4TintedGlass.Id)).Returns(Material4TintedGlass);
+            A.CallTo(() => ArticleRepo.LoadAsync(Material4TintedGlass.Id)).Returns(Material4TintedGlass);
+            A.CallTo(() => ArticleRepo.GetAsync(Material4TintedGlass.Id)).Returns(Material4TintedGlass);
 
-            A.CallTo(() => InventoryRepo.LoadAsync(Material3Mdf.Id)).Returns(Material3Mdf);
-            A.CallTo(() => InventoryRepo.GetAsync(Material3Mdf.Id)).Returns(Material3Mdf);
+            A.CallTo(() => ArticleRepo.LoadAsync(Material3Mdf.Id)).Returns(Material3Mdf);
+            A.CallTo(() => ArticleRepo.GetAsync(Material3Mdf.Id)).Returns(Material3Mdf);
 
-            A.CallTo(() => InventoryRepo.LoadAsync(Component1Vertical.Id)).Returns(Component1Vertical);
-            A.CallTo(() => InventoryRepo.GetAsync(Component1Vertical.Id)).Returns(Component1Vertical);
+            A.CallTo(() => ArticleRepo.LoadAsync(Component1Vertical.Id)).Returns(Component1Vertical);
+            A.CallTo(() => ArticleRepo.GetAsync(Component1Vertical.Id)).Returns(Component1Vertical);
 
-            A.CallTo(() => InventoryRepo.LoadAsync(Component2Horizontal.Id)).Returns(Component2Horizontal);
-            A.CallTo(() => InventoryRepo.GetAsync(Component2Horizontal.Id)).Returns(Component2Horizontal);
+            A.CallTo(() => ArticleRepo.LoadAsync(Component2Horizontal.Id)).Returns(Component2Horizontal);
+            A.CallTo(() => ArticleRepo.GetAsync(Component2Horizontal.Id)).Returns(Component2Horizontal);
 
-            A.CallTo(() => InventoryRepo.LoadAsync(Component3MdfFiller.Id)).Returns(Component3MdfFiller);
-            A.CallTo(() => InventoryRepo.GetAsync(Component3MdfFiller.Id)).Returns(Component3MdfFiller);
+            A.CallTo(() => ArticleRepo.LoadAsync(Component3MdfFiller.Id)).Returns(Component3MdfFiller);
+            A.CallTo(() => ArticleRepo.GetAsync(Component3MdfFiller.Id)).Returns(Component3MdfFiller);
 
-            A.CallTo(() => InventoryRepo.LoadAsync(Component4GlassFiller.Id)).Returns(Component4GlassFiller);
-            A.CallTo(() => InventoryRepo.GetAsync(Component4GlassFiller.Id)).Returns(Component4GlassFiller);
+            A.CallTo(() => ArticleRepo.LoadAsync(Component4GlassFiller.Id)).Returns(Component4GlassFiller);
+            A.CallTo(() => ArticleRepo.GetAsync(Component4GlassFiller.Id)).Returns(Component4GlassFiller);
 
-            A.CallTo(() => InventoryRepo.LoadAsync(ArticleToArchive.Id)).Returns(ArticleToArchive);
-            A.CallTo(() => InventoryRepo.GetAsync(ArticleToArchive.Id)).Returns(ArticleToArchive);
+            A.CallTo(() => ArticleRepo.LoadAsync(ArticleToArchive.Id)).Returns(ArticleToArchive);
+            A.CallTo(() => ArticleRepo.GetAsync(ArticleToArchive.Id)).Returns(ArticleToArchive);
 
-            A.CallTo(() => InventoryRepo.FindSpoiledCounterpartAsync(Product1InteriorDoor, true))
+            A.CallTo(() => ArticleRepo.FindSpoiledCounterpartAsync(Product1InteriorDoor, true))
                 .Returns(Product1InteriorDoorSpoiled);
-            A.CallTo(() => InventoryRepo.FindSpoiledCounterpartAsync(Component1Vertical, true))
+            A.CallTo(() => ArticleRepo.FindSpoiledCounterpartAsync(Component1Vertical, true))
                 .Returns(Component1VerticalSpoiled);
 
-            A.CallTo(() => InventoryRepo.GetSomeAsync(A<IEnumerable<Guid>>.That.Contains(Product1InteriorDoor.Id)))
+            A.CallTo(() => ArticleRepo.GetSomeAsync(A<IEnumerable<Guid>>.That.Contains(Product1InteriorDoor.Id)))
                 .Returns(new[] {Product1InteriorDoor});
 
-            A.CallTo(() => InventoryRepo.GetSomeAsync(A<IEnumerable<Guid>>.That.Contains(Material2Foil.Id)))
+            A.CallTo(() => ArticleRepo.GetSomeAsync(A<IEnumerable<Guid>>.That.Contains(Material2Foil.Id)))
                 .Returns(new[] {Material2Foil});
 
             A.CallTo(() => UomRepo.LoadAsync(PieceUom.Id)).Returns(PieceUom);
@@ -277,6 +277,16 @@ namespace Epok.UnitTests.Domain.Setup
                 .Sum(i => i.Amount);
             A.CallTo(() => InventoryRepo.FindTotalAmountInStockAsync(Component3MdfFiller)).Returns(inStockC3);
             A.CallTo(() => InventoryRepo.FindSpareInventoryAsync(Component3MdfFiller)).Returns(inStockC3);
+
+            A.CallTo(() => InventoryRepo.FindTotalAmountInOrdersAsync(Product2InteriorDoor)).Returns(1);
+
+            A.CallTo(() => InventoryRepo.FindTotalAmountInOrdersAsync(Material1Timber))
+                .Returns(AmountInOrders(Material1Timber));
+            A.CallTo(() => InventoryRepo.FindTotalAmountInOrdersAsync(Material2Foil))
+                .Returns(AmountInOrders(Material2Foil));
+            A.CallTo(() => InventoryRepo.FindTotalAmountInOrdersAsync(Material3Mdf)).Returns(AmountInOrders(Material3Mdf));
+            A.CallTo(() => InventoryRepo.FindTotalAmountInOrdersAsync(Material4TintedGlass))
+                .Returns(AmountInOrders(Material4TintedGlass));
         }
     }
 }

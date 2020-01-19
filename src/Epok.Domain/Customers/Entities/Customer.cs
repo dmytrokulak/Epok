@@ -21,18 +21,18 @@ namespace Epok.Domain.Customers.Entities
         /// <summary>
         /// All orders ever submitted by the customer.
         /// </summary>
-        public HashSet<Order> Orders { get; set; } = new HashSet<Order>();
+        public virtual HashSet<Order> Orders { get; set; } = new HashSet<Order>();
 
         /// <summary>
         /// According to the scale of business: single retailer, 
         /// a retail network, a distributor etc.
         /// </summary>
-        public CustomerType CustomerType { get; set; }
+        public virtual CustomerType CustomerType { get; set; }
 
-        public Address ShippingAddress { get; set; }
-        public HashSet<Contact> Contacts { get; set; } = new HashSet<Contact>();
+        public virtual Address ShippingAddress { get; set; }
+        public virtual HashSet<Contact> Contacts { get; set; } = new HashSet<Contact>();
 
-        public Contact PrimaryContact
+        public virtual Contact PrimaryContact
             => Contacts.Single(c => c.Primary);
     }
 }

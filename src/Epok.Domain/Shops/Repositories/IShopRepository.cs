@@ -1,6 +1,6 @@
-﻿using Epok.Core.Domain.Persistence;
-using Epok.Domain.Shops.Entities;
+﻿using Epok.Domain.Shops.Entities;
 using System.Threading.Tasks;
+using Epok.Core.Persistence;
 
 namespace Epok.Domain.Shops.Repositories
 {

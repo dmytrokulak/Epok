@@ -1,6 +1,8 @@
 ﻿using Epok.Core.Domain.Entities;
 using System;
 using System.Linq;
+using Epok.Domain.Orders.Entities;
+using Epok.Domain.Shops.Entities;
 
 namespace Epok.Domain.Inventory.Entities
 {
@@ -10,6 +12,10 @@ namespace Epok.Domain.Inventory.Entities
     [Serializable]
     public class InventoryItem : EntityBase
     {
+        //orm ctor
+        protected InventoryItem()
+        {
+        }
         public InventoryItem(Article article, decimal amount)
             : base(Guid.NewGuid(), $"{article.Name} item.")
         {
@@ -20,15 +26,19 @@ namespace Epok.Domain.Inventory.Entities
         public static InventoryItem Empty(Article article)
             => new InventoryItem(article, 0);
 
-        public Article Article { get; set; }
-        public decimal Amount { get; set; }
+        public virtual Article Article { get; set; }
+        public virtual decimal Amount { get; set; }
+        //shop where exiting inventory is located
+        public virtual Shop Shop { get; set; }
+        //order where existing inventory is included
+        public virtual Order Order { get; set; }
 
-        public TimeSpan TimeToProduce 
+        public virtual TimeSpan TimeToProduce 
             => Article.ProductionShopCategory is null
                 ? TimeSpan.Zero
                 : TimeSpan.FromTicks((long) (Amount * Article.TimeToProduce.Value.Ticks));
 
-        public DateTimeOffset EarliestProductionStartTime
+        public virtual DateTimeOffset EarliestProductionStartTime
         {
             get
             {

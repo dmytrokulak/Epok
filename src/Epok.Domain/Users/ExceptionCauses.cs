@@ -9,7 +9,7 @@ namespace Epok.Domain.Users
             = user => $"Cannot archive a manager {user.Id} of shop {user.Shop.Id}.";
 
         public static readonly Func<Permission, string> DuplicatingGrant
-            = permission => $"Permission {permission.Id} on handler {permission.Handler.Id} " +
+            = permission => $"Permission {permission.Id} on resource {permission.Resource.Id} " +
                             $"is already granted to user {permission.User.Id}.";
 
         public static readonly Func<User, string> RevokingGlobalAdminPermission

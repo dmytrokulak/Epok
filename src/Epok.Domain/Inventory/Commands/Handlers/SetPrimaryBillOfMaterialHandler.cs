@@ -17,18 +17,18 @@ namespace Epok.Domain.Inventory.Commands.Handlers
     /// </exception>
     public class SetPrimaryBillOfMaterialHandler : ICommandHandler<SetPrimaryBillOfMaterial>
     {
-        private readonly IInventoryRepository _inventoryRepo;
+        private readonly IArticleRepository _articleRepo;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public SetPrimaryBillOfMaterialHandler(IInventoryRepository inventoryRepo, IEventTransmitter eventTransmitter)
+        public SetPrimaryBillOfMaterialHandler(IArticleRepository articleRepo, IEventTransmitter eventTransmitter)
         {
-            _inventoryRepo = inventoryRepo;
+            _articleRepo = articleRepo;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(SetPrimaryBillOfMaterial command)
         {
-            var article = await _inventoryRepo.GetAsync(command.ArticleId);
+            var article = await _articleRepo.GetAsync(command.ArticleId);
             var current = article.PrimaryBillOfMaterial;
             if (current.Id == command.BomId)
                 throw new DomainException(BomIsAlreadyPrimary(current));

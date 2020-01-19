@@ -1,10 +1,10 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
-using Epok.Core.Domain.Persistence;
 using Epok.Core.Utilities;
 using Epok.Domain.Contacts.Entities;
 using Epok.Domain.Customers.Entities;
 using System.Threading.Tasks;
+using Epok.Core.Persistence;
 
 namespace Epok.Domain.Customers.Commands.Handlers
 {
@@ -27,9 +27,14 @@ namespace Epok.Domain.Customers.Commands.Handlers
 
         public async Task HandleAsync(RegisterCustomer command)
         {
-            var contact = new Contact(
-                new PersonName(command.PrimaryContactFirstName, command.PrimaryContactLastName),
-                command.PrimaryContactPhone, command.PrimaryContactEmail, true);
+            var contact = new Contact
+            {
+                FirstName = command.PrimaryContactFirstName,
+                LastName = command.PrimaryContactLastName,
+                PhoneNumber = command.PrimaryContactPhone,
+                Email = command.PrimaryContactEmail,
+                Primary = true
+            };
 
             var address = new Address(command.Id, $"{command.Name} shipping address.")
             {

@@ -3,7 +3,6 @@ using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
 using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Inventory.Repositories;
-using Epok.Domain.Orders.Repositories;
 using System.Threading.Tasks;
 using static Epok.Domain.Inventory.ExceptionCauses;
 
@@ -18,27 +17,27 @@ namespace Epok.Domain.Inventory.Commands.Handlers
     /// </exception>
     public class ArchiveArticleHandler : ICommandHandler<ArchiveArticle>
     {
+        private readonly IArticleRepository _articleRepo;
         private readonly IInventoryRepository _inventoryRepo;
-        private readonly IOrderRepository _orderRepo;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public ArchiveArticleHandler(IInventoryRepository inventoryRepo, IOrderRepository orderRepo,
-            IEventTransmitter eventTransmitter)
+        public ArchiveArticleHandler(IInventoryRepository inventoryRepo,
+            IArticleRepository articleRepo, IEventTransmitter eventTransmitter)
         {
             _inventoryRepo = inventoryRepo;
-            _orderRepo = orderRepo;
+            _articleRepo = articleRepo;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(ArchiveArticle command)
         {
-            var article = await _inventoryRepo.LoadAsync(command.Id);
+            var article = await _articleRepo.LoadAsync(command.Id);
 
             var amountInStock = await _inventoryRepo.FindTotalAmountInStockAsync(article);
             if (amountInStock > 0)
                 throw new DomainException(ArchivingArticleStillInStock(article, amountInStock));
 
-            var amountInOrders = await _orderRepo.FindTotalAmountInOrdersAsync(article);
+            var amountInOrders = await _inventoryRepo.FindTotalAmountInOrdersAsync(article);
             if (amountInOrders > 0)
                 throw new DomainException(ArchivingArticleStillInOrders(article, amountInOrders));
 

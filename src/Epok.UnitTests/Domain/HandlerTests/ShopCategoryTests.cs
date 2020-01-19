@@ -25,7 +25,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Articles = new[] {Product1InteriorDoor.Id},
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new CreateShopCategoryHandler(ShopCategoryRepo, InventoryRepo, EventTransmitter);
+            var handler = new CreateShopCategoryHandler(ShopCategoryRepo, ArticleRepo, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
@@ -106,7 +106,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 ShopCategoryId = ShopCategoryToArchive.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new AllowArticleHandler(ShopCategoryRepo, InventoryRepo, EventTransmitter);
+            var handler = new AllowArticleHandler(ShopCategoryRepo, ArticleRepo, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
@@ -137,7 +137,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 ShopCategoryId = ShopCategoryToArchive.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new DisallowArticleHandler(ShopCategoryRepo, InventoryRepo, EventTransmitter);
+            var handler = new DisallowArticleHandler(ShopCategoryRepo, ArticleRepo, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);

@@ -9,7 +9,7 @@ using static Epok.Domain.Users.ExceptionCauses;
 namespace Epok.Domain.Users.Commands.Handlers
 {
     /// <summary>
-    /// Revokes permission from a user on a CQRS resource.
+    /// Revokes permission from a user on a domain resource.
     /// </summary>
     public class RevokePermissionHandler : ICommandHandler<RevokePermission>
     {

@@ -1,5 +1,6 @@
 ﻿using Epok.Core.Utilities;
 using System;
+using Epok.Core.Domain.Entities;
 
 namespace Epok.Domain.Contacts.Entities
 {
@@ -7,23 +8,14 @@ namespace Epok.Domain.Contacts.Entities
     /// Contains basic contact information.
     /// </summary>
     [Serializable]
-    public class Contact
+    public class Contact : EntityBase
     {
-        public Contact(PersonName personName, string phoneNumber,
-            string email, bool primary)
-        {
-            Guard.Against.InvalidEmail(email, nameof(email));
-            Guard.Against.InvalidPhoneNumber(phoneNumber, nameof(phoneNumber));
-
-            PersonName = personName;
-            PhoneNumber = phoneNumber;
-            Email = email;
-            Primary = primary;
-        }
-
-        public PersonName PersonName { get; }
-        public string PhoneNumber { get; }
-        public string Email { get; }
-        public bool Primary { get; }
+        public virtual string FirstName { get; set; }
+        public virtual string MiddleName { get; set; }
+        public virtual string LastName { get; set; }
+        public virtual string PhoneNumber { get; set; }
+        public virtual string Email { get; set; }
+        public virtual bool Primary { get; set; }
+        public virtual Guid ParentId { get; set; }
     }
 }

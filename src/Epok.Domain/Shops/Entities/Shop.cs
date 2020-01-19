@@ -20,12 +20,12 @@ namespace Epok.Domain.Shops.Entities
         {
         }
 
-        public ShopCategory ShopCategory { get; set; }
-        public bool IsDefaultForCategory { get; set; }
-        public bool IsEntryPoint { get; set; }
-        public bool IsExitPoint { get; set; }
-        public User Manager { get; set; }
-        public HashSet<InventoryItem> Inventory { get; set; } = new HashSet<InventoryItem>();
-        public HashSet<Order> Orders { get; set; } = new HashSet<Order>();
+        public virtual ShopCategory ShopCategory { get; set; }
+        public virtual bool IsDefaultForCategory { get; set; }
+        public virtual bool IsEntryPoint { get; set; }
+        public virtual bool IsExitPoint { get; set; }
+        public virtual User Manager { get; set; }
+        public virtual HashSet<InventoryItem> Inventory { get; set; } = new HashSet<InventoryItem>();
+        public virtual HashSet<Order> Orders { get; set; } = new HashSet<Order>();
     }
 }

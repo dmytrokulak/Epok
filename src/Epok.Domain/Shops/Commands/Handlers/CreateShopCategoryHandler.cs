@@ -1,9 +1,9 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
-using Epok.Core.Domain.Persistence;
 using Epok.Domain.Inventory.Repositories;
 using Epok.Domain.Shops.Entities;
 using System.Threading.Tasks;
+using Epok.Core.Persistence;
 
 namespace Epok.Domain.Shops.Commands.Handlers
 {
@@ -13,14 +13,14 @@ namespace Epok.Domain.Shops.Commands.Handlers
     public class CreateShopCategoryHandler : ICommandHandler<CreateShopCategory>
     {
         private readonly IRepository<ShopCategory> _shopCategoryRepo;
-        private readonly IInventoryRepository _inventoryRepo;
+        private readonly IArticleRepository _articleRepo;
         private readonly IEventTransmitter _eventTransmitter;
 
         public CreateShopCategoryHandler(IRepository<ShopCategory> shopCategoryRepo,
-            IInventoryRepository inventoryRepo, IEventTransmitter eventTransmitter)
+            IArticleRepository articleRepo, IEventTransmitter eventTransmitter)
         {
             _shopCategoryRepo = shopCategoryRepo;
-            _inventoryRepo = inventoryRepo;
+            _articleRepo = articleRepo;
             _eventTransmitter = eventTransmitter;
         }
 
@@ -30,7 +30,7 @@ namespace Epok.Domain.Shops.Commands.Handlers
             {
                 ShopType = command.ShopType
             };
-            var articles = await _inventoryRepo.GetSomeAsync(command.Articles);
+            var articles = await _articleRepo.GetSomeAsync(command.Articles);
             foreach (var article in articles)
                 shopCategory.Articles.Add(article);
 

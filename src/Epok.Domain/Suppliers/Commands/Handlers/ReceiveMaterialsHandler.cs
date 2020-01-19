@@ -1,13 +1,13 @@
 ﻿ using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
-using Epok.Core.Domain.Persistence;
-using Epok.Domain.Inventory.Services;
+ using Epok.Domain.Inventory.Services;
 using Epok.Domain.Shops.Repositories;
 using Epok.Domain.Suppliers.Entities;
 using Epok.Domain.Suppliers.Events;
 using System.Threading.Tasks;
+ using Epok.Core.Persistence;
 
-namespace Epok.Domain.Suppliers.Commands.Handlers
+ namespace Epok.Domain.Suppliers.Commands.Handlers
 {
     /// <summary>
     /// Receives materials from the supplier.

@@ -40,7 +40,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 ShippingAddressPostalCode = "37008",
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new RegisterSupplierHandler(SupplierRepo, InventoryRepo, EventTransmitter);
+            var handler = new RegisterSupplierHandler(SupplierRepo, ArticleRepo, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
@@ -51,8 +51,8 @@ namespace Epok.UnitTests.Domain.HandlerTests
             Assert.That(entities[0].Name, Is.EqualTo(command.Name));
             Assert.That(entities[0].SuppliableArticles.Count, Is.EqualTo(1));
             Assert.That(entities[0].SuppliableArticles.Single(), Is.EqualTo(Material2Foil));
-            Assert.That(entities[0].PrimaryContact.PersonName.FirstName, Is.EqualTo(command.PrimaryContactFirstName));
-            Assert.That(entities[0].PrimaryContact.PersonName.LastName, Is.EqualTo(command.PrimaryContactLastName));
+            Assert.That(entities[0].PrimaryContact.FirstName, Is.EqualTo(command.PrimaryContactFirstName));
+            Assert.That(entities[0].PrimaryContact.LastName, Is.EqualTo(command.PrimaryContactLastName));
             Assert.That(entities[0].PrimaryContact.PhoneNumber, Is.EqualTo(command.PrimaryContactPhone));
             Assert.That(entities[0].PrimaryContact.Email, Is.EqualTo(command.PrimaryContactEmail));
             Assert.That(entities[0].ShippingAddress.AddressLine1, Is.EqualTo(command.ShippingAddressLine1));
@@ -128,7 +128,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 InitiatorId = GlobalAdmin.Id
             };
             var handler =
-                new CreateMaterialRequestHandler(MaterialRequestRepo, InventoryRepo, SupplierRepo, EventTransmitter);
+                new CreateMaterialRequestHandler(MaterialRequestRepo, ArticleRepo, SupplierRepo, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
@@ -165,7 +165,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 InitiatorId = GlobalAdmin.Id
             };
             var handler =
-                new CreateMaterialRequestHandler(MaterialRequestRepo, InventoryRepo, SupplierRepo, EventTransmitter);
+                new CreateMaterialRequestHandler(MaterialRequestRepo, ArticleRepo, SupplierRepo, EventTransmitter);
 
             //assert ()=> act
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));

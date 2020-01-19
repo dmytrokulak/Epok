@@ -16,11 +16,14 @@ namespace Epok.Domain.Inventory.Services
     public class InventoryService : IInventoryService
     {
         private readonly IInventoryRepository _inventoryRepo;
+        private readonly IArticleRepository _articleRepo;
         private readonly ITimeProvider _timeProvider;
 
-        public InventoryService(IInventoryRepository inventoryRepo, ITimeProvider timeProvider)
+        public InventoryService(IInventoryRepository inventoryRepo, IArticleRepository articleRepo, 
+            ITimeProvider timeProvider)
         {
             _inventoryRepo = inventoryRepo;
+            _articleRepo = articleRepo;
             _timeProvider = timeProvider;
         }
 
@@ -57,7 +60,7 @@ namespace Epok.Domain.Inventory.Services
 
         public async Task<InventoryItem> Produce(Shop shop, Guid articleId, decimal amount, Order order)
         {
-            var article = await _inventoryRepo.GetAsync(articleId);
+            var article = await _articleRepo.GetAsync(articleId);
             return Produce(shop, new InventoryItem(article, amount), order);
         }
 
@@ -110,8 +113,8 @@ namespace Epok.Domain.Inventory.Services
         public async Task<InventoryItem> ReportSpoilage(Guid articleId, decimal amount, bool fixable, Order order,
             Shop shop)
         {
-            var article = await _inventoryRepo.LoadAsync(articleId);
-            var spoiled = await _inventoryRepo.FindSpoiledCounterpartAsync(article, fixable);
+            var article = await _articleRepo.LoadAsync(articleId);
+            var spoiled = await _articleRepo.FindSpoiledCounterpartAsync(article, fixable);
             return ReportSpoilage(new InventoryItem(spoiled, amount), order, shop);
         }
 

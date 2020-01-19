@@ -1,6 +1,5 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
-using Epok.Core.Domain.Persistence;
 using Epok.Core.Utilities;
 using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Inventory.Repositories;
@@ -8,6 +7,7 @@ using Epok.Domain.Shops.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Epok.Core.Persistence;
 
 namespace Epok.Domain.Inventory.Commands.Handlers
 {
@@ -20,16 +20,16 @@ namespace Epok.Domain.Inventory.Commands.Handlers
     public class RegisterArticleHandler : ICommandHandler<RegisterArticle>
     {
         private readonly IReadOnlyRepository _repo;
-        private readonly IInventoryRepository _inventoryRepo;
+        private readonly IArticleRepository _articleRepo;
         private readonly IRepository<BillOfMaterial> _bomRepo;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public RegisterArticleHandler(IReadOnlyRepository repo, IInventoryRepository inventoryRepo,
+        public RegisterArticleHandler(IReadOnlyRepository repo, IArticleRepository articleRepo,
             IRepository<BillOfMaterial> bomRepo, IEventTransmitter eventTransmitter)
 
         {
             _repo = repo;
-            _inventoryRepo = inventoryRepo;
+            _articleRepo = articleRepo;
             _bomRepo = bomRepo;
             _eventTransmitter = eventTransmitter;
         }
@@ -38,7 +38,7 @@ namespace Epok.Domain.Inventory.Commands.Handlers
         {
             var input = new HashSet<InventoryItem>();
             foreach (var (articleId, amount) in command.BomInput)
-                input.Add(new InventoryItem(await _inventoryRepo.LoadAsync(articleId), amount));
+                input.Add(new InventoryItem(await _articleRepo.LoadAsync(articleId), amount));
 
             var bom = new BillOfMaterial(Guid.NewGuid(), command.Name)
             {
@@ -66,7 +66,7 @@ namespace Epok.Domain.Inventory.Commands.Handlers
 
             shops.Articles.Add(article);
 
-            await _inventoryRepo.AddAsync(article);
+            await _articleRepo.AddAsync(article);
             await _eventTransmitter.BroadcastAsync(
                 new DomainEvent<Article>(article, Trigger.Added, command.InitiatorId));
         }

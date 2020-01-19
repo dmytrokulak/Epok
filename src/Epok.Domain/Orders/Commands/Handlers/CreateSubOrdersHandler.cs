@@ -4,10 +4,10 @@ using Epok.Domain.Inventory;
 using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Inventory.Repositories;
 using Epok.Domain.Orders.Entities;
-using Epok.Domain.Orders.Repositories;
 using Epok.Domain.Orders.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Epok.Core.Persistence;
 
 namespace Epok.Domain.Orders.Commands.Handlers
 {
@@ -16,12 +16,12 @@ namespace Epok.Domain.Orders.Commands.Handlers
     /// </summary>
     public class CreateSubOrdersHandler : ICommandHandler<CreateSubOrders>
     {
-        private readonly IOrderRepository _orderRepo;
+        private readonly IRepository<Order> _orderRepo;
         private readonly IOrderService _orderService;
         private readonly IInventoryRepository _inventoryRepo;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public CreateSubOrdersHandler(IOrderRepository orderRepo, IInventoryRepository inventoryRepo,
+        public CreateSubOrdersHandler(IRepository<Order> orderRepo, IInventoryRepository inventoryRepo,
             IOrderService orderService, IEventTransmitter eventTransmitter)
         {
             _orderRepo = orderRepo;

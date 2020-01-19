@@ -1,10 +1,10 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
-using Epok.Core.Domain.Persistence;
 using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Inventory.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Epok.Core.Persistence;
 using Epok.Core.Utilities;
 
 namespace Epok.Domain.Inventory.Commands.Handlers
@@ -15,15 +15,14 @@ namespace Epok.Domain.Inventory.Commands.Handlers
     public class ChangeBillOfMaterialHandler : ICommandHandler<ChangeBillOfMaterial>
     {
         private readonly IRepository<BillOfMaterial> _bomRepo;
-        private readonly IInventoryRepository _inventoryRepo;
+        private readonly IArticleRepository _articleRepo;
         private readonly IEventTransmitter _eventTransmitter;
 
         public ChangeBillOfMaterialHandler(IRepository<BillOfMaterial> bomRepo,
-            IInventoryRepository inventoryRepo,
-            IEventTransmitter eventTransmitter)
+            IArticleRepository articleRepo, IEventTransmitter eventTransmitter)
         {
             _bomRepo = bomRepo;
-            _inventoryRepo = inventoryRepo;
+            _articleRepo = articleRepo;
             _eventTransmitter = eventTransmitter;
         }
 
@@ -35,7 +34,7 @@ namespace Epok.Domain.Inventory.Commands.Handlers
             var input = new HashSet<InventoryItem>();
             foreach (var (articleId, amount) in command.Input)
             {
-                var article = await _inventoryRepo.LoadAsync(articleId);
+                var article = await _articleRepo.LoadAsync(articleId);
                 input.Add(new InventoryItem(article, amount));
             }
 

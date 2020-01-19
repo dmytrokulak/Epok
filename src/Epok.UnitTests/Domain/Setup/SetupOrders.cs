@@ -75,19 +75,8 @@ namespace Epok.UnitTests.Domain.Setup
             A.CallTo(() => ReadOnlyRepo.LoadAsync<Order>(OrderReadyForShipment.Id)).Returns(OrderReadyForShipment);
             A.CallTo(() => ReadOnlyRepo.GetAsync<Order>(OrderReadyForShipment.Id)).Returns(OrderReadyForShipment);
 
-            A.CallTo(() => OrderRepo.FindTotalAmountInOrdersAsync(Product2InteriorDoor)).Returns(1);
-
-            A.CallTo(() =>
-                    OrderRepo.GetSomeAsync(A<IEnumerable<Guid>>.That.Matches(x => x.Single() == Product1Order.Id)))
-                .Returns(Product1Order.Collect());
-
-            A.CallTo(() => OrderRepo.FindTotalAmountInOrdersAsync(Material1Timber))
-                .Returns(AmountInOrders(Material1Timber));
-            A.CallTo(() => OrderRepo.FindTotalAmountInOrdersAsync(Material2Foil))
-                .Returns(AmountInOrders(Material2Foil));
-            A.CallTo(() => OrderRepo.FindTotalAmountInOrdersAsync(Material3Mdf)).Returns(AmountInOrders(Material3Mdf));
-            A.CallTo(() => OrderRepo.FindTotalAmountInOrdersAsync(Material4TintedGlass))
-                .Returns(AmountInOrders(Material4TintedGlass));
+            A.CallTo(() => OrderRepo.GetSomeAsync(A<IEnumerable<Guid>>.That.Matches(x => x.Single() == Product1Order.Id)))
+                .Returns(Product1Order.Collect().ToList());
         }
     }
 }

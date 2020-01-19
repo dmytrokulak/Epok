@@ -3,7 +3,7 @@
 namespace Epok.Domain.Users.Commands
 {
     /// <summary>
-    /// Revokes permission from a user on a CQRS resource.
+    /// Revokes permission from a user on a domain resource.
     /// </summary>
     public class RevokePermission : ArchiveEntityCommand
     {

@@ -20,7 +20,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
             var command = new GrantPermission
             {
                 UserId = ManagerOfProductAssemblyShop.Id,
-                HandleId = ProduceInventoryItemHandler.Id,
+                ResourceId = ProduceInventoryItemHandler.Id,
                 InitiatorId = GlobalAdmin.Id
             };
             var handler = new GrantPermissionHandler(PermissionRepo, UserRepo, HandlerRepo, EventTransmitter);
@@ -31,7 +31,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
             //assert
             var entities = GetRecordedEntities(PermissionRepo, nameof(PermissionRepo.AddAsync));
             Assert.That(entities.Count, Is.EqualTo(1));
-            Assert.That(entities[0].Handler, Is.EqualTo(ProduceInventoryItemHandler));
+            Assert.That(entities[0].Resource, Is.EqualTo(ProduceInventoryItemHandler));
             Assert.That(entities[0].User, Is.EqualTo(ManagerOfProductAssemblyShop));
 
             var events = GetRecordedEvents<DomainEvent<Permission>>();
@@ -48,7 +48,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
             var command = new GrantPermission
             {
                 UserId = UserWithPermissions.Id,
-                HandleId = ProduceInventoryItemHandler.Id,
+                ResourceId = ProduceInventoryItemHandler.Id,
                 InitiatorId = GlobalAdmin.Id
             };
             var handler = new GrantPermissionHandler(PermissionRepo, UserRepo, HandlerRepo, EventTransmitter);

@@ -19,14 +19,14 @@ namespace Epok.Domain.Shops.Entities
         /// <summary>
         /// Workshop or warehouse.
         /// </summary>
-        public ShopType ShopType { get; set; }
+        public virtual ShopType ShopType { get; set; }
 
-        public HashSet<Shop> Shops { get; set; }
-        public Shop DefaultShop => Shops.Single(s => s.IsDefaultForCategory);
+        public virtual HashSet<Shop> Shops { get; set; }
+        public virtual Shop DefaultShop => Shops.Single(s => s.IsDefaultForCategory);
 
         /// <summary>
         /// Articles allowed in the shops.
         /// </summary>
-        public HashSet<Article> Articles { get; set; } = new HashSet<Article>();
+        public virtual HashSet<Article> Articles { get; set; } = new HashSet<Article>();
     }
 }

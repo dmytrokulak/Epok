@@ -41,8 +41,8 @@ namespace Epok.UnitTests.Domain.HandlerTests
             var entity = GetRecordedEntities(CustomerRepo, nameof(CustomerRepo.AddAsync)).Single();
             Assert.That(entity.Name, Is.EqualTo(command.Name));
             Assert.That(entity.CustomerType, Is.EqualTo(command.Type));
-            Assert.That(entity.PrimaryContact.PersonName.FirstName, Is.EqualTo(command.PrimaryContactFirstName));
-            Assert.That(entity.PrimaryContact.PersonName.LastName, Is.EqualTo(command.PrimaryContactLastName));
+            Assert.That(entity.PrimaryContact.FirstName, Is.EqualTo(command.PrimaryContactFirstName));
+            Assert.That(entity.PrimaryContact.LastName, Is.EqualTo(command.PrimaryContactLastName));
             Assert.That(entity.PrimaryContact.PhoneNumber, Is.EqualTo(command.PrimaryContactPhone));
             Assert.That(entity.PrimaryContact.Email, Is.EqualTo(command.PrimaryContactEmail));
             Assert.That(entity.ShippingAddress.AddressLine1, Is.EqualTo(command.ShippingAddressLine1));
