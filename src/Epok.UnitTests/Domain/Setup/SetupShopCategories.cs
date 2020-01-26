@@ -28,20 +28,20 @@ namespace Epok.UnitTests.Domain.Setup
 
         private void InitShopCategories()
         {
-            TimberComponentShopCategory.Shops = TimberComponentShop.Collect().ToHashSet();
+            TimberComponentShopCategory.Shops = TimberComponentShop.CollectToHashSet();
             TimberComponentShopCategory.Articles.Add(Material1Timber);
             TimberComponentShopCategory.Articles.Add(Material2Foil);
             TimberComponentShopCategory.Articles.Add(Component1Vertical);
             TimberComponentShopCategory.Articles.Add(Component2Horizontal);
 
-            MdfComponentShopCategory.Shops = MdfComponentShop.Collect().ToHashSet();
+            MdfComponentShopCategory.Shops = MdfComponentShop.CollectToHashSet();
             MdfComponentShopCategory.Articles.Add(Material3Mdf);
             MdfComponentShopCategory.Articles.Add(Material2Foil);
             MdfComponentShopCategory.Articles.Add(Component3MdfFiller);
 
             GlassComponentShopCategory.Articles.Add(Material4TintedGlass);
             GlassComponentShopCategory.Articles.Add(Component4GlassFiller);
-            GlassComponentShopCategory.Shops = GlassComponentShop.Collect().ToHashSet();
+            GlassComponentShopCategory.Shops = GlassComponentShop.CollectToHashSet();
 
             ProductAssemblyShopCategory.Articles.Add(Component1Vertical);
             ProductAssemblyShopCategory.Articles.Add(Component2Horizontal);
@@ -51,19 +51,19 @@ namespace Epok.UnitTests.Domain.Setup
             ProductAssemblyShopCategory.Articles.Add(Product2InteriorDoor);
             ProductAssemblyShopCategory.Articles.Add(Component1VerticalSpoiled);
             ProductAssemblyShopCategory.Articles.Add(Product1InteriorDoorSpoiled);
-            ProductAssemblyShopCategory.Shops = ProductAssemblyShop.Collect().ToHashSet();
+            ProductAssemblyShopCategory.Shops = ProductAssemblyShop.CollectToHashSet();
 
             MaterialStockpileShopCategory.Articles.Add(Material1Timber);
             MaterialStockpileShopCategory.Articles.Add(Material2Foil);
             MaterialStockpileShopCategory.Articles.Add(Material3Mdf);
             MaterialStockpileShopCategory.Articles.Add(Material4TintedGlass);
-            MaterialStockpileShopCategory.Shops = MaterialStockpileShop.Collect().ToHashSet();
+            MaterialStockpileShopCategory.Shops = MaterialStockpileShop.CollectToHashSet();
 
             ProductStockpileShopCategory.Articles.Add(Product1InteriorDoor);
             ProductStockpileShopCategory.Articles.Add(Product2InteriorDoor);
-            ProductStockpileShopCategory.Shops = ProductStockpileShop.Collect().ToHashSet();
+            ProductStockpileShopCategory.Shops = ProductStockpileShop.CollectToHashSet();
 
-            ShopCategoryToArchive.Shops = ShopToRemove.Collect().ToHashSet();
+            ShopCategoryToArchive.Shops = ShopToRemove.CollectToHashSet();
             ShopCategoryToArchive.Articles.Add(ArticleToArchive);
         }
 

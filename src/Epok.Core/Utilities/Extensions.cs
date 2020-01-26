@@ -32,14 +32,6 @@ namespace Epok.Core.Utilities
             return new[] {obj};
         }
 
-        /// <summary>
-        /// Creates hashset out of a collection.
-        /// </summary>
-        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> collection)
-        {
-            return new HashSet<T>(collection);
-        }
-
         public static HashSet<T> CollectToHashSet<T>(this T obj)
         {
             return new HashSet<T> {obj};

@@ -49,7 +49,7 @@ namespace Epok.Domain.Customers.Commands.Handlers
             var customer = new Customer(command.Id, command.Name)
             {
                 CustomerType = command.Type,
-                Contacts = contact.Collect().ToHashSet(),
+                Contacts = contact.CollectToHashSet(),
                 ShippingAddress = address
             };
 

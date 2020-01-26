@@ -6,6 +6,7 @@ using Epok.Domain.Contacts.Entities;
 using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Suppliers.Entities;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Epok.Domain.Suppliers.Commands.Handlers
@@ -49,7 +50,7 @@ namespace Epok.Domain.Suppliers.Commands.Handlers
 
             var supplier = new Supplier(command.Id, command.Name)
             {
-                Contacts = contact.Collect().ToHashSet(),
+                Contacts = contact.CollectToHashSet(),
                 ShippingAddress = address,
                 SuppliableArticles = articles.ToHashSet()
             };
