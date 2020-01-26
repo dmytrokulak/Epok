@@ -14,6 +14,12 @@ namespace Epok.Domain.Inventory.Entities
     [Serializable]
     public class Article : EntityBase
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public Article()
+        {
+        }
         public Article(Guid id, string name) : base(id, name)
         {
         }

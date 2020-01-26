@@ -18,12 +18,12 @@ namespace Epok.Domain.Inventory.Commands.Handlers
     /// </summary>
     public class ReportSpoilageHandler : ICommandHandler<ReportSpoilage>
     {
-        private readonly IReadOnlyRepository _repo;
+        private readonly IEntityRepository _repo;
         private readonly IInventoryService _inventoryService;
         private readonly IRepository<SpoilageReport> _spoilageRepo;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public ReportSpoilageHandler(IReadOnlyRepository repo, IInventoryService inventoryService,
+        public ReportSpoilageHandler(IEntityRepository repo, IInventoryService inventoryService,
             IRepository<SpoilageReport> spoilageRepo, IEventTransmitter eventTransmitter)
         {
             _repo = repo;

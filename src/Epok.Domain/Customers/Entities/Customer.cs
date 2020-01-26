@@ -14,6 +14,13 @@ namespace Epok.Domain.Customers.Entities
     [Serializable]
     public class Customer : EntityBase
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public Customer()
+        {
+            
+        }
         public Customer(Guid id, string name) : base(id, name)
         {
         }

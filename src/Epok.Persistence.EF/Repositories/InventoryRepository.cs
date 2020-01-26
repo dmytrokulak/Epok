@@ -1,4 +1,5 @@
-﻿using Epok.Domain.Inventory.Entities;
+﻿using Epok.Core.Persistence;
+using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Inventory.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,49 +12,13 @@ namespace Epok.Persistence.EF.Repositories
     public class InventoryRepository : IInventoryRepository
     {
         private readonly DomainContext _dbContext;
+        private readonly IEntityRepository _entityRepo;
 
-        public InventoryRepository(DomainContext dbContext)
-            => _dbContext = dbContext;
-
-        public async Task<InventoryItem> LoadAsync(Guid id)
-            => await _dbContext.InventoryItems.SingleAsync(e => e.Id == id);
-
-        public async Task<IList<InventoryItem>> LoadSomeAsync(IEnumerable<Guid> ids)
-            => await _dbContext.InventoryItems.Where(e => ids.Contains(e.Id)).ToListAsync();
-
-        public async Task<InventoryItem> GetAsync(Guid id)
-            => await _dbContext.InventoryItems
-                .Include(e => e.Article)
-                .Include(e => e.Shop)
-                .Include(e => e.Order)
-                .SingleOrDefaultAsync(e => e.Id == id);
-
-        public async Task<IList<InventoryItem>> GetSomeAsync(IEnumerable<Guid> ids)
-            => await _dbContext.InventoryItems
-                .Where(e => ids.Contains(e.Id))
-                .Include(e => e.Article)
-                .Include(e => e.Shop)
-                .Include(e => e.Order)
-                .ToListAsync();
-
-        public async Task<IList<InventoryItem>> GetAllAsync()
-            => await _dbContext.InventoryItems
-                .Include(e => e.Article)
-                .Include(e => e.Shop)
-                .Include(e => e.Order)
-                .ToListAsync();
-
-        public async Task AddAsync(InventoryItem entity)
-            => await _dbContext.InventoryItems.AddAsync(entity);
-
-        public async Task AddRangeAsync(InventoryItem entities)
-            => await _dbContext.InventoryItems.AddRangeAsync(entities);
-
-        public async Task ArchiveAsync(Guid id)
-            => _dbContext.InventoryItems.Remove(await LoadAsync(id));
-
-        public async Task ArchiveRangeAsync(IEnumerable<Guid> ids)
-            => _dbContext.InventoryItems.RemoveRange(await LoadSomeAsync(ids));
+        public InventoryRepository(DomainContext dbContext, IEntityRepository entityRepo)
+        {
+            _dbContext = dbContext;
+            _entityRepo = entityRepo;
+        }
 
         public Task<decimal> FindTotalAmountInStockAsync(Article article)
             => _dbContext.InventoryItems
@@ -71,5 +36,40 @@ namespace Epok.Persistence.EF.Repositories
         public async Task<decimal> FindTotalAmountInOrdersAsync(Article article)
             => await _dbContext.InventoryItems.Where(e => e.Article == article && e.Order != null)
                 .SumAsync(e => e.Amount);
+
+
+        #region Entities Repository Delegation
+
+        public async Task<InventoryItem> LoadAsync(Guid id)
+            => await _entityRepo.LoadAsync<InventoryItem>(id);
+
+        public async Task<IList<InventoryItem>> LoadSomeAsync(IEnumerable<Guid> ids)
+            => await _entityRepo.LoadSomeAsync<InventoryItem>(ids);
+
+        public async Task<IList<InventoryItem>> LoadAllAsync()
+            => await _entityRepo.LoadAllAsync<InventoryItem>();
+
+        public async Task<InventoryItem> GetAsync(Guid id)
+            => await _entityRepo.GetAsync<InventoryItem>(id);
+
+        public async Task<IList<InventoryItem>> GetSomeAsync(IEnumerable<Guid> ids)
+            => await _entityRepo.GetSomeAsync<InventoryItem>(ids);
+
+        public async Task<IList<InventoryItem>> GetAllAsync()
+            => await _entityRepo.GetAllAsync<InventoryItem>();
+
+        public async Task AddAsync(InventoryItem entity)
+            => await _entityRepo.AddAsync(entity);
+
+        public async Task AddRangeAsync(InventoryItem entities)
+            => await _entityRepo.AddRangeAsync(entities);
+
+        public async Task ArchiveAsync(Guid id)
+            => await _entityRepo.ArchiveAsync<InventoryItem>(id);
+
+        public async Task ArchiveRangeAsync(IEnumerable<Guid> ids)
+            => await _entityRepo.ArchiveRangeAsync<InventoryItem>(ids);
+
+        #endregion
     }
 }

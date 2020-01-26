@@ -19,12 +19,12 @@ namespace Epok.Domain.Inventory.Commands.Handlers
     /// </summary>
     public class RegisterArticleHandler : ICommandHandler<RegisterArticle>
     {
-        private readonly IReadOnlyRepository _repo;
+        private readonly IEntityRepository _repo;
         private readonly IArticleRepository _articleRepo;
         private readonly IRepository<BillOfMaterial> _bomRepo;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public RegisterArticleHandler(IReadOnlyRepository repo, IArticleRepository articleRepo,
+        public RegisterArticleHandler(IEntityRepository repo, IArticleRepository articleRepo,
             IRepository<BillOfMaterial> bomRepo, IEventTransmitter eventTransmitter)
 
         {

@@ -10,6 +10,12 @@ namespace Epok.Domain.Orders.Entities
     [Serializable]
     public class Order : EntityBase
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public Order()
+        {
+        }
         public Order(Guid id, string name) : base(id, name)
         {
         }

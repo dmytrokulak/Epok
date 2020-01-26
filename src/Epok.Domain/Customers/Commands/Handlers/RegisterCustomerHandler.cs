@@ -1,4 +1,5 @@
-﻿using Epok.Core.Domain.Commands;
+﻿using System;
+using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Utilities;
 using Epok.Domain.Contacts.Entities;
@@ -27,7 +28,7 @@ namespace Epok.Domain.Customers.Commands.Handlers
 
         public async Task HandleAsync(RegisterCustomer command)
         {
-            var contact = new Contact
+            var contact = new Contact(Guid.NewGuid(), $"{command.Name} Primary contact")
             {
                 FirstName = command.PrimaryContactFirstName,
                 LastName = command.PrimaryContactLastName,

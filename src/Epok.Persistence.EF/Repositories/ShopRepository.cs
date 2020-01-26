@@ -1,62 +1,63 @@
-﻿using Epok.Domain.Shops.Entities;
+﻿using Epok.Core.Persistence;
+using Epok.Domain.Shops.Entities;
+using Epok.Domain.Shops.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 
 namespace Epok.Persistence.EF.Repositories
 {
-    public class ShopRepository : IRepository<Shop>
+    public class ShopRepository : IShopRepository
     {
         private readonly DomainContext _dbContext;
+        private readonly IEntityRepository _entityRepo;
 
-        public ShopRepository(DomainContext dbContext)
-            => _dbContext = dbContext;
+        public ShopRepository(DomainContext dbContext, IEntityRepository entityRepo)
+        {
+            _dbContext = dbContext;
+            _entityRepo = entityRepo;
+        }
+
+        public async Task<Shop> GetEntryPoint()
+            => await _dbContext.Shops.SingleAsync(s => s.IsEntryPoint);
+
+        public async Task<Shop> GetExitPoint()
+            => await _dbContext.Shops.SingleAsync(s => s.IsExitPoint);
+
+
+        #region Entities Repository Delegation
 
         public async Task<Shop> LoadAsync(Guid id)
-            => await _dbContext.Shops.SingleAsync(e => e.Id == id);
+            => await _entityRepo.LoadAsync<Shop>(id);
 
         public async Task<IList<Shop>> LoadSomeAsync(IEnumerable<Guid> ids)
-            => await _dbContext.Shops.Where(e => ids.Contains(e.Id)).ToListAsync();
+            => await _entityRepo.LoadSomeAsync<Shop>(ids);
+
+        public async Task<IList<Shop>> LoadAllAsync()
+            => await _entityRepo.LoadAllAsync<Shop>();
 
         public async Task<Shop> GetAsync(Guid id)
-            => await _dbContext.Shops
-                .Include(e => e.Inventory)
-                .Include(e => e.Manager)
-                .Include(e => e.Orders)
-                .Include(e => e.ShopCategory)
-                .SingleOrDefaultAsync(e => e.Id == id);
+            => await _entityRepo.GetAsync<Shop>(id);
 
         public async Task<IList<Shop>> GetSomeAsync(IEnumerable<Guid> ids)
-            => await _dbContext.Shops
-                .Where(e => ids.Contains(e.Id))
-                .Include(e => e.Inventory)
-                .Include(e => e.Manager)
-                .Include(e => e.Orders)
-                .Include(e => e.ShopCategory)
-                .ToListAsync();
+            => await _entityRepo.GetSomeAsync<Shop>(ids);
 
         public async Task<IList<Shop>> GetAllAsync()
-            => await _dbContext.Shops
-                .Include(e => e.Inventory)
-                .Include(e => e.Manager)
-                .Include(e => e.Orders)
-                .Include(e => e.ShopCategory)
-                .ToListAsync();
+            => await _entityRepo.GetAllAsync<Shop>();
 
         public async Task AddAsync(Shop entity)
-            => await _dbContext.Shops.AddAsync(entity);
+            => await _entityRepo.AddAsync(entity);
 
         public async Task AddRangeAsync(Shop entities)
-            => await _dbContext.Shops.AddRangeAsync(entities);
+            => await _entityRepo.AddRangeAsync(entities);
 
         public async Task ArchiveAsync(Guid id)
-            => _dbContext.Shops.Remove(await LoadAsync(id));
+            => await _entityRepo.ArchiveAsync<Shop>(id);
 
         public async Task ArchiveRangeAsync(IEnumerable<Guid> ids)
-            => _dbContext.Shops.RemoveRange(await LoadSomeAsync(ids));
+            => await _entityRepo.ArchiveRangeAsync<Shop>(ids);
 
+        #endregion
     }
 }

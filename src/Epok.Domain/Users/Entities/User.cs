@@ -10,6 +10,12 @@ namespace Epok.Domain.Users.Entities
     [Serializable]
     public class User : EntityBase
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public User()
+        {
+        }
         public User(Guid id, string name) : base(id, name)
         {
         }

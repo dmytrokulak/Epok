@@ -11,6 +11,12 @@ namespace Epok.Domain.Payroll.Entities
     /// </summary>
     public class Employee : EntityBase
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public Employee()
+        {
+        }
         public Employee(Guid id, string name) : base(id, name)
         {
         }

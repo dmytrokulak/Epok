@@ -2,6 +2,6 @@
 {
     public interface IUnitOfWorkFactory<T> where T : IUnitOfWork
     {
-        T New();
+        T Transact();
     }
 }

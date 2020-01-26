@@ -16,6 +16,7 @@ namespace Epok.Persistence.EF.Mappings
             builder.Property(e => e.Province).HasMaxLength(50);
             builder.Property(e => e.Country).HasMaxLength(50);
             builder.Property(e => e.PostalCode).HasMaxLength(50);
+            builder.Property(e => e.CompanyId);
         }
     }
 }

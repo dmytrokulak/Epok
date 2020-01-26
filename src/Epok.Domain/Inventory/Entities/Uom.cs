@@ -11,8 +11,10 @@ namespace Epok.Domain.Inventory.Entities
     [Serializable]
     public class Uom : EntityBase
     {
-        //orm ctor
-        protected Uom()
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public Uom()
         {
         }
         public Uom(Guid id, string name, UomType uomType) : base(id, name)

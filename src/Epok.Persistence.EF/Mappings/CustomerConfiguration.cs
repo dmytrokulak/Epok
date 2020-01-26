@@ -1,4 +1,5 @@
-﻿using Epok.Domain.Customers.Entities;
+﻿using Epok.Domain.Contacts.Entities;
+using Epok.Domain.Customers.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,8 +12,12 @@ namespace Epok.Persistence.EF.Mappings
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Name).HasMaxLength(50).IsRequired();
             builder.Property(e => e.CustomerType).IsRequired();
-            builder.HasOne(e => e.ShippingAddress);
-            builder.HasMany(e => e.Contacts);
+            builder.HasOne(e => e.ShippingAddress).WithOne()
+                .HasForeignKey<Address>(e => e.CompanyId)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(e => e.Contacts).WithOne()
+                .HasForeignKey(e => e.CompanyId)
+                .OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(e => e.Orders);
         }
     }

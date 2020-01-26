@@ -8,6 +8,12 @@ namespace Epok.Domain.Inventory.Entities
     [Serializable]
     public class SpoiledArticle : Article
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public SpoiledArticle()
+        {
+        }
         public SpoiledArticle(Guid id, string name) : base(id, name)
         {
         }

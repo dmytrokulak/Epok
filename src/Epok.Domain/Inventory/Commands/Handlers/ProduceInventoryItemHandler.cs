@@ -22,12 +22,12 @@ namespace Epok.Domain.Inventory.Commands.Handlers
     /// </exception>
     public class ProduceInventoryItemHandler : ICommandHandler<ProduceInventoryItem>
     {
-        private readonly IReadOnlyRepository _repo;
+        private readonly IEntityRepository _repo;
         private readonly IInventoryService _inventoryService;
         private readonly IOrderService _orderService;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public ProduceInventoryItemHandler(IReadOnlyRepository repo,
+        public ProduceInventoryItemHandler(IEntityRepository repo,
             IInventoryService inventoryService, IOrderService orderService,
             IEventTransmitter eventTransmitter)
         {

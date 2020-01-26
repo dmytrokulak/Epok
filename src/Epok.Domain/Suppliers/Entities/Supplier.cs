@@ -10,6 +10,12 @@ namespace Epok.Domain.Suppliers.Entities
     [Serializable]
     public class Supplier : EntityBase
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public Supplier()
+        {
+        }
         public Supplier(Guid id, string name) : base(id, name)
         {
         }

@@ -7,17 +7,14 @@ using Epok.Domain.Suppliers.Entities;
 using Epok.Domain.Users.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Microsoft.Extensions.Configuration;
 
 namespace Epok.Persistence.EF
 {
     public class DomainContext : DbContext
     {
-        private readonly IConfiguration _config;
-
-        public DomainContext(IConfiguration config)
+        public DomainContext(DbContextOptions options)
+            : base(options)
         {
-            _config = config;
         }
 
         public DbSet<Address> Addresses { get; set; }
@@ -45,8 +42,8 @@ namespace Epok.Persistence.EF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseLazyLoadingProxies();
-            optionsBuilder.UseNpgsql(_config.GetConnectionString("ErpDb"));
         }
     }
 }

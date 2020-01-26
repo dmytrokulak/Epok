@@ -10,6 +10,12 @@ namespace Epok.Domain.Inventory.Entities
     [Serializable]
     public class SpoilageReport : EntityBase
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public SpoilageReport()
+        {
+        }
         public SpoilageReport(Guid id, string name) : base(id, name)
         {
         }

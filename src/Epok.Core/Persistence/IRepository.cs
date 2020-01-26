@@ -22,6 +22,7 @@ namespace Epok.Core.Persistence
         /// </summary>
         Task<T> LoadAsync(Guid id);
         Task<IList<T>> LoadSomeAsync(IEnumerable<Guid> ids);
+        Task<IList<T>> LoadAllAsync();
         /// <summary>
         ///  Eager loading of a single entity.
         /// </summary>

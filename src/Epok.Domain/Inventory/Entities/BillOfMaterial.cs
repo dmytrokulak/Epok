@@ -14,6 +14,12 @@ namespace Epok.Domain.Inventory.Entities
     [Serializable]
     public class BillOfMaterial : EntityBase
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public BillOfMaterial()
+        {
+        }
         public BillOfMaterial(Guid id, string name) : base(id, name)
         {
         }

@@ -8,6 +8,12 @@ namespace Epok.Domain.Users.Entities
     /// </summary>
     public class DomainResource : EntityBase
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public DomainResource()
+        {
+        }
         public DomainResource(Guid id, string name) : base(id, name)
         {
         }

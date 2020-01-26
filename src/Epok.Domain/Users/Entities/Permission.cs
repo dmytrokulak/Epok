@@ -5,6 +5,12 @@ namespace Epok.Domain.Users.Entities
 {
     public class Permission : EntityBase
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public Permission()
+        {
+        }
         public Permission(Guid id, string name) : base(id, name)
         {
         }

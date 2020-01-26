@@ -8,6 +8,12 @@ namespace Epok.Domain.Suppliers.Entities
     [Serializable]
     public class MaterialRequest : EntityBase
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public MaterialRequest()
+        {
+        }
         public MaterialRequest(Guid id, string name) : base(id, name)
         {
         }

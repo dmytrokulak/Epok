@@ -27,12 +27,12 @@ namespace Epok.Domain.Orders.Commands.Handlers
     /// </exception>
     public class CreateOrderHandler : ICommandHandler<CreateOrder>
     {
-        private readonly IReadOnlyRepository _repo;
+        private readonly IEntityRepository _repo;
         private readonly IRepository<Order> _orderRepo;
         private readonly IInventoryService _inventoryService;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public CreateOrderHandler(IRepository<Order> orderRepo, IReadOnlyRepository repo,
+        public CreateOrderHandler(IRepository<Order> orderRepo, IEntityRepository repo,
             IInventoryService inventoryService, IEventTransmitter eventTransmitter)
         {
             _repo = repo;

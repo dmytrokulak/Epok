@@ -15,7 +15,7 @@ namespace Epok.Persistence.EF.Mappings
             builder.Property(e => e.LastName).HasMaxLength(30);
             builder.Property(e => e.Email).HasMaxLength(50);
             builder.Property(e => e.PhoneNumber).HasMaxLength(20);
-            builder.Property(e => e.ParentId);
+            builder.Property(e => e.CompanyId);
             builder.Property(e => e.Primary).HasDefaultValue(false);
         }
     }

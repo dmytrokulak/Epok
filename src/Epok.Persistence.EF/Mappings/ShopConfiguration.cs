@@ -1,8 +1,8 @@
-﻿using System;
-using Epok.Domain.Shops.Entities;
+﻿using Epok.Domain.Shops.Entities;
 using Epok.Domain.Users.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace Epok.Persistence.EF.Mappings
 {
@@ -23,7 +23,7 @@ namespace Epok.Persistence.EF.Mappings
             builder.HasOne(e => e.Manager)
                    .WithOne(e => e.Shop)
                    .HasForeignKey<User>();
-            
+
         }
     }
 }

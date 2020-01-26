@@ -12,6 +12,12 @@ namespace Epok.Domain.Shops.Entities
     [Serializable]
     public class ShopCategory : EntityBase
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public ShopCategory()
+        {
+        }
         public ShopCategory(Guid id, string name) : base(id, name)
         {
         }

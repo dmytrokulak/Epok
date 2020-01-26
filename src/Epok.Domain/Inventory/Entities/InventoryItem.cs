@@ -12,8 +12,10 @@ namespace Epok.Domain.Inventory.Entities
     [Serializable]
     public class InventoryItem : EntityBase
     {
-        //orm ctor
-        protected InventoryItem()
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public InventoryItem()
         {
         }
         public InventoryItem(Article article, decimal amount)

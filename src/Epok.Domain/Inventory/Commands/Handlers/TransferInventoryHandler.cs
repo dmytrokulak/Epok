@@ -21,12 +21,12 @@ namespace Epok.Domain.Inventory.Commands.Handlers
     /// </exception>
     public class TransferInventoryHandler : ICommandHandler<TransferInventory>
     {
-        private readonly IReadOnlyRepository _repo;
+        private readonly IEntityRepository _repo;
         private readonly IInventoryService _inventoryService;
         private readonly IEventTransmitter _eventTransmitter;
 
         public TransferInventoryHandler(IInventoryService inventoryService,
-            IReadOnlyRepository repo, IEventTransmitter eventTransmitter)
+            IEntityRepository repo, IEventTransmitter eventTransmitter)
 
         {
             _repo = repo;

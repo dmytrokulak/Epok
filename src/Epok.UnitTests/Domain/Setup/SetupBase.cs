@@ -28,7 +28,7 @@ namespace Epok.UnitTests.Domain.Setup
 
         protected static IEventTransmitter EventTransmitter = A.Fake<IEventTransmitter>();
 
-        protected static IReadOnlyRepository ReadOnlyRepo = A.Fake<IReadOnlyRepository>();
+        protected static IEntityRepository ReadOnlyRepo = A.Fake<IEntityRepository>();
         protected static IRepository<User> UserRepo = A.Fake<IRepository<User>>();
         protected static IRepository<DomainResource> HandlerRepo = A.Fake<IRepository<DomainResource>>();
         protected static IPermissionRepository PermissionRepo = A.Fake<IPermissionRepository>();

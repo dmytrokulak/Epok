@@ -1,5 +1,4 @@
-﻿using Epok.Core.Utilities;
-using System;
+﻿using System;
 using Epok.Core.Domain.Entities;
 
 namespace Epok.Domain.Contacts.Entities
@@ -10,12 +9,27 @@ namespace Epok.Domain.Contacts.Entities
     [Serializable]
     public class Contact : EntityBase
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public Contact()
+        {
+        }
+
+        public Contact(Guid id, string name) : base(id, name)
+        {
+        }
+
         public virtual string FirstName { get; set; }
         public virtual string MiddleName { get; set; }
         public virtual string LastName { get; set; }
         public virtual string PhoneNumber { get; set; }
         public virtual string Email { get; set; }
         public virtual bool Primary { get; set; }
-        public virtual Guid ParentId { get; set; }
+
+        /// <summary>
+        /// Customer or supplier.
+        /// </summary>
+        public virtual Guid CompanyId { get; set; }
     }
 }

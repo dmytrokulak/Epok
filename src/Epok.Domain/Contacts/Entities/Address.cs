@@ -9,6 +9,12 @@ namespace Epok.Domain.Contacts.Entities
     [Serializable]
     public class Address : EntityBase
     {
+        /// <summary>
+        /// ORM constructor.
+        /// </summary>
+        public Address()
+        {
+        }
         public Address(Guid id, string name) : base(id, name)
         {
         }
@@ -42,5 +48,10 @@ namespace Epok.Domain.Contacts.Entities
         /// Postal identifier: postal code, zip code etc.
         /// </summary>
         public virtual string PostalCode { get; set; }
+       
+        /// <summary>
+        /// Customer or supplier.
+        /// </summary>
+        public virtual Guid CompanyId { get; set; }
     }
 }
