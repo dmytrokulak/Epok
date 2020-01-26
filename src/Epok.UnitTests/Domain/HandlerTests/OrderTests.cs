@@ -33,14 +33,14 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 ShipmentDeadline = DateTimeOffset.Parse("2022-01-01"),
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new CreateOrderHandler(OrderRepo, ReadOnlyRepo, InventoryService, EventTransmitter);
+            var handler = new CreateOrderHandler(EntityRepository, InventoryService, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
 
             //assert
-            Assert.That(CallsTo(OrderRepo, nameof(OrderRepo.AddAsync)), Is.EqualTo(1));
-            var entity = GetRecordedEntities(OrderRepo, nameof(OrderRepo.AddAsync)).Single();
+            Assert.That(CallsTo(EntityRepository, nameof(EntityRepository.AddAsync)), Is.EqualTo(1));
+            var entity = GetRecordedEntities<Order>(EntityRepository, nameof(EntityRepository.AddAsync)).Single();
             Assert.That(entity.Name, Is.EqualTo(command.Name));
             Assert.That(entity.ItemsOrdered.Count, Is.EqualTo(1));
             Assert.That(entity.ItemsProduced.Count, Is.EqualTo(1));
@@ -66,14 +66,14 @@ namespace Epok.UnitTests.Domain.HandlerTests
         public void CreateOrder_FailFor_LackOfMaterials()
         {
             //arrange
-            var command = new CreateOrder()
+            var command = new CreateOrder
             {
                 CustomerId = CustomerDoorsBuyer.Id,
                 Items = new List<(Guid, decimal)> {(Product1InteriorDoor.Id, 100)},
                 ShipmentDeadline = DateTimeOffset.Parse("2022-01-01"),
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new CreateOrderHandler(OrderRepo, ReadOnlyRepo, InventoryService, EventTransmitter);
+            var handler = new CreateOrderHandler(EntityRepository, InventoryService, EventTransmitter);
 
             //assert () => act
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));
@@ -95,7 +95,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 ShipmentDeadline = now,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new CreateOrderHandler(OrderRepo, ReadOnlyRepo, InventoryService, EventTransmitter);
+            var handler = new CreateOrderHandler(EntityRepository, InventoryService, EventTransmitter);
 
             //assert () => act
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));
@@ -120,13 +120,13 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 OrderId = Product1Order.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new CreateSubOrdersHandler(OrderRepo, InventoryRepo, OrderService, EventTransmitter);
+            var handler = new CreateSubOrdersHandler(EntityRepository, InventoryRepo, OrderService, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
 
             //assert
-            var entities = GetRecordedEntities(OrderRepo, nameof(OrderRepo.AddAsync));
+            var entities = GetRecordedEntities<Order>(EntityRepository, nameof(EntityRepository.AddAsync));
             Assert.That(entities.Count, Is.EqualTo(4));
 
             var doorsOrder = entities.Single(o => o.ItemsOrdered.Any(i => i.Article == Product1InteriorDoor));
@@ -151,7 +151,8 @@ namespace Epok.UnitTests.Domain.HandlerTests
             Assert.That(verticalOrder.ItemsOrdered.Count, Is.EqualTo(1));
             Assert.That(verticalOrder.ItemsProduced.Count, Is.EqualTo(1));
             var verticalAmount =
-                Product1InteriorDoor.PrimaryBillOfMaterial.Input.Of(Component1Vertical).Amount * amount;
+                Product1InteriorDoor.PrimaryBillOfMaterial.Input.Of(Component1Vertical).Amount * amount
+                - await InventoryRepo.FindSpareInventoryAsync(Component1Vertical);
             Assert.That(verticalOrder.ItemsOrdered.Of(Component1Vertical).Amount, Is.EqualTo(verticalAmount));
             Assert.That(verticalOrder.ItemsProduced.Of(Component1Vertical).Amount, Is.Zero);
             Assert.That(verticalOrder.Customer, Is.EqualTo(Product1Order.Customer));
@@ -171,7 +172,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
             Assert.That(horizontalOrder.ItemsOrdered.Count, Is.EqualTo(1));
             Assert.That(horizontalOrder.ItemsProduced.Count, Is.EqualTo(1));
             var horizontalAmount = Product1InteriorDoor.PrimaryBillOfMaterial.Input.Of(Component2Horizontal).Amount *
-                                   amount;
+                                   amount - await InventoryRepo.FindSpareInventoryAsync(Component1Vertical);
             Assert.That(horizontalOrder.ItemsOrdered.Of(Component2Horizontal).Amount, Is.EqualTo(horizontalAmount));
             Assert.That(horizontalOrder.ItemsProduced.Of(Component2Horizontal).Amount, Is.Zero);
             Assert.That(horizontalOrder.Customer, Is.EqualTo(Product1Order.Customer));
@@ -190,7 +191,8 @@ namespace Epok.UnitTests.Domain.HandlerTests
             var mdfOrder = entities.Single(o => o.ItemsOrdered.Any(i => i.Article == Component3MdfFiller));
             Assert.That(mdfOrder.ItemsOrdered.Count, Is.EqualTo(1));
             Assert.That(mdfOrder.ItemsProduced.Count, Is.EqualTo(1));
-            var mdfAmount = Product1InteriorDoor.PrimaryBillOfMaterial.Input.Of(Component3MdfFiller).Amount * amount;
+            var mdfAmount = Product1InteriorDoor.PrimaryBillOfMaterial.Input.Of(Component3MdfFiller).Amount * amount
+                - await InventoryRepo.FindSpareInventoryAsync(Component1Vertical); 
             Assert.That(mdfOrder.ItemsOrdered.Of(Component3MdfFiller).Amount, Is.EqualTo(mdfAmount));
             Assert.That(mdfOrder.ItemsProduced.Of(Component3MdfFiller).Amount, Is.Zero);
             Assert.That(mdfOrder.Customer, Is.EqualTo(Product1Order.Customer));
@@ -269,7 +271,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 OrderId = Product1Order.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new EnactOrderHandler(OrderRepo, InventoryService, EventTransmitter);
+            var handler = new EnactOrderHandler(EntityRepository, InventoryService, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
@@ -296,7 +298,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Id = OrderReadyForShipment.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ShipOrderHandler(OrderRepo, OrderService, InventoryService, EventTransmitter);
+            var handler = new ShipOrderHandler(EntityRepository, OrderService, InventoryService, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);

@@ -1,12 +1,11 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
+using Epok.Core.Persistence;
+using Epok.Core.Utilities;
 using Epok.Domain.Inventory.Entities;
-using Epok.Domain.Inventory.Repositories;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 using static Epok.Domain.Inventory.ExceptionCauses;
 
 namespace Epok.Domain.Inventory.Commands.Handlers
@@ -20,28 +19,21 @@ namespace Epok.Domain.Inventory.Commands.Handlers
     /// </exception>
     public class AddBillOfMaterialHandler : ICommandHandler<AddBillOfMaterial>
     {
-        private readonly IArticleRepository _articleRepo;
-        private readonly IInventoryRepository _inventoryRepo;
-        private readonly IRepository<BillOfMaterial> _bomRepo;
+        private readonly IEntityRepository _repository;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public AddBillOfMaterialHandler(IInventoryRepository inventoryRepo,
-            IRepository<BillOfMaterial> bomRepo, IArticleRepository articleRepo,
-            IEventTransmitter eventTransmitter)
+        public AddBillOfMaterialHandler(IEntityRepository repository, IEventTransmitter eventTransmitter)
         {
-            _inventoryRepo = inventoryRepo;
-            _bomRepo = bomRepo;
-            _articleRepo = articleRepo;
+            _repository = repository;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(AddBillOfMaterial command)
         {
-            var article = await _articleRepo.GetAsync(command.ArticleId);
+            var article = await _repository.GetAsync<Article>(command.ArticleId);
 
-            var input = new HashSet<InventoryItem>();
-            foreach (var (articleId, amount) in command.Input)
-                input.Add(new InventoryItem(await _articleRepo.LoadAsync(articleId), amount));
+            var input = (await _repository.LoadSomeAsync<Article>(command.Input.Select(i => i.articleId)))
+                .Select(a => new InventoryItem(a, command.Input.Single(i => i.articleId == a.Id).amount)).ToHashSet();
 
             var bom = article.BillsOfMaterial.FirstOrDefault(b => b.Input.SetEquals(input));
             if (bom != null)
@@ -55,7 +47,7 @@ namespace Epok.Domain.Inventory.Commands.Handlers
                 Primary = false
             };
 
-            await _bomRepo.AddAsync(newBom);
+            await _repository.AddAsync(newBom);
             article.BillsOfMaterial.Add(newBom);
 
             await _eventTransmitter.BroadcastAsync(new DomainEvent<BillOfMaterial>(newBom, Trigger.Added,

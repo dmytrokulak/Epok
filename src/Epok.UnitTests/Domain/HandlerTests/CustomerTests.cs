@@ -34,11 +34,11 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 ShippingAddressPostalCode = "37007",
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new RegisterCustomerHandler(CustomerRepo, EventTransmitter);
+            var handler = new RegisterCustomerHandler(EntityRepository, EventTransmitter);
             await handler.HandleAsync(command);
 
-            Assert.That(CallsTo(CustomerRepo, nameof(CustomerRepo.AddAsync)), Is.EqualTo(1));
-            var entity = GetRecordedEntities(CustomerRepo, nameof(CustomerRepo.AddAsync)).Single();
+            Assert.That(CallsTo(EntityRepository, nameof(EntityRepository.AddAsync)), Is.EqualTo(1));
+            var entity = GetRecordedEntities<Customer>(EntityRepository, nameof(EntityRepository.AddAsync)).Single();
             Assert.That(entity.Name, Is.EqualTo(command.Name));
             Assert.That(entity.CustomerType, Is.EqualTo(command.Type));
             Assert.That(entity.PrimaryContact.FirstName, Is.EqualTo(command.PrimaryContactFirstName));
@@ -67,11 +67,11 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Id = CustomerToArchive.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ArchiveCustomerHandler(CustomerRepo, EventTransmitter);
+            var handler = new ArchiveCustomerHandler(EntityRepository, EventTransmitter);
 
             await handler.HandleAsync(command);
 
-            Assert.That(CallsTo(CustomerRepo, nameof(CustomerRepo.ArchiveAsync)), Is.EqualTo(1));
+            Assert.That(CallsTo(EntityRepository, nameof(EntityRepository.ArchiveAsync)), Is.EqualTo(1));
 
             var events = GetRecordedEvents<DomainEvent<Customer>>();
             Assert.That(events.Count, Is.EqualTo(1));
@@ -88,7 +88,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Id = CustomerDoorsBuyer.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ArchiveCustomerHandler(CustomerRepo, EventTransmitter);
+            var handler = new ArchiveCustomerHandler(EntityRepository, EventTransmitter);
 
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));
 

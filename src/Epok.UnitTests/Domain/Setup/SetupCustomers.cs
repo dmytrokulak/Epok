@@ -18,17 +18,11 @@ namespace Epok.UnitTests.Domain.Setup
 
         private void StubCustomersRepositories()
         {
-            A.CallTo(() => CustomerRepo.LoadAsync(CustomerDoorsBuyer.Id)).Returns(CustomerDoorsBuyer);
-            A.CallTo(() => CustomerRepo.GetAsync(CustomerDoorsBuyer.Id)).Returns(CustomerDoorsBuyer);
+            A.CallTo(() => EntityRepository.LoadAsync<Customer>(CustomerDoorsBuyer.Id)).Returns(CustomerDoorsBuyer);
+            A.CallTo(() => EntityRepository.GetAsync<Customer>(CustomerDoorsBuyer.Id)).Returns(CustomerDoorsBuyer);
 
-            A.CallTo(() => CustomerRepo.LoadAsync(CustomerToArchive.Id)).Returns(CustomerToArchive);
-            A.CallTo(() => CustomerRepo.GetAsync(CustomerToArchive.Id)).Returns(CustomerToArchive);
-
-            A.CallTo(() => ReadOnlyRepo.LoadAsync<Customer>(CustomerDoorsBuyer.Id)).Returns(CustomerDoorsBuyer);
-            A.CallTo(() => ReadOnlyRepo.GetAsync<Customer>(CustomerDoorsBuyer.Id)).Returns(CustomerDoorsBuyer);
-
-            A.CallTo(() => ReadOnlyRepo.LoadAsync<Customer>(CustomerToArchive.Id)).Returns(CustomerToArchive);
-            A.CallTo(() => ReadOnlyRepo.GetAsync<Customer>(CustomerToArchive.Id)).Returns(CustomerToArchive);
+            A.CallTo(() => EntityRepository.LoadAsync<Customer>(CustomerToArchive.Id)).Returns(CustomerToArchive);
+            A.CallTo(() => EntityRepository.GetAsync<Customer>(CustomerToArchive.Id)).Returns(CustomerToArchive);
         }
     }
 }

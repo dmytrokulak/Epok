@@ -1,13 +1,14 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
+using Epok.Core.Persistence;
 using Epok.Domain.Inventory;
 using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Inventory.Repositories;
 using Epok.Domain.Orders.Entities;
 using Epok.Domain.Orders.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 
 namespace Epok.Domain.Orders.Commands.Handlers
 {
@@ -16,15 +17,15 @@ namespace Epok.Domain.Orders.Commands.Handlers
     /// </summary>
     public class CreateSubOrdersHandler : ICommandHandler<CreateSubOrders>
     {
-        private readonly IRepository<Order> _orderRepo;
+        private readonly IEntityRepository _repository;
         private readonly IOrderService _orderService;
         private readonly IInventoryRepository _inventoryRepo;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public CreateSubOrdersHandler(IRepository<Order> orderRepo, IInventoryRepository inventoryRepo,
+        public CreateSubOrdersHandler(IEntityRepository repository, IInventoryRepository inventoryRepo,
             IOrderService orderService, IEventTransmitter eventTransmitter)
         {
-            _orderRepo = orderRepo;
+            _repository = repository;
             _orderService = orderService;
             _inventoryRepo = inventoryRepo;
             _eventTransmitter = eventTransmitter;
@@ -32,11 +33,15 @@ namespace Epok.Domain.Orders.Commands.Handlers
 
         public async Task HandleAsync(CreateSubOrders command)
         {
-            var order = await _orderRepo.GetAsync(command.OrderId);
-            var inventory = _orderService.CalculateInventoryInput(order);
+            var order = await _repository.GetAsync<Order>(command.OrderId);
+            var inventory = _orderService.CalculateInventoryInput(order).ToList();
 
             foreach (var item in inventory)
-                item.Amount -= await _inventoryRepo.FindSpareInventoryAsync(item.Article);
+            {
+                var spare = await _inventoryRepo.FindSpareInventoryAsync(item.Article);
+                if(spare > 0)
+                    item.Amount -= spare;
+            }
 
             var subOrders = new List<Order>();
 
@@ -56,7 +61,7 @@ namespace Epok.Domain.Orders.Commands.Handlers
                 foreach (var subItem in item.Article.PrimaryBillOfMaterial.Input)
                     await CreateSubOrder(subItem, subOrder);
 
-                await _orderRepo.AddAsync(subOrder);
+                await _repository.AddAsync(subOrder);
             }
 
             foreach (var subOrder in subOrders)

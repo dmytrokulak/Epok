@@ -1,9 +1,9 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
-using Epok.Domain.Inventory.Repositories;
+using Epok.Core.Persistence;
+using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Shops.Entities;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 
 namespace Epok.Domain.Shops.Commands.Handlers
 {
@@ -13,22 +13,19 @@ namespace Epok.Domain.Shops.Commands.Handlers
     /// </summary>
     public class AllowArticleHandler : ICommandHandler<AllowArticle>
     {
-        private readonly IRepository<ShopCategory> _categoryRepo;
-        private readonly IArticleRepository _articleRepo;
+        private readonly IEntityRepository _repository;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public AllowArticleHandler(IRepository<ShopCategory> categoryRepo, IArticleRepository articleRepo,
-            IEventTransmitter eventTransmitter)
+        public AllowArticleHandler(IEntityRepository repository, IEventTransmitter eventTransmitter)
         {
-            _categoryRepo = categoryRepo;
-            _articleRepo = articleRepo;
+            _repository = repository;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(AllowArticle command)
         {
-            var shopCategory = await _categoryRepo.GetAsync(command.ShopCategoryId);
-            var article = await _articleRepo.GetAsync(command.ArticleId);
+            var shopCategory = await _repository.GetAsync<ShopCategory>(command.ShopCategoryId);
+            var article = await _repository.GetAsync<Article>(command.ArticleId);
 
             shopCategory.Articles.Add(article);
 

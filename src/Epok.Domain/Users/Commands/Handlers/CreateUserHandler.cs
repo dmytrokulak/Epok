@@ -1,8 +1,8 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
+using Epok.Core.Persistence;
 using Epok.Domain.Users.Entities;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 
 namespace Epok.Domain.Users.Commands.Handlers
 {
@@ -11,13 +11,13 @@ namespace Epok.Domain.Users.Commands.Handlers
     /// </summary>
     public class CreateUserHandler : ICommandHandler<CreateUser>
     {
-        private readonly IRepository<User> _userRepo;
+        private readonly IEntityRepository _repository;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public CreateUserHandler(IRepository<User> userRepo, IEventTransmitter eventTransmitter)
+        public CreateUserHandler(IEntityRepository repository, IEventTransmitter eventTransmitter)
 
         {
-            _userRepo = userRepo;
+            _repository = repository;
             _eventTransmitter = eventTransmitter;
         }
 
@@ -25,7 +25,7 @@ namespace Epok.Domain.Users.Commands.Handlers
         {
             var user = new User(command.Id, command.Name);
 
-            await _userRepo.AddAsync(user);
+            await _repository.AddAsync(user);
             await _eventTransmitter.BroadcastAsync(new DomainEvent<User>(user, Trigger.Added, command.InitiatorId));
         }
     }

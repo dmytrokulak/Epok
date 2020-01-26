@@ -1,11 +1,10 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
+using Epok.Core.Persistence;
 using Epok.Domain.Shops.Entities;
-using Epok.Domain.Shops.Repositories;
 using Epok.Domain.Users.Entities;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 using static Epok.Domain.Shops.ExceptionCauses;
 
 namespace Epok.Domain.Shops.Commands.Handlers
@@ -15,26 +14,20 @@ namespace Epok.Domain.Shops.Commands.Handlers
     /// </summary>
     public class CreateShopHandler : ICommandHandler<CreateShop>
     {
-        private readonly IShopRepository _shopRepo;
-        private readonly IRepository<User> _userRepo;
-        private readonly IRepository<ShopCategory> _shopCategoryRepo;
+        private readonly IEntityRepository _repository;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public CreateShopHandler(IShopRepository shopRepo, IRepository<User> userRepo,
-            IRepository<ShopCategory> shopCategoryRepo,
-            IEventTransmitter eventTransmitter)
+        public CreateShopHandler(IEntityRepository repository, IEventTransmitter eventTransmitter)
         {
-            _shopRepo = shopRepo;
-            _userRepo = userRepo;
-            _shopCategoryRepo = shopCategoryRepo;
+            _repository = repository;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(CreateShop command)
         {
-            var shopCategory = await _shopCategoryRepo.LoadAsync(command.ShopCategoryId);
+            var shopCategory = await _repository.LoadAsync<ShopCategory>(command.ShopCategoryId);
 
-            var manager = await _userRepo.LoadAsync(command.ManagerId);
+            var manager = await _repository.LoadAsync<User>(command.ManagerId);
             if (manager.Shop != null)
                 throw new DomainException(UserIsAlreadyManager(manager));
 
@@ -47,7 +40,7 @@ namespace Epok.Domain.Shops.Commands.Handlers
             };
 
             shopCategory.Shops.Add(shop);
-            await _shopRepo.AddAsync(shop);
+            await _repository.AddAsync(shop);
 
             await _eventTransmitter.BroadcastAsync(new DomainEvent<User>(manager, Trigger.Changed,
                 command.InitiatorId));

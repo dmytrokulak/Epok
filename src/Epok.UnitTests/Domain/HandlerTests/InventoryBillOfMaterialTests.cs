@@ -41,7 +41,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Output = 1,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ChangeBillOfMaterialHandler(BomRepo, ArticleRepo, EventTransmitter);
+            var handler = new ChangeBillOfMaterialHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
@@ -94,14 +94,14 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Output = 1,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new AddBillOfMaterialHandler(InventoryRepo, BomRepo, ArticleRepo, EventTransmitter);
+            var handler = new AddBillOfMaterialHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
 
             //assert
-            Assert.That(CallsTo(BomRepo, nameof(BomRepo.AddAsync)), Is.EqualTo(1));
-            var bom = GetRecordedEntities(BomRepo, nameof(BomRepo.AddAsync)).Single();
+            Assert.That(CallsTo(EntityRepository, nameof(EntityRepository.AddAsync)), Is.EqualTo(1));
+            var bom = GetRecordedEntities<BillOfMaterial>(EntityRepository, nameof(EntityRepository.AddAsync)).Single();
             Assert.That(bom.Name, Is.EqualTo(command.Name));
             Assert.That(bom.Article, Is.EqualTo(Product1InteriorDoor));
             Assert.That(bom.Output, Is.EqualTo(command.Output));
@@ -137,7 +137,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Output = 1,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new AddBillOfMaterialHandler(InventoryRepo, BomRepo, ArticleRepo, EventTransmitter);
+            var handler = new AddBillOfMaterialHandler(EntityRepository, EventTransmitter);
 
             //assert () => act
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));
@@ -158,14 +158,14 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Id = bom.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ArchiveBillOfMaterialHandler(BomRepo, EventTransmitter);
+            var handler = new ArchiveBillOfMaterialHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
 
             //assert
-            Assert.That(CallsTo(BomRepo, nameof(BomRepo.ArchiveAsync)), Is.EqualTo(1));
-            var id = GetRecordedIds(BomRepo, nameof(BomRepo.ArchiveAsync)).Single();
+            Assert.That(CallsTo(EntityRepository, nameof(EntityRepository.ArchiveAsync)), Is.EqualTo(1));
+            var id = GetRecordedIds(EntityRepository, nameof(EntityRepository.ArchiveAsync)).Single();
             Assert.That(id, Is.EqualTo(bom.Id));
 
             var events = GetRecordedEvents<DomainEvent<BillOfMaterial>>();
@@ -194,7 +194,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Id = bom.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ArchiveBillOfMaterialHandler(BomRepo, EventTransmitter);
+            var handler = new ArchiveBillOfMaterialHandler(EntityRepository, EventTransmitter);
 
             //assert () => act
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));
@@ -216,7 +216,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 ArticleId = Component2Horizontal.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new SetPrimaryBillOfMaterialHandler(ArticleRepo, EventTransmitter);
+            var handler = new SetPrimaryBillOfMaterialHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
@@ -243,7 +243,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 ArticleId = Component2Horizontal.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new SetPrimaryBillOfMaterialHandler(ArticleRepo, EventTransmitter);
+            var handler = new SetPrimaryBillOfMaterialHandler(EntityRepository, EventTransmitter);
 
             //assert () => act
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));

@@ -32,14 +32,14 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 InitiatorId = GlobalAdmin.Id
             };
 
-            var handler = new ReportSpoilageHandler(ReadOnlyRepo, InventoryService, SpoilageRepo, EventTransmitter);
+            var handler = new ReportSpoilageHandler(EntityRepository, InventoryService, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
 
             //assert
-            Assert.That(CallsTo(SpoilageRepo, nameof(SpoilageRepo.AddAsync)), Is.EqualTo(1));
-            var entity = GetRecordedEntities(SpoilageRepo, nameof(SpoilageRepo.AddAsync)).Single();
+            Assert.That(CallsTo(EntityRepository, nameof(EntityRepository.AddAsync)), Is.EqualTo(1));
+            var entity = GetRecordedEntities<SpoilageReport>(EntityRepository, nameof(EntityRepository.AddAsync)).Single();
             Assert.That(entity.Item.Article, Is.EqualTo(Product1InteriorDoorSpoiled));
             Assert.That(((SpoiledArticle) entity.Item.Article).Fixable, Is.EqualTo(command.Fixable));
             Assert.That(entity.Item.Amount, Is.EqualTo(command.Amount));

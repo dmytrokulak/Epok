@@ -1,6 +1,7 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
+using Epok.Core.Persistence;
 using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Inventory.Repositories;
 using System.Threading.Tasks;
@@ -17,21 +18,21 @@ namespace Epok.Domain.Inventory.Commands.Handlers
     /// </exception>
     public class ArchiveArticleHandler : ICommandHandler<ArchiveArticle>
     {
-        private readonly IArticleRepository _articleRepo;
+        private readonly IEntityRepository _repository;
         private readonly IInventoryRepository _inventoryRepo;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public ArchiveArticleHandler(IInventoryRepository inventoryRepo,
-            IArticleRepository articleRepo, IEventTransmitter eventTransmitter)
+        public ArchiveArticleHandler(IEntityRepository repository, IInventoryRepository inventoryRepo,
+            IEventTransmitter eventTransmitter)
         {
             _inventoryRepo = inventoryRepo;
-            _articleRepo = articleRepo;
+            _repository = repository;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(ArchiveArticle command)
         {
-            var article = await _articleRepo.LoadAsync(command.Id);
+            var article = await _repository.LoadAsync<Article>(command.Id);
 
             var amountInStock = await _inventoryRepo.FindTotalAmountInStockAsync(article);
             if (amountInStock > 0)

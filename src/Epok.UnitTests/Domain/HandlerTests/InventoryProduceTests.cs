@@ -26,7 +26,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
         public void SetUp()
         {
             _produceHandler =
-                new ProduceInventoryItemHandler(ReadOnlyRepo, InventoryService, OrderService, EventTransmitter);
+                new ProduceInventoryItemHandler(EntityRepository, InventoryService, OrderService, EventTransmitter);
         }
 
         [Test]

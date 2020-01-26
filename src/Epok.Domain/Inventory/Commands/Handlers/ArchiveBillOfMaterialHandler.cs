@@ -1,10 +1,10 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
+using Epok.Core.Persistence;
 using Epok.Domain.Inventory.Entities;
 using System.Linq;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 using static Epok.Domain.Inventory.ExceptionCauses;
 
 namespace Epok.Domain.Inventory.Commands.Handlers
@@ -19,18 +19,18 @@ namespace Epok.Domain.Inventory.Commands.Handlers
     /// </exception>
     public class ArchiveBillOfMaterialHandler : ICommandHandler<ArchiveBillOfMaterial>
     {
-        private readonly IRepository<BillOfMaterial> _bomRepo;
+        private readonly IEntityRepository _repository;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public ArchiveBillOfMaterialHandler(IRepository<BillOfMaterial> bomRepo, IEventTransmitter eventTransmitter)
+        public ArchiveBillOfMaterialHandler(IEntityRepository repository, IEventTransmitter eventTransmitter)
         {
-            _bomRepo = bomRepo;
+            _repository = repository;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(ArchiveBillOfMaterial command)
         {
-            var bom = await _bomRepo.LoadAsync(command.Id);
+            var bom = await _repository.LoadAsync<BillOfMaterial>(command.Id);
             if (bom.Article.BillsOfMaterial.Count == 1)
                 throw new DomainException(ArchivingTheOnlyBomForProducibleArticle(bom));
 
@@ -38,7 +38,7 @@ namespace Epok.Domain.Inventory.Commands.Handlers
             if (bom.Primary)
                 bom.Article.BillsOfMaterial.First().Primary = true;
 
-            await _bomRepo.ArchiveAsync(command.Id);
+            await _repository.ArchiveAsync<BillOfMaterial>(command.Id);
             await _eventTransmitter.BroadcastAsync(new DomainEvent<BillOfMaterial>(bom, Trigger.Removed,
                 command.InitiatorId));
         }

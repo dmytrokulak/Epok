@@ -1,15 +1,11 @@
 ﻿using Epok.Core.Domain.Entities;
 using Epok.Core.Domain.Events;
 using Epok.Core.Providers;
-using Epok.Domain.Customers.Entities;
 using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Inventory.Repositories;
 using Epok.Domain.Inventory.Services;
 using Epok.Domain.Orders.Services;
-using Epok.Domain.Shops.Entities;
 using Epok.Domain.Shops.Repositories;
-using Epok.Domain.Suppliers.Entities;
-using Epok.Domain.Users.Entities;
 using Epok.Domain.Users.Repositories;
 using FakeItEasy;
 using NUnit.Framework;
@@ -17,7 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Epok.Core.Persistence;
-using Epok.Domain.Orders.Entities;
 
 namespace Epok.UnitTests.Domain.Setup
 {
@@ -28,21 +23,11 @@ namespace Epok.UnitTests.Domain.Setup
 
         protected static IEventTransmitter EventTransmitter = A.Fake<IEventTransmitter>();
 
-        protected static IEntityRepository ReadOnlyRepo = A.Fake<IEntityRepository>();
-        protected static IRepository<User> UserRepo = A.Fake<IRepository<User>>();
-        protected static IRepository<DomainResource> HandlerRepo = A.Fake<IRepository<DomainResource>>();
+        protected static IEntityRepository EntityRepository = A.Fake<IEntityRepository>();
         protected static IPermissionRepository PermissionRepo = A.Fake<IPermissionRepository>();
-        protected static IRepository<Order> OrderRepo = A.Fake<IRepository<Order>>();
         protected static IArticleRepository ArticleRepo = A.Fake<IArticleRepository>();
         protected static IInventoryRepository InventoryRepo = A.Fake<IInventoryRepository>();
-        protected static IRepository<Customer> CustomerRepo = A.Fake<IRepository<Customer>>();
-        protected static IRepository<Supplier> SupplierRepo = A.Fake<IRepository<Supplier>>();
-        protected static IRepository<MaterialRequest> MaterialRequestRepo = A.Fake<IRepository<MaterialRequest>>();
-        protected static IRepository<Uom> UomRepo = A.Fake<IRepository<Uom>>();
         protected static IShopRepository ShopRepo = A.Fake<IShopRepository>();
-        protected static IRepository<ShopCategory> ShopCategoryRepo = A.Fake<IRepository<ShopCategory>>();
-        protected static IRepository<BillOfMaterial> BomRepo = A.Fake<IRepository<BillOfMaterial>>();
-        protected static IRepository<SpoilageReport> SpoilageRepo = A.Fake<IRepository<SpoilageReport>>();
 
         protected static IInventoryService InventoryService = new InventoryService(InventoryRepo, ArticleRepo, TimeProvider);
         protected static IOrderService OrderService = new OrderService(TimeProvider);
@@ -71,10 +56,10 @@ namespace Epok.UnitTests.Domain.Setup
             StubSuppliersRepositories();
         }
 
-        protected int CallsTo<T>(IRepository<T> repo, string method) where T : IEntity
+        protected int CallsTo(IRepository repo, string method) 
             => Fake.GetCalls(repo).Count(c => c.Method.Name == method);
 
-        protected List<T> GetRecordedEntities<T>(IRepository<T> repo, string method) where T : IEntity
+        protected List<T> GetRecordedEntities<T>(IRepository repo, string method) where T : IEntity
             => Fake.GetCalls(repo).Where(c => c.Method.Name == method).SelectMany(c => c.Arguments.OfType<T>())
                 .ToList();
 
@@ -87,7 +72,7 @@ namespace Epok.UnitTests.Domain.Setup
                 .SelectMany(c => c.Arguments.OfType<T>())
                 .ToList();
 
-        protected List<Guid> GetRecordedIds<T>(IRepository<T> repo, string method) where T : IEntity
+        protected List<Guid> GetRecordedIds(IRepository repo, string method)
             => Fake.GetCalls(repo).Where(c => c.Method.Name == method).SelectMany(c => c.Arguments.OfType<Guid>())
                 .ToList();
 
@@ -105,16 +90,10 @@ namespace Epok.UnitTests.Domain.Setup
         [TearDown]
         protected void ClearFakesRecordedCalls()
         {
-            Fake.ClearRecordedCalls(UserRepo);
-            Fake.ClearRecordedCalls(HandlerRepo);
+            Fake.ClearRecordedCalls(EntityRepository);
             Fake.ClearRecordedCalls(PermissionRepo);
-            Fake.ClearRecordedCalls(OrderRepo);
             Fake.ClearRecordedCalls(InventoryRepo);
-            Fake.ClearRecordedCalls(CustomerRepo);
-            Fake.ClearRecordedCalls(SupplierRepo);
-            Fake.ClearRecordedCalls(MaterialRequestRepo);
             Fake.ClearRecordedCalls(ShopRepo);
-            Fake.ClearRecordedCalls(BomRepo);
             Fake.ClearRecordedCalls(EventTransmitter);
         }
     }

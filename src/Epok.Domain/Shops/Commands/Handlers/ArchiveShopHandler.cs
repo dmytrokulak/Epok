@@ -1,8 +1,8 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
+using Epok.Core.Persistence;
 using Epok.Domain.Shops.Entities;
-using Epok.Domain.Shops.Repositories;
 using System.Threading.Tasks;
 using static Epok.Domain.Shops.ExceptionCauses;
 
@@ -16,23 +16,23 @@ namespace Epok.Domain.Shops.Commands.Handlers
     /// </exception>
     public class ArchiveShopHandler : ICommandHandler<ArchiveShop>
     {
-        private readonly IShopRepository _shopRepo;
+        private readonly IEntityRepository _repository;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public ArchiveShopHandler(IShopRepository shopRepo, IEventTransmitter eventTransmitter)
+        public ArchiveShopHandler(IEntityRepository repository, IEventTransmitter eventTransmitter)
 
         {
-            _shopRepo = shopRepo;
+            _repository = repository;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(ArchiveShop command)
         {
-            var shop = await _shopRepo.GetAsync(command.Id);
+            var shop = await _repository.GetAsync<Shop>(command.Id);
             if (shop.Inventory.Count != 0)
                 throw new DomainException(ArchivingShopWithInventory(shop));
 
-            await _shopRepo.ArchiveAsync(command.Id);
+            await _repository.ArchiveAsync<Shop>(command.Id);
             await _eventTransmitter.BroadcastAsync(new DomainEvent<Shop>(shop, Trigger.Removed, command.InitiatorId));
         }
     }

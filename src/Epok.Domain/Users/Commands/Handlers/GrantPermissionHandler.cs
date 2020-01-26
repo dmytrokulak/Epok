@@ -1,11 +1,11 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
+using Epok.Core.Persistence;
 using Epok.Domain.Users.Entities;
 using Epok.Domain.Users.Repositories;
 using System;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 using static Epok.Domain.Users.ExceptionCauses;
 
 namespace Epok.Domain.Users.Commands.Handlers
@@ -16,24 +16,22 @@ namespace Epok.Domain.Users.Commands.Handlers
     public class GrantPermissionHandler : ICommandHandler<GrantPermission>
     {
         private readonly IPermissionRepository _permissionRepo;
-        private readonly IRepository<User> _userRepo;
-        private readonly IRepository<DomainResource> _resourceRepo;
+        private readonly IEntityRepository _repository;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public GrantPermissionHandler(IPermissionRepository permissionRepo, IRepository<User> userRepo,
-            IRepository<DomainResource> resourceRepo, IEventTransmitter eventTransmitter)
+        public GrantPermissionHandler(IEntityRepository repository, IPermissionRepository permissionRepo,
+            IEventTransmitter eventTransmitter)
 
         {
-            _userRepo = userRepo;
-            _resourceRepo = resourceRepo;
+            _repository = repository;
             _permissionRepo = permissionRepo;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(GrantPermission command)
         {
-            var user = await _userRepo.LoadAsync(command.UserId);
-            var resource = await _resourceRepo.LoadAsync(command.ResourceId);
+            var user = await _repository.LoadAsync<User>(command.UserId);
+            var resource = await _repository.LoadAsync<DomainResource>(command.ResourceId);
 
             var permission = await _permissionRepo.Find(user, resource);
             if (permission != null)

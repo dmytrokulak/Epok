@@ -1,8 +1,8 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
+using Epok.Core.Persistence;
 using Epok.Domain.Inventory.Entities;
-using Epok.Domain.Inventory.Repositories;
 using System.Linq;
 using System.Threading.Tasks;
 using static Epok.Domain.Inventory.ExceptionCauses;
@@ -17,18 +17,18 @@ namespace Epok.Domain.Inventory.Commands.Handlers
     /// </exception>
     public class SetPrimaryBillOfMaterialHandler : ICommandHandler<SetPrimaryBillOfMaterial>
     {
-        private readonly IArticleRepository _articleRepo;
+        private readonly IEntityRepository _repository;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public SetPrimaryBillOfMaterialHandler(IArticleRepository articleRepo, IEventTransmitter eventTransmitter)
+        public SetPrimaryBillOfMaterialHandler(IEntityRepository repository, IEventTransmitter eventTransmitter)
         {
-            _articleRepo = articleRepo;
+            _repository = repository;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(SetPrimaryBillOfMaterial command)
         {
-            var article = await _articleRepo.GetAsync(command.ArticleId);
+            var article = await _repository.GetAsync<Article>(command.ArticleId);
             var current = article.PrimaryBillOfMaterial;
             if (current.Id == command.BomId)
                 throw new DomainException(BomIsAlreadyPrimary(current));

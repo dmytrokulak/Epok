@@ -40,13 +40,13 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 ShippingAddressPostalCode = "37008",
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new RegisterSupplierHandler(SupplierRepo, ArticleRepo, EventTransmitter);
+            var handler = new RegisterSupplierHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
 
             //assert
-            var entities = GetRecordedEntities(SupplierRepo, nameof(SupplierRepo.AddAsync));
+            var entities = GetRecordedEntities<Supplier>(EntityRepository, nameof(EntityRepository.AddAsync));
             Assert.That(entities.Count, Is.EqualTo(1));
             Assert.That(entities[0].Name, Is.EqualTo(command.Name));
             Assert.That(entities[0].SuppliableArticles.Count, Is.EqualTo(1));
@@ -78,13 +78,13 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Id = SupplierToArchive.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ArchiveSupplierHandler(SupplierRepo, EventTransmitter);
+            var handler = new ArchiveSupplierHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
 
             //assert
-            var ids = GetRecordedIds(SupplierRepo, nameof(SupplierRepo.ArchiveAsync));
+            var ids = GetRecordedIds(EntityRepository, nameof(EntityRepository.ArchiveAsync));
             Assert.That(ids.Count, Is.EqualTo(1));
             Assert.That(ids[0], Is.EqualTo(command.Id));
 
@@ -104,7 +104,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Id = Material1TimberSupplier.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ArchiveSupplierHandler(SupplierRepo, EventTransmitter);
+            var handler = new ArchiveSupplierHandler(EntityRepository, EventTransmitter);
 
             //arrange () => act
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));
@@ -128,7 +128,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 InitiatorId = GlobalAdmin.Id
             };
             var handler =
-                new CreateMaterialRequestHandler(MaterialRequestRepo, ArticleRepo, SupplierRepo, EventTransmitter);
+                new CreateMaterialRequestHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
@@ -136,7 +136,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
             //assert
             Assert.That(Material1TimberSupplier.MaterialRequests.Count, Is.EqualTo(initialRequests.Count + 1));
 
-            var entities = GetRecordedEntities(MaterialRequestRepo, nameof(MaterialRequestRepo.AddAsync));
+            var entities = GetRecordedEntities<MaterialRequest>(EntityRepository, nameof(EntityRepository.AddAsync));
             Assert.That(entities.Count, Is.EqualTo(1));
             Assert.That(entities[0].ItemsRequested.Count, Is.EqualTo(1));
             Assert.That(entities[0].ItemsRequested[0].Article, Is.EqualTo(Material1Timber));
@@ -164,8 +164,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Items = new List<(Guid, decimal)> {(Material1Timber.Id, 50M)},
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler =
-                new CreateMaterialRequestHandler(MaterialRequestRepo, ArticleRepo, SupplierRepo, EventTransmitter);
+            var handler = new CreateMaterialRequestHandler(EntityRepository, EventTransmitter);
 
             //assert ()=> act
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));
@@ -186,8 +185,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 MaterialRequestId = Material1TimberMaterialRequest.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler =
-                new ReceiveMaterialsHandler(MaterialRequestRepo, ShopRepo, InventoryService, EventTransmitter);
+            var handler = new ReceiveMaterialsHandler(EntityRepository, ShopRepo, InventoryService, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);

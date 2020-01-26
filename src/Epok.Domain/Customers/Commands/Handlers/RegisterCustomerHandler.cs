@@ -1,11 +1,11 @@
-﻿using System;
-using Epok.Core.Domain.Commands;
+﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
+using Epok.Core.Persistence;
 using Epok.Core.Utilities;
 using Epok.Domain.Contacts.Entities;
 using Epok.Domain.Customers.Entities;
+using System;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 
 namespace Epok.Domain.Customers.Commands.Handlers
 {
@@ -16,13 +16,12 @@ namespace Epok.Domain.Customers.Commands.Handlers
     /// </summary>
     public class RegisterCustomerHandler : ICommandHandler<RegisterCustomer>
     {
-        private readonly IRepository<Customer> _customerRepo;
+        private readonly IEntityRepository _repository;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public RegisterCustomerHandler(IRepository<Customer> customerRepo,
-            IEventTransmitter eventTransmitter)
+        public RegisterCustomerHandler(IEntityRepository repository, IEventTransmitter eventTransmitter)
         {
-            _customerRepo = customerRepo;
+            _repository = repository;
             _eventTransmitter = eventTransmitter;
         }
 
@@ -54,7 +53,7 @@ namespace Epok.Domain.Customers.Commands.Handlers
                 ShippingAddress = address
             };
 
-            await _customerRepo.AddAsync(customer);
+            await _repository.AddAsync(customer);
             await _eventTransmitter.BroadcastAsync(new DomainEvent<Customer>(customer, Trigger.Added,
                 command.InitiatorId));
         }

@@ -57,25 +57,17 @@ namespace Epok.UnitTests.Domain.Setup
 
         private void StubOrdersRepositories()
         {
-            A.CallTo(() => OrderRepo.LoadAsync(Product1Order.Id)).Returns(Product1Order);
-            A.CallTo(() => OrderRepo.GetAsync(Product1Order.Id)).Returns(Product1Order);
 
-            A.CallTo(() => OrderRepo.LoadAsync(Product1OrderFulfilled.Id)).Returns(Product1OrderFulfilled);
-            A.CallTo(() => OrderRepo.GetAsync(Product1OrderFulfilled.Id)).Returns(Product1OrderFulfilled);
+            A.CallTo(() => EntityRepository.LoadAsync<Order>(Product1Order.Id)).Returns(Product1Order);
+            A.CallTo(() => EntityRepository.GetAsync<Order>(Product1Order.Id)).Returns(Product1Order);
 
-            A.CallTo(() => OrderRepo.LoadAsync(OrderReadyForShipment.Id)).Returns(OrderReadyForShipment);
-            A.CallTo(() => OrderRepo.GetAsync(OrderReadyForShipment.Id)).Returns(OrderReadyForShipment);
+            A.CallTo(() => EntityRepository.LoadAsync<Order>(Product1OrderFulfilled.Id)).Returns(Product1OrderFulfilled);
+            A.CallTo(() => EntityRepository.GetAsync<Order>(Product1OrderFulfilled.Id)).Returns(Product1OrderFulfilled);
 
-            A.CallTo(() => ReadOnlyRepo.LoadAsync<Order>(Product1Order.Id)).Returns(Product1Order);
-            A.CallTo(() => ReadOnlyRepo.GetAsync<Order>(Product1Order.Id)).Returns(Product1Order);
+            A.CallTo(() => EntityRepository.LoadAsync<Order>(OrderReadyForShipment.Id)).Returns(OrderReadyForShipment);
+            A.CallTo(() => EntityRepository.GetAsync<Order>(OrderReadyForShipment.Id)).Returns(OrderReadyForShipment);
 
-            A.CallTo(() => ReadOnlyRepo.LoadAsync<Order>(Product1OrderFulfilled.Id)).Returns(Product1OrderFulfilled);
-            A.CallTo(() => ReadOnlyRepo.GetAsync<Order>(Product1OrderFulfilled.Id)).Returns(Product1OrderFulfilled);
-
-            A.CallTo(() => ReadOnlyRepo.LoadAsync<Order>(OrderReadyForShipment.Id)).Returns(OrderReadyForShipment);
-            A.CallTo(() => ReadOnlyRepo.GetAsync<Order>(OrderReadyForShipment.Id)).Returns(OrderReadyForShipment);
-
-            A.CallTo(() => OrderRepo.GetSomeAsync(A<IEnumerable<Guid>>.That.Matches(x => x.Single() == Product1Order.Id)))
+            A.CallTo(() => EntityRepository.GetSomeAsync<Order>(A<IEnumerable<Guid>>.That.Matches(x => x.Single() == Product1Order.Id)))
                 .Returns(Product1Order.Collect().ToList());
         }
     }

@@ -43,14 +43,14 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 InitiatorId = GlobalAdmin.Id
             };
 
-            var handler = new RegisterArticleHandler(ReadOnlyRepo, ArticleRepo, BomRepo, EventTransmitter);
+            var handler = new RegisterArticleHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
 
             //assert
-            Assert.That(CallsTo(ArticleRepo, nameof(ArticleRepo.AddAsync)), Is.EqualTo(1));
-            var article = GetRecordedEntities(ArticleRepo, nameof(ArticleRepo.AddAsync)).Single();
+            Assert.That(CallsTo(EntityRepository, nameof(EntityRepository.AddAsync)), Is.EqualTo(1));
+            var article = GetRecordedEntities<Article>(EntityRepository, nameof(EntityRepository.AddAsync)).Single();
             Assert.That(article.Name, Is.EqualTo(command.Name));
             Assert.That(article.Code, Is.EqualTo(command.Code));
             Assert.That(article.UoM, Is.EqualTo(PieceUom));
@@ -74,7 +74,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Id = ArticleToArchive.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ArchiveArticleHandler(InventoryRepo, ArticleRepo, EventTransmitter);
+            var handler = new ArchiveArticleHandler(EntityRepository,InventoryRepo, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
@@ -93,7 +93,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
         {
             //arrange
             var command = new ArchiveArticle {Id = Product1InteriorDoor.Id};
-            var handler = new ArchiveArticleHandler(InventoryRepo, ArticleRepo, EventTransmitter);
+            var handler = new ArchiveArticleHandler(EntityRepository, InventoryRepo, EventTransmitter);
 
             //assert () => act
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));
@@ -107,7 +107,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
         {
             //arrange
             var command = new ArchiveArticle {Id = Product2InteriorDoor.Id};
-            var handler = new ArchiveArticleHandler(InventoryRepo, ArticleRepo, EventTransmitter);
+            var handler = new ArchiveArticleHandler(EntityRepository, InventoryRepo, EventTransmitter);
 
             //assert () => act
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));

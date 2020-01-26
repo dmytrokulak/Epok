@@ -1,13 +1,13 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
+using Epok.Core.Persistence;
 using Epok.Core.Utilities;
 using Epok.Domain.Inventory.Services;
 using Epok.Domain.Orders.Entities;
 using Epok.Domain.Orders.Events;
 using Epok.Domain.Orders.Services;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 using static Epok.Domain.Orders.ExceptionCauses;
 
 namespace Epok.Domain.Orders.Commands.Handlers
@@ -22,16 +22,15 @@ namespace Epok.Domain.Orders.Commands.Handlers
     /// </exception>
     public class ShipOrderHandler : ICommandHandler<ShipOrder>
     {
-        private readonly IRepository<Order> _orderRepo;
+        private readonly IEntityRepository _repository;
         private readonly IOrderService _orderService;
         private readonly IInventoryService _inventoryService;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public ShipOrderHandler(IRepository<Order> orderRepo, IOrderService orderService,
-            IInventoryService inventoryService,
-            IEventTransmitter eventTransmitter)
+        public ShipOrderHandler(IEntityRepository repository, IOrderService orderService,
+            IInventoryService inventoryService, IEventTransmitter eventTransmitter)
         {
-            _orderRepo = orderRepo;
+            _repository = repository;
             _orderService = orderService;
             _inventoryService = inventoryService;
             _eventTransmitter = eventTransmitter;
@@ -39,7 +38,7 @@ namespace Epok.Domain.Orders.Commands.Handlers
 
         public async Task HandleAsync(ShipOrder command)
         {
-            var order = await _orderRepo.GetAsync(command.Id);
+            var order = await _repository.GetAsync<Order>(command.Id);
 
             Guard.Against.Null(order, nameof(order));
 

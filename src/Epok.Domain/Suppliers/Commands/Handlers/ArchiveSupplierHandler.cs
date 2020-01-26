@@ -1,10 +1,10 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
+using Epok.Core.Persistence;
 using Epok.Domain.Suppliers.Entities;
 using System.Linq;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 using static Epok.Domain.Suppliers.ExceptionCauses;
 
 namespace Epok.Domain.Suppliers.Commands.Handlers
@@ -17,23 +17,22 @@ namespace Epok.Domain.Suppliers.Commands.Handlers
     /// </exception>
     public class ArchiveSupplierHandler : ICommandHandler<ArchiveSupplier>
     {
-        private readonly IRepository<Supplier> _supplierRepo;
+        private readonly IEntityRepository _repository;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public ArchiveSupplierHandler(IRepository<Supplier> supplierRepo,
-            IEventTransmitter eventTransmitter)
+        public ArchiveSupplierHandler(IEntityRepository repository, IEventTransmitter eventTransmitter)
         {
-            _supplierRepo = supplierRepo;
+            _repository = repository;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(ArchiveSupplier command)
         {
-            var supplier = await _supplierRepo.GetAsync(command.Id);
+            var supplier = await _repository.GetAsync<Supplier>(command.Id);
             if (supplier.MaterialRequests.Any(r => r.Status != MaterialRequestStatus.Fulfilled))
                 throw new DomainException(ArchivingSupplierWithActiveMaterialRequests(supplier));
 
-            await _supplierRepo.ArchiveAsync(supplier.Id);
+            await _repository.ArchiveAsync<Supplier>(supplier.Id);
             await _eventTransmitter.BroadcastAsync(new DomainEvent<Supplier>(supplier, Trigger.Removed,
                 command.InitiatorId));
         }

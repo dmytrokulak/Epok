@@ -1,6 +1,7 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
+using Epok.Core.Persistence;
 using Epok.Core.Utilities;
 using Epok.Domain.Customers.Entities;
 using Epok.Domain.Inventory.Entities;
@@ -10,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 using static Epok.Domain.Inventory.ExceptionCauses;
 using static Epok.Domain.Orders.ExceptionCauses;
 
@@ -27,23 +27,21 @@ namespace Epok.Domain.Orders.Commands.Handlers
     /// </exception>
     public class CreateOrderHandler : ICommandHandler<CreateOrder>
     {
-        private readonly IEntityRepository _repo;
-        private readonly IRepository<Order> _orderRepo;
+        private readonly IEntityRepository _repository;
         private readonly IInventoryService _inventoryService;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public CreateOrderHandler(IRepository<Order> orderRepo, IEntityRepository repo,
-            IInventoryService inventoryService, IEventTransmitter eventTransmitter)
+        public CreateOrderHandler(IEntityRepository repository, IInventoryService inventoryService,
+            IEventTransmitter eventTransmitter)
         {
-            _repo = repo;
-            _orderRepo = orderRepo;
+            _repository = repository;
             _inventoryService = inventoryService;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(CreateOrder command)
         {
-            var customer = await _repo.GetAsync<Customer>(command.CustomerId);
+            var customer = await _repository.GetAsync<Customer>(command.CustomerId);
             if (customer == null)
                 throw new ArgumentNullException(nameof(customer));
 
@@ -51,7 +49,7 @@ namespace Epok.Domain.Orders.Commands.Handlers
             var itemsOrdered = new HashSet<InventoryItem>();
             foreach (var (articleId, amount) in command.Items)
             {
-                var article = await _repo.LoadAsync<Article>(articleId);
+                var article = await _repository.LoadAsync<Article>(articleId);
                 itemsOrdered.Add(new InventoryItem(article, amount));
             }
 
@@ -80,7 +78,7 @@ namespace Epok.Domain.Orders.Commands.Handlers
             };
 
             //Save order and reference in db
-            await _orderRepo.AddAsync(order);
+            await _repository.AddAsync(order);
             customer.Orders.Add(order);
 
             await _eventTransmitter.BroadcastAsync(new DomainEvent<Order>(order, Trigger.Added, command.InitiatorId));

@@ -22,7 +22,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
         [SetUp]
         public void SetUp()
         {
-            _transferHandler = new TransferInventoryHandler(InventoryService, ReadOnlyRepo, EventTransmitter);
+            _transferHandler = new TransferInventoryHandler(InventoryService, EntityRepository, EventTransmitter);
         }
 
         [Test]

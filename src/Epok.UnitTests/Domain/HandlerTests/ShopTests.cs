@@ -29,13 +29,13 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 ShopCategoryId = ProductAssemblyShopCategory.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new CreateShopHandler(ShopRepo, UserRepo, ShopCategoryRepo, EventTransmitter);
+            var handler = new CreateShopHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
 
             //assert
-            var entities = GetRecordedEntities(ShopRepo, nameof(ShopRepo.AddAsync));
+            var entities = GetRecordedEntities<Shop>(EntityRepository, nameof(EntityRepository.AddAsync));
             Assert.That(entities.Count, Is.EqualTo(1));
             Assert.That(entities[0].Name, Is.EqualTo(command.Name));
             Assert.That(entities[0].Manager, Is.EqualTo(GlobalAdmin));
@@ -63,7 +63,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 NewManagerId = ManagerOfProductAssemblyShop.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ChangeShopManagerHandler(ShopRepo, UserRepo, EventTransmitter);
+            var handler = new ChangeShopManagerHandler(EntityRepository, EventTransmitter);
 
             //assert () => act
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));
@@ -84,7 +84,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 NewManagerId = UserWithPermissions.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ChangeShopManagerHandler(ShopRepo, UserRepo, EventTransmitter);
+            var handler = new ChangeShopManagerHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
@@ -113,7 +113,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Id = ProductAssemblyShop.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ArchiveShopHandler(ShopRepo, EventTransmitter);
+            var handler = new ArchiveShopHandler(EntityRepository, EventTransmitter);
 
             //assert () => act
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));
@@ -130,13 +130,13 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Id = ShopToRemove.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ArchiveShopHandler(ShopRepo, EventTransmitter);
+            var handler = new ArchiveShopHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
 
             //assert
-            var ids = GetRecordedIds(ShopRepo, nameof(ShopRepo.ArchiveAsync));
+            var ids = GetRecordedIds(EntityRepository, nameof(EntityRepository.ArchiveAsync));
             Assert.That(ids.Count, Is.EqualTo(1));
             Assert.That(ids[0], Is.EqualTo(command.Id));
             var events = GetRecordedEvents<DomainEvent<Shop>>();

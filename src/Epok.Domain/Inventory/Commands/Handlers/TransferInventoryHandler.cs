@@ -1,13 +1,13 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
+using Epok.Core.Domain.Exceptions;
+using Epok.Core.Persistence;
 using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Inventory.Events;
 using Epok.Domain.Inventory.Services;
 using Epok.Domain.Shops.Entities;
 using Epok.Domain.Shops.Events;
 using System.Threading.Tasks;
-using Epok.Core.Domain.Exceptions;
-using Epok.Core.Persistence;
 
 namespace Epok.Domain.Inventory.Commands.Handlers
 {
@@ -21,24 +21,24 @@ namespace Epok.Domain.Inventory.Commands.Handlers
     /// </exception>
     public class TransferInventoryHandler : ICommandHandler<TransferInventory>
     {
-        private readonly IEntityRepository _repo;
+        private readonly IEntityRepository _repository;
         private readonly IInventoryService _inventoryService;
         private readonly IEventTransmitter _eventTransmitter;
 
         public TransferInventoryHandler(IInventoryService inventoryService,
-            IEntityRepository repo, IEventTransmitter eventTransmitter)
+            IEntityRepository repository, IEventTransmitter eventTransmitter)
 
         {
-            _repo = repo;
+            _repository = repository;
             _inventoryService = inventoryService;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(TransferInventory command)
         {
-            var article = await _repo.GetAsync<Article>(command.ArticleId);
-            var source = await _repo.GetAsync<Shop>(command.SourceShopId);
-            var target = await _repo.GetAsync<Shop>(command.TargetShopId);
+            var article = await _repository.GetAsync<Article>(command.ArticleId);
+            var source = await _repository.GetAsync<Shop>(command.SourceShopId);
+            var target = await _repository.GetAsync<Shop>(command.TargetShopId);
 
             var transferred = _inventoryService.Transfer(source, target, new InventoryItem(article, command.Amount));
 

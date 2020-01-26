@@ -1,9 +1,9 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
-using Epok.Domain.Inventory.Repositories;
+using Epok.Core.Persistence;
+using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Shops.Entities;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 
 namespace Epok.Domain.Shops.Commands.Handlers
 {
@@ -13,22 +13,19 @@ namespace Epok.Domain.Shops.Commands.Handlers
     /// </summary>
     public class DisallowArticleHandler : ICommandHandler<DisallowArticle>
     {
-        private readonly IRepository<ShopCategory> _categoryRepo;
-        private readonly IArticleRepository _articleRepo;
+        private readonly IEntityRepository _repository;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public DisallowArticleHandler(IRepository<ShopCategory> categoryRepo, IArticleRepository articleRepo,
-            IEventTransmitter eventTransmitter)
+        public DisallowArticleHandler(IEntityRepository repository, IEventTransmitter eventTransmitter)
         {
-            _categoryRepo = categoryRepo;
-            _articleRepo = articleRepo;
+            _repository = repository;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(DisallowArticle command)
         {
-            var shopCategory = await _categoryRepo.GetAsync(command.ShopCategoryId);
-            var article = await _articleRepo.GetAsync(command.ArticleId);
+            var shopCategory = await _repository.GetAsync<ShopCategory>(command.ShopCategoryId);
+            var article = await _repository.LoadAsync<Article>(command.ArticleId);
 
             shopCategory.Articles.Remove(article);
 

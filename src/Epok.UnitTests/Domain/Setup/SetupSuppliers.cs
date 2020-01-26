@@ -41,15 +41,15 @@ namespace Epok.UnitTests.Domain.Setup
         private void StubSuppliersRepositories()
         {
 
-            A.CallTo(() => SupplierRepo.LoadAsync(Material1TimberSupplier.Id)).Returns(Material1TimberSupplier);
-            A.CallTo(() => SupplierRepo.GetAsync(Material1TimberSupplier.Id)).Returns(Material1TimberSupplier);
+            A.CallTo(() => EntityRepository.LoadAsync<Supplier>(Material1TimberSupplier.Id)).Returns(Material1TimberSupplier);
+            A.CallTo(() => EntityRepository.GetAsync<Supplier>(Material1TimberSupplier.Id)).Returns(Material1TimberSupplier);
 
-            A.CallTo(() => SupplierRepo.LoadAsync(SupplierToArchive.Id)).Returns(SupplierToArchive);
-            A.CallTo(() => SupplierRepo.GetAsync(SupplierToArchive.Id)).Returns(SupplierToArchive);
+            A.CallTo(() => EntityRepository.LoadAsync<Supplier>(SupplierToArchive.Id)).Returns(SupplierToArchive);
+            A.CallTo(() => EntityRepository.GetAsync<Supplier>(SupplierToArchive.Id)).Returns(SupplierToArchive);
 
-            A.CallTo(() => MaterialRequestRepo.LoadAsync(Material1TimberMaterialRequest.Id))
+            A.CallTo(() => EntityRepository.LoadAsync<MaterialRequest>(Material1TimberMaterialRequest.Id))
                 .Returns(Material1TimberMaterialRequest);
-            A.CallTo(() => MaterialRequestRepo.GetAsync(Material1TimberMaterialRequest.Id))
+            A.CallTo(() => EntityRepository.GetAsync<MaterialRequest>(Material1TimberMaterialRequest.Id))
                 .Returns(Material1TimberMaterialRequest);
 
         }

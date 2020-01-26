@@ -1,12 +1,12 @@
 ﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
 using Epok.Core.Domain.Exceptions;
+using Epok.Core.Persistence;
 using Epok.Domain.Inventory.Services;
 using Epok.Domain.Orders.Entities;
 using Epok.Domain.Orders.Events;
 using System;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 using static Epok.Domain.Orders.ExceptionCauses;
 
 namespace Epok.Domain.Orders.Commands.Handlers
@@ -16,21 +16,21 @@ namespace Epok.Domain.Orders.Commands.Handlers
     /// </summary>
     public class EnactOrderHandler : ICommandHandler<EnactOrder>
     {
-        private readonly IRepository<Order> _orderRepo;
+        private readonly IEntityRepository _repository;
         private readonly IInventoryService _inventoryService;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public EnactOrderHandler(IRepository<Order> orderRepo, IInventoryService inventoryService,
+        public EnactOrderHandler(IEntityRepository repository, IInventoryService inventoryService,
             IEventTransmitter eventTransmitter)
         {
-            _orderRepo = orderRepo;
+            _repository = repository;
             _inventoryService = inventoryService;
             _eventTransmitter = eventTransmitter;
         }
 
         public async Task HandleAsync(EnactOrder command)
         {
-            var order = await _orderRepo.GetAsync(command.OrderId);
+            var order = await _repository.GetAsync<Order>(command.OrderId);
 
             foreach (var subOrder in order.SubOrders)
             {

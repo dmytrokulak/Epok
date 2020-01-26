@@ -25,13 +25,13 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Articles = new[] {Product1InteriorDoor.Id},
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new CreateShopCategoryHandler(ShopCategoryRepo, ArticleRepo, EventTransmitter);
+            var handler = new CreateShopCategoryHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
 
             //assert
-            var entities = GetRecordedEntities(ShopCategoryRepo, nameof(ShopCategoryRepo.AddAsync));
+            var entities = GetRecordedEntities<ShopCategory>(EntityRepository, nameof(EntityRepository.AddAsync));
             Assert.That(entities.Count, Is.EqualTo(1));
             Assert.That(entities[0].Name, Is.EqualTo(command.Name));
             Assert.That(entities[0].ShopType, Is.EqualTo(command.ShopType));
@@ -58,13 +58,13 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 InitiatorId = GlobalAdmin.Id
             };
 
-            var handler = new ArchiveShopCategoryHandler(ShopCategoryRepo, EventTransmitter);
+            var handler = new ArchiveShopCategoryHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
 
             //assert
-            var ids = GetRecordedIds(ShopCategoryRepo, nameof(ShopCategoryRepo.ArchiveAsync));
+            var ids = GetRecordedIds(EntityRepository, nameof(EntityRepository.ArchiveAsync));
             Assert.That(ids.Count, Is.EqualTo(1));
             Assert.That(ids[0], Is.EqualTo(command.Id));
             var events = GetRecordedEvents<DomainEvent<ShopCategory>>();
@@ -86,7 +86,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 InitiatorId = GlobalAdmin.Id
             };
 
-            var handler = new ArchiveShopCategoryHandler(ShopCategoryRepo, EventTransmitter);
+            var handler = new ArchiveShopCategoryHandler(EntityRepository, EventTransmitter);
 
             //assert ()=> act
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));
@@ -106,7 +106,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 ShopCategoryId = ShopCategoryToArchive.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new AllowArticleHandler(ShopCategoryRepo, ArticleRepo, EventTransmitter);
+            var handler = new AllowArticleHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
@@ -137,7 +137,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 ShopCategoryId = ShopCategoryToArchive.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new DisallowArticleHandler(ShopCategoryRepo, ArticleRepo, EventTransmitter);
+            var handler = new DisallowArticleHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);

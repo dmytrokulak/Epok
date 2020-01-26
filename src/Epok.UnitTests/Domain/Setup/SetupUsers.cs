@@ -72,20 +72,20 @@ namespace Epok.UnitTests.Domain.Setup
 
         private void StubUsersRepositories()
         {
-            A.CallTo(() => UserRepo.LoadAsync(ManagerOfProductAssemblyShop.Id)).Returns(ManagerOfProductAssemblyShop);
-            A.CallTo(() => UserRepo.GetAsync(ManagerOfProductAssemblyShop.Id)).Returns(ManagerOfProductAssemblyShop);
+            A.CallTo(() => EntityRepository.LoadAsync<User>(ManagerOfProductAssemblyShop.Id)).Returns(ManagerOfProductAssemblyShop);
+            A.CallTo(() => EntityRepository.GetAsync<User>(ManagerOfProductAssemblyShop.Id)).Returns(ManagerOfProductAssemblyShop);
 
-            A.CallTo(() => UserRepo.LoadAsync(UserToArchive.Id)).Returns(UserToArchive);
-            A.CallTo(() => UserRepo.GetAsync(UserToArchive.Id)).Returns(UserToArchive);
+            A.CallTo(() => EntityRepository.LoadAsync<User>(UserToArchive.Id)).Returns(UserToArchive);
+            A.CallTo(() => EntityRepository.GetAsync<User>(UserToArchive.Id)).Returns(UserToArchive);
 
-            A.CallTo(() => UserRepo.LoadAsync(UserWithPermissions.Id)).Returns(UserWithPermissions);
-            A.CallTo(() => UserRepo.GetAsync(UserWithPermissions.Id)).Returns(UserWithPermissions);
+            A.CallTo(() => EntityRepository.LoadAsync<User>(UserWithPermissions.Id)).Returns(UserWithPermissions);
+            A.CallTo(() => EntityRepository.GetAsync<User>(UserWithPermissions.Id)).Returns(UserWithPermissions);
 
-            A.CallTo(() => UserRepo.LoadAsync(GlobalAdmin.Id)).Returns(GlobalAdmin);
-            A.CallTo(() => UserRepo.GetAsync(GlobalAdmin.Id)).Returns(GlobalAdmin);
+            A.CallTo(() => EntityRepository.LoadAsync<User>(GlobalAdmin.Id)).Returns(GlobalAdmin);
+            A.CallTo(() => EntityRepository.GetAsync<User>(GlobalAdmin.Id)).Returns(GlobalAdmin);
 
-            A.CallTo(() => HandlerRepo.LoadAsync(ProduceInventoryItemHandler.Id)).Returns(ProduceInventoryItemHandler);
-            A.CallTo(() => HandlerRepo.GetAsync(ProduceInventoryItemHandler.Id)).Returns(ProduceInventoryItemHandler);
+            A.CallTo(() => EntityRepository.LoadAsync<DomainResource>(ProduceInventoryItemHandler.Id)).Returns(ProduceInventoryItemHandler);
+            A.CallTo(() => EntityRepository.GetAsync<DomainResource>(ProduceInventoryItemHandler.Id)).Returns(ProduceInventoryItemHandler);
 
             A.CallTo(() => PermissionRepo.Find(ManagerOfProductAssemblyShop, ProduceInventoryItemHandler))
                 .Returns(default(Permission));
@@ -97,6 +97,11 @@ namespace Epok.UnitTests.Domain.Setup
             A.CallTo(() => PermissionRepo.GetAsync(GlobalAdminOnProduceInventoryItemHandler.Id))
                 .Returns(GlobalAdminOnProduceInventoryItemHandler);
             A.CallTo(() => PermissionRepo.GetAsync(UserWithPermissionsOnProduceInventoryItemHandler.Id))
+                .Returns(UserWithPermissionsOnProduceInventoryItemHandler);
+
+            A.CallTo(() => EntityRepository.GetAsync<Permission>(GlobalAdminOnProduceInventoryItemHandler.Id))
+                .Returns(GlobalAdminOnProduceInventoryItemHandler);
+            A.CallTo(() => EntityRepository.GetAsync<Permission>(UserWithPermissionsOnProduceInventoryItemHandler.Id))
                 .Returns(UserWithPermissionsOnProduceInventoryItemHandler);
         }
     }

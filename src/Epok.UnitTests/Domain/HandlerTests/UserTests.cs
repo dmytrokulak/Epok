@@ -22,13 +22,13 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Name = "User FirstName LastName",
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new CreateUserHandler(UserRepo, EventTransmitter);
+            var handler = new CreateUserHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
 
             //assert
-            var entities = GetRecordedEntities(UserRepo, nameof(UserRepo.AddAsync));
+            var entities = GetRecordedEntities<User>(EntityRepository, nameof(EntityRepository.AddAsync));
             Assert.That(entities.Count, Is.EqualTo(1));
             Assert.That(entities[0].Name, Is.EqualTo(command.Name));
             Assert.That(entities[0].IsShopManager, Is.False);
@@ -50,13 +50,13 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Id = UserToArchive.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ArchiveUserHandler(UserRepo, EventTransmitter);
+            var handler = new ArchiveUserHandler(EntityRepository, EventTransmitter);
 
             //act
             await handler.HandleAsync(command);
 
             //assert
-            var ids = GetRecordedIds(UserRepo, nameof(UserRepo.ArchiveAsync));
+            var ids = GetRecordedIds(EntityRepository, nameof(EntityRepository.ArchiveAsync));
             Assert.That(ids.Count, Is.EqualTo(1));
             Assert.That(ids[0], Is.EqualTo(command.Id));
 
@@ -76,7 +76,7 @@ namespace Epok.UnitTests.Domain.HandlerTests
                 Id = ManagerOfProductAssemblyShop.Id,
                 InitiatorId = GlobalAdmin.Id
             };
-            var handler = new ArchiveUserHandler(UserRepo, EventTransmitter);
+            var handler = new ArchiveUserHandler(EntityRepository, EventTransmitter);
 
             //assert () => act
             var ex = Assert.ThrowsAsync<DomainException>(async () => await handler.HandleAsync(command));

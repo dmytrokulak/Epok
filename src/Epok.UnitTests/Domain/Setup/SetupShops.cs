@@ -100,24 +100,24 @@ namespace Epok.UnitTests.Domain.Setup
             A.CallTo(() => ShopRepo.GetEntryPoint()).Returns(MaterialStockpileShop);
             A.CallTo(() => ShopRepo.GetExitPoint()).Returns(ProductStockpileShop);
 
-            A.CallTo(() => ReadOnlyRepo.LoadAsync<Shop>(ShopToRemove.Id)).Returns(ShopToRemove);
-            A.CallTo(() => ReadOnlyRepo.GetAsync<Shop>(ShopToRemove.Id)).Returns(ShopToRemove);
-            A.CallTo(() => ReadOnlyRepo.LoadAsync<Shop>(MaterialStockpileShop.Id)).Returns(MaterialStockpileShop);
+            A.CallTo(() => EntityRepository.LoadAsync<Shop>(ShopToRemove.Id)).Returns(ShopToRemove);
+            A.CallTo(() => EntityRepository.GetAsync<Shop>(ShopToRemove.Id)).Returns(ShopToRemove);
+            A.CallTo(() => EntityRepository.LoadAsync<Shop>(MaterialStockpileShop.Id)).Returns(MaterialStockpileShop);
 
-            A.CallTo(() => ReadOnlyRepo.GetAsync<Shop>(MaterialStockpileShop.Id)).Returns(MaterialStockpileShop);
-            A.CallTo(() => ReadOnlyRepo.LoadAsync<Shop>(ProductStockpileShop.Id)).Returns(ProductStockpileShop);
-            A.CallTo(() => ReadOnlyRepo.GetAsync<Shop>(ProductStockpileShop.Id)).Returns(ProductStockpileShop);
+            A.CallTo(() => EntityRepository.GetAsync<Shop>(MaterialStockpileShop.Id)).Returns(MaterialStockpileShop);
+            A.CallTo(() => EntityRepository.LoadAsync<Shop>(ProductStockpileShop.Id)).Returns(ProductStockpileShop);
+            A.CallTo(() => EntityRepository.GetAsync<Shop>(ProductStockpileShop.Id)).Returns(ProductStockpileShop);
 
-            A.CallTo(() => ReadOnlyRepo.LoadAsync<Shop>(TimberComponentShop.Id)).Returns(TimberComponentShop);
-            A.CallTo(() => ReadOnlyRepo.GetAsync<Shop>(TimberComponentShop.Id)).Returns(TimberComponentShop);
-            A.CallTo(() => ReadOnlyRepo.LoadAsync<Shop>(MdfComponentShop.Id)).Returns(MdfComponentShop);
+            A.CallTo(() => EntityRepository.LoadAsync<Shop>(TimberComponentShop.Id)).Returns(TimberComponentShop);
+            A.CallTo(() => EntityRepository.GetAsync<Shop>(TimberComponentShop.Id)).Returns(TimberComponentShop);
+            A.CallTo(() => EntityRepository.LoadAsync<Shop>(MdfComponentShop.Id)).Returns(MdfComponentShop);
 
-            A.CallTo(() => ReadOnlyRepo.GetAsync<Shop>(MdfComponentShop.Id)).Returns(MdfComponentShop);
-            A.CallTo(() => ReadOnlyRepo.LoadAsync<Shop>(GlassComponentShop.Id)).Returns(GlassComponentShop);
-            A.CallTo(() => ReadOnlyRepo.GetAsync<Shop>(GlassComponentShop.Id)).Returns(GlassComponentShop);
+            A.CallTo(() => EntityRepository.GetAsync<Shop>(MdfComponentShop.Id)).Returns(MdfComponentShop);
+            A.CallTo(() => EntityRepository.LoadAsync<Shop>(GlassComponentShop.Id)).Returns(GlassComponentShop);
+            A.CallTo(() => EntityRepository.GetAsync<Shop>(GlassComponentShop.Id)).Returns(GlassComponentShop);
 
-            A.CallTo(() => ReadOnlyRepo.LoadAsync<Shop>(ProductAssemblyShop.Id)).Returns(ProductAssemblyShop);
-            A.CallTo(() => ReadOnlyRepo.GetAsync<Shop>(ProductAssemblyShop.Id)).Returns(ProductAssemblyShop);
+            A.CallTo(() => EntityRepository.LoadAsync<Shop>(ProductAssemblyShop.Id)).Returns(ProductAssemblyShop);
+            A.CallTo(() => EntityRepository.GetAsync<Shop>(ProductAssemblyShop.Id)).Returns(ProductAssemblyShop);
         }
     }
 }

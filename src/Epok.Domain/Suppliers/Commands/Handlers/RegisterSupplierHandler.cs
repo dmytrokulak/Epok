@@ -1,12 +1,12 @@
-﻿using System;
-using Epok.Core.Domain.Commands;
+﻿using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Events;
+using Epok.Core.Persistence;
 using Epok.Core.Utilities;
 using Epok.Domain.Contacts.Entities;
-using Epok.Domain.Inventory.Repositories;
+using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Suppliers.Entities;
+using System;
 using System.Threading.Tasks;
-using Epok.Core.Persistence;
 
 namespace Epok.Domain.Suppliers.Commands.Handlers
 {
@@ -15,15 +15,12 @@ namespace Epok.Domain.Suppliers.Commands.Handlers
     /// </summary>
     public class RegisterSupplierHandler : ICommandHandler<RegisterSupplier>
     {
-        private readonly IRepository<Supplier> _supplierRepo;
-        private readonly IArticleRepository _articleRepo;
+        private readonly IEntityRepository _repository;
         private readonly IEventTransmitter _eventTransmitter;
 
-        public RegisterSupplierHandler(IRepository<Supplier> supplierRepo, IArticleRepository articleRepo,
-            IEventTransmitter eventTransmitter)
+        public RegisterSupplierHandler(IEntityRepository repository, IEventTransmitter eventTransmitter)
         {
-            _supplierRepo = supplierRepo;
-            _articleRepo = articleRepo;
+            _repository = repository;
             _eventTransmitter = eventTransmitter;
         }
 
@@ -48,7 +45,7 @@ namespace Epok.Domain.Suppliers.Commands.Handlers
                 PostalCode = command.ShippingAddressPostalCode
             };
 
-            var articles = await _articleRepo.GetSomeAsync(command.SuppliableArticleIds);
+            var articles = await _repository.GetSomeAsync<Article>(command.SuppliableArticleIds);
 
             var supplier = new Supplier(command.Id, command.Name)
             {
@@ -57,7 +54,7 @@ namespace Epok.Domain.Suppliers.Commands.Handlers
                 SuppliableArticles = articles.ToHashSet()
             };
 
-            await _supplierRepo.AddAsync(supplier);
+            await _repository.AddAsync(supplier);
             await _eventTransmitter.BroadcastAsync(new DomainEvent<Supplier>(supplier, Trigger.Added,
                 command.InitiatorId));
         }
