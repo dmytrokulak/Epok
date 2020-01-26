@@ -21,9 +21,9 @@ namespace Epok.Core.Persistence
 
         Task AddAsync<T>(T entity) where T : EntityBase;
 
-        Task AddRangeAsync<T>(T entities) where T : EntityBase;
+        Task AddSomeAsync<T>(T entities) where T : EntityBase;
 
-        Task ArchiveAsync<T>(Guid id) where T : EntityBase;
-        Task ArchiveRangeAsync<T>(IEnumerable<Guid> ids) where T : EntityBase;
+        Task RemoveAsync<T>(T entity) where T : EntityBase;
+        Task RemoveSomeAsync<T>(IEnumerable<T> entities) where T : EntityBase;
     }
 }

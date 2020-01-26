@@ -32,7 +32,7 @@ namespace Epok.Domain.Users.Commands.Handlers
             if (user.IsShopManager)
                 throw new DomainException(ArchivingShopManager(user));
 
-            await _repository.ArchiveAsync<User>(command.Id);
+            await _repository.RemoveAsync(user);
             await _eventTransmitter.BroadcastAsync(new DomainEvent<User>(user, Trigger.Removed, command.InitiatorId));
         }
     }

@@ -111,13 +111,13 @@ namespace Epok.Persistence.EF.Repositories
         public async Task AddAsync<T>(T entity) where T : EntityBase
             => await _dbContext.AddAsync(entity);
 
-        public async Task AddRangeAsync<T>(T entities) where T : EntityBase
+        public async Task AddSomeAsync<T>(T entities) where T : EntityBase
             => await _dbContext.AddRangeAsync(entities);
 
-        public async Task ArchiveAsync<T>(Guid id) where T : EntityBase
-            => _dbContext.Remove(await LoadAsync<T>(id));
+        public async Task RemoveAsync<T>(T entity) where T : EntityBase
+            => await Task.Run(() => _dbContext.Remove(entity));
 
-        public async Task ArchiveRangeAsync<T>(IEnumerable<Guid> ids) where T : EntityBase
-            => _dbContext.RemoveRange(await LoadSomeAsync<T>(ids));
+        public async Task RemoveSomeAsync<T>(IEnumerable<T> entities) where T : EntityBase
+            => await Task.Run(() => _dbContext.RemoveRange(entities));
     }
 }

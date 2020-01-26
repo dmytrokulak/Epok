@@ -28,7 +28,7 @@ namespace Epok.Domain.Users.Commands.Handlers
             if (permission.User.UserType == UserType.GlobalAdmin)
                 throw new DomainException(RevokingGlobalAdminPermission(permission.User));
 
-            await _repository.ArchiveAsync<Permission>(command.Id);
+            await _repository.RemoveAsync(permission);
             await _eventTransmitter.BroadcastAsync(new DomainEvent<Permission>(permission, Trigger.Removed,
                 command.InitiatorId));
         }

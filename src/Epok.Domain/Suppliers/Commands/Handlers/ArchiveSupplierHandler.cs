@@ -32,7 +32,7 @@ namespace Epok.Domain.Suppliers.Commands.Handlers
             if (supplier.MaterialRequests.Any(r => r.Status != MaterialRequestStatus.Fulfilled))
                 throw new DomainException(ArchivingSupplierWithActiveMaterialRequests(supplier));
 
-            await _repository.ArchiveAsync<Supplier>(supplier.Id);
+            await _repository.RemoveAsync(supplier);
             await _eventTransmitter.BroadcastAsync(new DomainEvent<Supplier>(supplier, Trigger.Removed,
                 command.InitiatorId));
         }

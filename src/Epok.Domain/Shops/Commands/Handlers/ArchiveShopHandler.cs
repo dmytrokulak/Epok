@@ -32,7 +32,7 @@ namespace Epok.Domain.Shops.Commands.Handlers
             if (shop.Inventory.Count != 0)
                 throw new DomainException(ArchivingShopWithInventory(shop));
 
-            await _repository.ArchiveAsync<Shop>(command.Id);
+            await _repository.RemoveAsync(shop);
             await _eventTransmitter.BroadcastAsync(new DomainEvent<Shop>(shop, Trigger.Removed, command.InitiatorId));
         }
     }

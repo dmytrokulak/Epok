@@ -42,7 +42,7 @@ namespace Epok.Domain.Inventory.Commands.Handlers
             if (amountInOrders > 0)
                 throw new DomainException(ArchivingArticleStillInOrders(article, amountInOrders));
 
-            await _inventoryRepo.ArchiveAsync(command.Id);
+            await _repository.RemoveAsync(article);
             await _eventTransmitter.BroadcastAsync(new DomainEvent<Article>(article, Trigger.Removed,
                 command.InitiatorId));
         }

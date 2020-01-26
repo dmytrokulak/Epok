@@ -164,8 +164,8 @@ namespace Epok.Domain.Tests.HandlerTests
             await handler.HandleAsync(command);
 
             //assert
-            Assert.That(CallsTo(EntityRepository, nameof(EntityRepository.ArchiveAsync)), Is.EqualTo(1));
-            var id = GetRecordedIds(EntityRepository, nameof(EntityRepository.ArchiveAsync)).Single();
+            Assert.That(CallsTo(EntityRepository, nameof(EntityRepository.RemoveAsync)), Is.EqualTo(1));
+            var id = GetRecordedIds(EntityRepository, nameof(EntityRepository.RemoveAsync)).Single();
             Assert.That(id, Is.EqualTo(bom.Id));
 
             var events = GetRecordedEvents<DomainEvent<BillOfMaterial>>();

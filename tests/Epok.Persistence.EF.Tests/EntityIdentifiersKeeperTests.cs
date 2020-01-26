@@ -73,11 +73,11 @@ namespace Epok.Persistence.EF.Tests
             var repo = new EntityRepository(_dbContext, _idsKeeper);
             var customers = await repo.GetAllAsync<Customer>();
 
-            var idToRemove = customers[0].Id;
+            var customer = customers[0];
             using (work.Transact())
-                await repo.ArchiveAsync<Customer>(idToRemove);
+                await repo.RemoveAsync(customer);
 
-            Assert.That(_idsKeeper.Get<Customer>().Contains(idToRemove), Is.False);
+            Assert.That(_idsKeeper.Get<Customer>().Contains(customer.Id), Is.False);
         }
 
         [Test]

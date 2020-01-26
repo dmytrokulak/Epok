@@ -49,14 +49,14 @@ namespace Epok.Persistence.EF.Repositories
         public async Task AddAsync(Shop entity)
             => await _entityRepo.AddAsync(entity);
 
-        public async Task AddRangeAsync(Shop entities)
-            => await _entityRepo.AddRangeAsync(entities);
+        public async Task AddSomeAsync(Shop entities)
+            => await _entityRepo.AddSomeAsync(entities);
 
-        public async Task ArchiveAsync(Guid id)
-            => await _entityRepo.ArchiveAsync<Shop>(id);
+        public async Task RemoveAsync(Shop entity)
+            => await _entityRepo.RemoveAsync(entity);
 
-        public async Task ArchiveRangeAsync(IEnumerable<Guid> ids)
-            => await _entityRepo.ArchiveRangeAsync<Shop>(ids);
+        public async Task RemoveSomeAsync(IEnumerable<Shop> entities)
+            => await _entityRepo.RemoveSomeAsync(entities);
 
         #endregion
     }

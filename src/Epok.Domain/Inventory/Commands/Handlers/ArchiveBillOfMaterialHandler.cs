@@ -38,7 +38,7 @@ namespace Epok.Domain.Inventory.Commands.Handlers
             if (bom.Primary)
                 bom.Article.BillsOfMaterial.First().Primary = true;
 
-            await _repository.ArchiveAsync<BillOfMaterial>(command.Id);
+            await _repository.RemoveAsync(bom);
             await _eventTransmitter.BroadcastAsync(new DomainEvent<BillOfMaterial>(bom, Trigger.Removed,
                 command.InitiatorId));
         }

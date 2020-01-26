@@ -73,8 +73,8 @@ namespace Epok.Domain.Tests.Setup
                 .ToList();
 
         protected List<Guid> GetRecordedIds(IRepository repo, string method)
-            => Fake.GetCalls(repo).Where(c => c.Method.Name == method).SelectMany(c => c.Arguments.OfType<Guid>())
-                .ToList();
+            => Fake.GetCalls(repo).Where(c => c.Method.Name == method).SelectMany(c => c.Arguments)
+                .Cast<IEntity>().Select(e => e.Id).ToList();
 
         protected decimal AmountInStock(Article article)
             => Shops.SelectMany(s => s.Inventory.Where(i => i.Article == article))

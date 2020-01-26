@@ -32,9 +32,9 @@ namespace Epok.Core.Persistence
 
         Task AddAsync(T entity);
 
-        Task AddRangeAsync(T entities);
+        Task AddSomeAsync(T entities);
 
-        Task ArchiveAsync(Guid id);
-        Task ArchiveRangeAsync(IEnumerable<Guid> ids);
+        Task RemoveAsync(T entity);
+        Task RemoveSomeAsync(IEnumerable<T> entities);
     }
 }

@@ -301,7 +301,7 @@ namespace Epok.Persistence.EF.Tests
             Assert.That(contact, Is.Not.Null);
 
             using (work.Transact())
-                await repo.ArchiveAsync<Customer>(customer.Id);
+                await repo.RemoveAsync(customer);
             var customerInDb = await repo.GetAsync<Customer>(customer.Id);
             Assert.That(customerInDb, Is.Null);
             address = await repo.GetAsync<Address>(customer.ShippingAddress.Id);

@@ -32,7 +32,7 @@ namespace Epok.Domain.Customers.Commands.Handlers
             var customer = await _repository.GetAsync<Customer>(command.Id);
             if (customer.Orders.Any(o => o.Status != Orders.OrderStatus.Shipped))
                 throw new DomainException(ArchivingCustomerWithActiveOrders(customer));
-            await _repository.ArchiveAsync<Customer>(customer.Id);
+            await _repository.RemoveAsync(customer);
 
             await _eventTransmitter.BroadcastAsync(new DomainEvent<Customer>(customer, Trigger.Removed,
                 command.InitiatorId));

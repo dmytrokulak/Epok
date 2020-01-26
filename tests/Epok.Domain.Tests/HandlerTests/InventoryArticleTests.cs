@@ -80,7 +80,7 @@ namespace Epok.Domain.Tests.HandlerTests
             await handler.HandleAsync(command);
 
             //assert
-            Assert.That(CallsTo(InventoryRepo, nameof(InventoryRepo.ArchiveAsync)), Is.EqualTo(1));
+            Assert.That(CallsTo(EntityRepository, nameof(EntityRepository.RemoveAsync)), Is.EqualTo(1));
             var events = GetRecordedEvents<DomainEvent<Article>>();
             Assert.That(events.Count, Is.EqualTo(1));
             Assert.That(events[0].Entity, Is.EqualTo(ArticleToArchive));

@@ -71,7 +71,7 @@ namespace Epok.Domain.Tests.HandlerTests
 
             await handler.HandleAsync(command);
 
-            Assert.That(CallsTo(EntityRepository, nameof(EntityRepository.ArchiveAsync)), Is.EqualTo(1));
+            Assert.That(CallsTo(EntityRepository, nameof(EntityRepository.RemoveAsync)), Is.EqualTo(1));
 
             var events = GetRecordedEvents<DomainEvent<Customer>>();
             Assert.That(events.Count, Is.EqualTo(1));

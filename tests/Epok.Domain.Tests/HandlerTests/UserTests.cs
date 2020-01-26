@@ -56,7 +56,7 @@ namespace Epok.Domain.Tests.HandlerTests
             await handler.HandleAsync(command);
 
             //assert
-            var ids = GetRecordedIds(EntityRepository, nameof(EntityRepository.ArchiveAsync));
+            var ids = GetRecordedIds(EntityRepository, nameof(EntityRepository.RemoveAsync));
             Assert.That(ids.Count, Is.EqualTo(1));
             Assert.That(ids[0], Is.EqualTo(command.Id));
 
