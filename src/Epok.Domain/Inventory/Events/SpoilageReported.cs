@@ -8,6 +8,7 @@ namespace Epok.Domain.Inventory.Events
     /// <summary>
     /// Event in response to spoilage reported.
     /// </summary>
+    [Serializable]
     public class SpoilageReported : DomainEvent<Shop>
     {
         public SpoilageReported(Shop shop, InventoryItem spoilage, Guid userId)

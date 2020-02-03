@@ -8,6 +8,7 @@ namespace Epok.Domain.Suppliers.Events
     /// Event raised in response of materials received
     /// under a material request.
     /// </summary>
+    [Serializable]
     public class MaterialsReceived : DomainEvent<MaterialRequest>
     {
         public MaterialsReceived(MaterialRequest entity, Guid userId)

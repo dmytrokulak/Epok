@@ -8,6 +8,7 @@ namespace Epok.Domain.Inventory.Events
     /// <summary>
     /// Event in response to an inventory item transferred.
     /// </summary>
+    [Serializable]
     public class InventoryTransferred : DomainEvent<InventoryItem>
     {
         public InventoryTransferred(Shop sourceShop, Shop targetShop,

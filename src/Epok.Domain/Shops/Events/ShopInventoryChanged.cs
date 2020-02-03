@@ -10,6 +10,7 @@ namespace Epok.Domain.Shops.Events
     /// Event raised in response to a shop inventory
     /// increase or decrease.
     /// </summary>
+    [Serializable]
     public class ShopInventoryChanged : DomainEvent<Shop>
     {
         public ShopInventoryChanged(Shop shop, IEnumerable<InventoryItem> newInventory, Guid userId)

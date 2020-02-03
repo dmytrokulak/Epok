@@ -9,6 +9,7 @@ namespace Epok.Domain.Inventory.Events
     /// <summary>
     /// Event in response to an inventory item produced.
     /// </summary>
+    [Serializable]
     public class InventoryItemProduced : DomainEvent<Shop>
     {
         public InventoryItem Produced { get; }

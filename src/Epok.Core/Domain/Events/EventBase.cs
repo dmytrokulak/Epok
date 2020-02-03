@@ -6,6 +6,7 @@ namespace Epok.Core.Domain.Events
     /// <summary>
     /// Base to implement audit properties.
     /// </summary>
+    [Serializable]
     public abstract class EventBase : IEvent
     {
         private Guid _raisedBy;

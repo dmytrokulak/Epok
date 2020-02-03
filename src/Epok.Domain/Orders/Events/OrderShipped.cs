@@ -4,6 +4,7 @@ using System;
 
 namespace Epok.Domain.Orders.Events
 {
+    [Serializable]
     public class OrderShipped : DomainEvent<Order>
     {
         public OrderShipped(Order order, Guid userId)

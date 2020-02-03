@@ -13,9 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Persistence.EF", "Epok
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Persistence.EF.Tests", "..\tests\Epok.Persistence.EF.Tests\Epok.Persistence.EF.Tests.csproj", "{81AB61BB-033E-4DE0-8407-5356BDA5D08B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epok.Core.Tests", "..\tests\Epok.Core.Tests\Epok.Core.Tests.csproj", "{E9064CC7-2D58-4695-BDA3-CA58F75B6104}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Core.Tests", "..\tests\Epok.Core.Tests\Epok.Core.Tests.csproj", "{E9064CC7-2D58-4695-BDA3-CA58F75B6104}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{47A07822-D011-4019-9235-5F66D5430173}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Messaging.RMQ", "Epok.Messaging.RMQ\Epok.Messaging.RMQ.csproj", "{942FCDEC-569E-4209-B6E5-DB2A4904A13F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epok.Messaging.RMQ.Tests", "..\tests\Epok.Messaging.RMQ.Tests\Epok.Messaging.RMQ.Tests.csproj", "{645EB12C-078A-4B72-B951-134BAD6DF359}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,14 @@ Global
 		{E9064CC7-2D58-4695-BDA3-CA58F75B6104}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9064CC7-2D58-4695-BDA3-CA58F75B6104}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9064CC7-2D58-4695-BDA3-CA58F75B6104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{942FCDEC-569E-4209-B6E5-DB2A4904A13F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{942FCDEC-569E-4209-B6E5-DB2A4904A13F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{942FCDEC-569E-4209-B6E5-DB2A4904A13F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{942FCDEC-569E-4209-B6E5-DB2A4904A13F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{645EB12C-078A-4B72-B951-134BAD6DF359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{645EB12C-078A-4B72-B951-134BAD6DF359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{645EB12C-078A-4B72-B951-134BAD6DF359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{645EB12C-078A-4B72-B951-134BAD6DF359}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +67,7 @@ Global
 		{9B801227-9FE4-4014-85E3-7F7ED6688080} = {47A07822-D011-4019-9235-5F66D5430173}
 		{81AB61BB-033E-4DE0-8407-5356BDA5D08B} = {47A07822-D011-4019-9235-5F66D5430173}
 		{E9064CC7-2D58-4695-BDA3-CA58F75B6104} = {47A07822-D011-4019-9235-5F66D5430173}
+		{645EB12C-078A-4B72-B951-134BAD6DF359} = {47A07822-D011-4019-9235-5F66D5430173}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F70D1DEC-D52F-46A7-A6C7-0F8A15D53937}
