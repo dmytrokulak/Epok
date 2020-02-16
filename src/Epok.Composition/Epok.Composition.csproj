@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SimpleInjector" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Epok.Core\Epok.Core.csproj" />
+    <ProjectReference Include="..\Epok.Messaging.RMQ\Epok.Messaging.RMQ.csproj" />
+    <ProjectReference Include="..\Epok.Persistence.EF\Epok.Persistence.EF.csproj" />
+  </ItemGroup>
+
+</Project>
