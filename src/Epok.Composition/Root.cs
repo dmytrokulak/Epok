@@ -40,9 +40,6 @@ namespace Epok.Composition
             foreach (var type in domain.GetInterfacesImplementing(typeof(IRepository)))
                 Container.Register(type, persistence.GetTypes().Single(t => type.IsAssignableFrom(t) && !t.IsInterface));
 
-            Container.RegisterSingleton<MessagingFactory>();//ToDo:4 review MessagingFactory registration:
-                                                            //is it something that should be abstracted to
-                                                            //an interface? or should not be here at all?
             Container.RegisterSingleton<IEventTransmitter, EventTransmitter>();
 
             Container.Register(typeof(ICommandHandler<>), domain);

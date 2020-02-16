@@ -13,6 +13,10 @@ namespace Epok.Core.Domain.Events
         /// </summary>
         Task BroadcastAsync<T>(T @event) where T : IEvent;
 
+        /// <summary>
+        /// Throws an exception if connection to message bus fails.
+        /// </summary>
+        void VerifyConnection();
         //ToDo:4 add HomeEnqueue to communicate messages between subdomains ? 
     }
 }

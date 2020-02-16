@@ -14,14 +14,16 @@ namespace Epok.Messaging.RMQ.Tests
     [Timeout(1 * 60 * 1000)]
     public class MessagingTests
     {
-        private MessagingFactory _rmq; 
+        private EventTransmitter _emitter;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
+            _emitter = new EventTransmitter();
+
             try
             {
-                _rmq = new MessagingFactory();
+                _emitter.VerifyConnection();
             }
             catch (Exception ex)
             {
@@ -34,14 +36,13 @@ namespace Epok.Messaging.RMQ.Tests
         {
             var formatter = new BinaryFormatter();
 
-            var emitter = new EventTransmitter(_rmq);
             var domainEvent = new DomainEvent<DummyEntity>(new DummyEntity {Id = Guid.NewGuid()},
                 Trigger.Added, Guid.NewGuid());
-            await emitter.BroadcastAsync(domainEvent);
+            await _emitter.BroadcastAsync(domainEvent);
 
             var awaiting = true;
             DomainEvent<DummyEntity> consumedEvent = null;
-            var consumer = new EventingBasicConsumer(_rmq.WithQueue("DomainEvents"));
+            var consumer = new EventingBasicConsumer(_emitter.WithQueue("DomainEvents"));
             consumer.Received += (model, ea) =>
             {
                 using var stream = new MemoryStream(ea.Body);
@@ -49,7 +50,7 @@ namespace Epok.Messaging.RMQ.Tests
                 awaiting = false;
             };
 
-            _rmq.WithQueue("DomainEvents").BasicConsume("DomainEvents", true, consumer);
+            _emitter.WithQueue("DomainEvents").BasicConsume("DomainEvents", true, consumer);
             while (awaiting)
             {
             }
