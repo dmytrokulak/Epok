@@ -6,7 +6,7 @@ using Epok.Domain.Customers.Entities;
 using System;
 using System.Collections.Generic;
 
-namespace Epok.Persistence.EF.Tests
+namespace Epok.Bogus
 {
     /// <summary>
     /// Generates entities using Bogus library.
@@ -14,9 +14,9 @@ namespace Epok.Persistence.EF.Tests
     /// <remarks>
     /// https://github.com/bchavez/Bogus
     /// </remarks>
-    public class BogusDataGenerator
+    public class Customers
     {
-        public static IList<Customer> GetCustomers(int amount)
+        public static IList<Customer> Generate(int amount)
         {
             var addressFaker = new Faker<Address>()
                 .RuleFor(a => a.Id, f => Guid.NewGuid())

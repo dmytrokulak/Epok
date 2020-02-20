@@ -25,7 +25,7 @@ namespace Epok.Persistence.EF.Tests
             InitDbContext();
             _dbContext.Database.EnsureCreated();
 
-            var seedData = BogusDataGenerator.GetCustomers(10);
+            var seedData = Bogus.Customers.Generate(10);
             _dbContext.Customers.AddRange(seedData);
             _dbContext.SaveChanges();
             _dbContext.Dispose();
@@ -86,7 +86,7 @@ namespace Epok.Persistence.EF.Tests
             var work = new UnitOfWorkFactory<UnitOfWork>(_dbContext, _idsKeeper);
             var repo = new EntityRepository(_dbContext, _idsKeeper);
 
-            var newCustomer = BogusDataGenerator.GetCustomers(1).Single();
+            var newCustomer = Bogus.Customers.Generate(1).Single();
             using (work.Transact())
                 await repo.AddAsync(newCustomer);
 
