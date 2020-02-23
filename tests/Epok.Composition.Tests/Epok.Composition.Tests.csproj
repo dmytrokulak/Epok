@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Epok.Core\Epok.Core.csproj" />
     <ProjectReference Include="..\..\src\Epok.Composition\Epok.Composition.csproj" />
+    <ProjectReference Include="..\Epok.Bogus\Epok.Bogus.csproj" />
   </ItemGroup>
 
 </Project>

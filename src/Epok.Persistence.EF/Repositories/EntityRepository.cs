@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -41,14 +42,26 @@ namespace Epok.Persistence.EF.Repositories
         public async Task<T> LoadAsync<T>(Guid id) where T : EntityBase
             => await _dbContext.Set<T>().FindAsync(id);
 
-        public async Task<IList<T>> LoadSomeAsync<T>(IEnumerable<Guid> ids) where T : EntityBase
+        public async Task<IList<T>> LoadSomeAsync<T>(IEnumerable<Guid> ids = null, 
+            Expression<Func<T, bool>> predicate = null) where T : EntityBase
         {
             var tracked = _dbContext.ChangeTracker.Entries<T>()
-                .Where(e => ids.Contains(e.Entity.Id)).Select(e => e.Entity).ToList();
-            var idsToTrack = ids.Except(tracked.Select(e => e.Id)).ToList();
+                .Where(e => ids == null || ids.Contains(e.Entity.Id))
+                .Where(e => predicate == null || predicate.Compile()(e.Entity))
+                .Select(e => e.Entity)
+                .ToList();
+
+            var idsToTrack = ids?.Except(tracked.Select(e => e.Id)).ToList();
             var toTrack = new List<T>();
-            if (idsToTrack.Count != 0)
-                toTrack = await _dbContext.Set<T>().Where(c => idsToTrack.Contains(c.Id)).ToListAsync();
+            if (idsToTrack?.Count != 0)
+            {
+                var set = _dbContext.Set<T>().AsQueryable()
+                    .Where(e => idsToTrack.Contains(e.Id));
+                if (predicate != null)
+                    set = set.Where(predicate);
+                toTrack = await set.ToListAsync();
+            }
+
             tracked.AddRange(toTrack);
             return tracked;
         }
@@ -86,14 +99,20 @@ namespace Epok.Persistence.EF.Repositories
             return await set.SingleOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<IList<T>> GetSomeAsync<T>(IEnumerable<Guid> ids) where T : EntityBase
+        public async Task<IList<T>> GetSomeAsync<T>(IEnumerable<Guid> ids = null, 
+            Expression<Func<T, bool>> predicate = null) where T : EntityBase
         {
             var set = _dbContext.Set<T>().AsQueryable();
 
             foreach (var propName in _includes[typeof(T)])
                 set = set.Include(propName);
 
-            return await set.Where(e => ids.Contains(e.Id)).ToListAsync();
+            if (ids != null)
+                set = set.Where(e => ids.Contains(e.Id));
+            if(predicate != null)
+                set = set.Where(predicate);
+
+            return await set.ToListAsync();
         }
 
         public async Task<IList<T>> GetAllAsync<T>() where T : EntityBase

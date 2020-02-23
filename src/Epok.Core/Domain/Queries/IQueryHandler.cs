@@ -1,5 +1,6 @@
-﻿
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Epok.Core.Domain.Entities;
 
 namespace Epok.Core.Domain.Queries
 {
@@ -11,8 +12,8 @@ namespace Epok.Core.Domain.Queries
 
     }
 
-    public interface IQueryHandler<T> : IQueryHandler where T : IQuery
+    public interface IQueryHandler<TQuery, TEntity> : IQueryHandler where TQuery : IQuery where TEntity : IEntity
     {
-        Task HandleAsync(T query);
+        Task<IList<TEntity>> HandleAsync(TQuery query);
     }
 }

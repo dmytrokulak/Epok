@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Epok.Core.Domain.Entities;
 
 namespace Epok.Core.Domain.Queries
 {
@@ -9,6 +11,6 @@ namespace Epok.Core.Domain.Queries
     /// </summary>
     public interface IQueryInvoker
     {
-        Task Execute<T>(T query) where T : IQuery;
+        Task<IList<TEntity>> Execute<TQuery, TEntity>(TQuery query) where TQuery : IQuery where TEntity : IEntity;
     }
 }

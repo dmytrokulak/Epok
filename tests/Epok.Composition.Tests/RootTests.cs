@@ -39,7 +39,7 @@ namespace Epok.Composition.Tests
             var queryHandlers = registrations
                 .Where(r => typeof(IQueryHandler).IsAssignableFrom(r.ServiceType))
                 .ToList();
-            Assert.That(queryHandlers.Count, Is.EqualTo(0));
+            Assert.That(queryHandlers.Count, Is.EqualTo(1));
         }
     }
 }

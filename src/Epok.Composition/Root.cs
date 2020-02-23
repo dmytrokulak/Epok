@@ -43,7 +43,7 @@ namespace Epok.Composition
             Container.RegisterSingleton<IEventTransmitter, EventTransmitter>();
 
             Container.Register(typeof(ICommandHandler<>), domain);
-            Container.Register(typeof(IQueryHandler<>), domain);
+            Container.Register(typeof(IQueryHandler<,>), domain);
             Container.Register(typeof(IEventHandler<>), domain);
             Container.Register<ICommandInvoker, CommandInvoker>();
             Container.Register<IQueryInvoker, QueryInvoker>();

@@ -6,6 +6,7 @@ using FakeItEasy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Epok.Domain.Tests.Setup
 {
@@ -67,7 +68,7 @@ namespace Epok.Domain.Tests.Setup
             A.CallTo(() => EntityRepository.LoadAsync<Order>(OrderReadyForShipment.Id)).Returns(OrderReadyForShipment);
             A.CallTo(() => EntityRepository.GetAsync<Order>(OrderReadyForShipment.Id)).Returns(OrderReadyForShipment);
 
-            A.CallTo(() => EntityRepository.GetSomeAsync<Order>(A<IEnumerable<Guid>>.That.Matches(x => x.Single() == Product1Order.Id)))
+            A.CallTo(() => EntityRepository.GetSomeAsync(A<IEnumerable<Guid>>.That.Matches(x => x.Single() == Product1Order.Id), A<Expression<Func<Order, bool>>>.Ignored))
                 .Returns(Product1Order.Collect().ToList());
         }
     }
