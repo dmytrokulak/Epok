@@ -20,7 +20,11 @@ namespace Epok.Domain.Customers.Queries.Handlers
         public async Task<IList<Customer>> HandleAsync(CustomersQuery query)
         {
             Expression<Func<Customer, bool>> predicate = customer =>
-                query.FilterName == null || customer.Name.Contains(query.FilterName);
+                (query.FilterNameLike == null || customer.Name.Contains(query.FilterNameLike)) &&
+                (query.FilterCustomerTypeExact == null || customer.CustomerType == query.FilterCustomerTypeExact) &&
+                (query.FilterCountryExact == null || customer.ShippingAddress.Country == query.FilterCountryExact) &&
+                (query.FilterProvinceExact == null || customer.ShippingAddress.Province == query.FilterProvinceExact) &&
+                (query.FilterCityExact == null || customer.ShippingAddress.City == query.FilterCityExact);
 
             if(query.Lazy)
                 return await _repository.LoadSomeAsync(query.FilterIds, predicate);

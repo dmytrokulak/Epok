@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Reflection;
 using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Queries;
 using Epok.Core.Domain.Services;
@@ -6,12 +7,20 @@ using Epok.Core.Persistence;
 using Epok.Persistence.EF;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
+using SimpleInjector;
 
 namespace Epok.Composition.Tests
 {
     [TestFixture]
     public class RootTests
     {
+        [SetUp]
+        public void Setup()
+        {
+            typeof(Root).GetFields(BindingFlags.Static | BindingFlags.NonPublic)
+                .Single(f => f.FieldType == typeof(Container))
+                .SetValue(null, new Container());
+        }
 
         [Test]
         [Description("Verified internally by Container.Verify().")]
@@ -34,7 +43,7 @@ namespace Epok.Composition.Tests
             var commandHandlers = registrations
                 .Where(r => typeof(ICommandHandler).IsAssignableFrom(r.ServiceType))
                 .ToList();
-            Assert.That(commandHandlers.Count, Is.EqualTo(30));
+            Assert.That(commandHandlers.Count, Is.EqualTo(36));
 
             var queryHandlers = registrations
                 .Where(r => typeof(IQueryHandler).IsAssignableFrom(r.ServiceType))

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Epok.Core.Domain.Commands;
 using Epok.Core.Domain.Queries;
@@ -11,6 +13,7 @@ using Epok.Persistence.EF;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
+using SimpleInjector;
 
 namespace Epok.Composition.Tests
 {
@@ -30,7 +33,11 @@ namespace Epok.Composition.Tests
                 .UseSqlite(_connection)
                 .Options;
 
+            typeof(Root).GetFields(BindingFlags.Static | BindingFlags.NonPublic)
+                .Single(f => f.FieldType == typeof(Container))
+                .SetValue(null, new Container());
             Root.InitializeContainer(options);
+            
             _dbContext = Root.Container.GetInstance<DomainContext>();
             _dbContext.Database.EnsureCreated();
         }
@@ -79,7 +86,7 @@ namespace Epok.Composition.Tests
 
             query = new CustomersQuery
             {
-                FilterName = customers[0].Name
+                FilterNameLike = customers[0].Name
             };
             response = await queryInvoker.Execute<CustomersQuery, Customer>(query);
             Assert.That(response.Count, Is.EqualTo(1));

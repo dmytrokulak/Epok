@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /src/Epok.Persistence.EF/appsettings.json
+/src/Epok.Presentation.WebApi/Epok.Presentation.WebApi.xml

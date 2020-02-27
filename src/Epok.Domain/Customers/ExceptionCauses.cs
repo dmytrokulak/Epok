@@ -9,5 +9,8 @@ namespace Epok.Domain.Customers
         public static string ArchivingCustomerWithActiveOrders(Customer customer)
             => $"Cannot archive {customer} with active orders: " +
                $"{customer.Orders.Where(o => o.Status != Orders.OrderStatus.Shipped).ToText()}.";
+
+        public static string SettingCustomerTypeToUndefined(Customer customer)
+            => $"Cannot set type to undefined for {customer}.";
     }
 }

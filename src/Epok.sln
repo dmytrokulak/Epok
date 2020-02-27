@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Composition.Tests", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epok.Bogus", "..\tests\Epok.Bogus\Epok.Bogus.csproj", "{A33F5A61-15E7-4BD6-A765-D378CF96C33A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epok.Presentation.WebApi", "Epok.Presentation.WebApi\Epok.Presentation.WebApi.csproj", "{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{DDA2C9C5-F10B-4AF4-8450-A3668E6F5C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDA2C9C5-F10B-4AF4-8450-A3668E6F5C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDA2C9C5-F10B-4AF4-8450-A3668E6F5C12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A33F5A61-15E7-4BD6-A765-D378CF96C33A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A33F5A61-15E7-4BD6-A765-D378CF96C33A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A33F5A61-15E7-4BD6-A765-D378CF96C33A}.Release|Any CPU.ActiveCfg = Release|Any CPU

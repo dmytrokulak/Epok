@@ -27,7 +27,8 @@ namespace Epok.Domain.Customers.Commands.Handlers
 
         public async Task HandleAsync(RegisterCustomer command)
         {
-            var contact = new Contact(Guid.NewGuid(), $"{command.Name} Primary contact")
+            var contact = new Contact(Guid.NewGuid(), 
+                $"{command.PrimaryContactFirstName} {command.PrimaryContactLastName} of {command.Name}")
             {
                 FirstName = command.PrimaryContactFirstName,
                 LastName = command.PrimaryContactLastName,
@@ -36,7 +37,7 @@ namespace Epok.Domain.Customers.Commands.Handlers
                 Primary = true
             };
 
-            var address = new Address(command.Id, $"{command.Name} shipping address.")
+            var address = new Address(Guid.NewGuid(), $"{command.Name} shipping address.")
             {
                 AddressLine1 = command.ShippingAddressLine1,
                 AddressLine2 = command.ShippingAddressLine2,

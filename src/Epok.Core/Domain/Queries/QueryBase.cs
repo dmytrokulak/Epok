@@ -6,13 +6,9 @@ namespace Epok.Core.Domain.Queries
     public class QueryBase : IQuery
     {
         public ICollection<Guid> FilterIds { get; set; }
-        public string FilterName { get; set; }
-        public bool Lazy { get; private set; }
+        public string FilterNameLike { get; set; }
+        public bool Lazy { get; set; }
 
-        public QueryBase AsLazy() 
-        {
-            Lazy = true;
-            return this;
-        }
+        public void AsLazy() => Lazy = true;
     }
 }
