@@ -27,9 +27,13 @@ namespace Epok.Domain.Shops.Commands.Handlers
             {
                 ShopType = command.ShopType
             };
-            var articles = await _repository.GetSomeAsync<Article>(command.Articles);
-            foreach (var article in articles)
-                shopCategory.Articles.Add(article);
+
+            if (command.Articles != null)
+            {
+                var articles = await _repository.GetSomeAsync<Article>(command.Articles);
+                foreach (var article in articles)
+                    shopCategory.Articles.Add(article);
+            }
 
             await _repository.AddAsync(shopCategory);
             await _eventTransmitter.BroadcastAsync(new DomainEvent<ShopCategory>(shopCategory, Trigger.Added,

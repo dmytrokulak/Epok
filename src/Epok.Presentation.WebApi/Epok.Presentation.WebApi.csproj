@@ -25,7 +25,6 @@
   <ItemGroup>
     <Folder Include="Models\Inventory\" />
     <Folder Include="Models\Suppliers\" />
-    <Folder Include="Models\Shops\" />
     <Folder Include="Models\Orders\" />
   </ItemGroup>
 

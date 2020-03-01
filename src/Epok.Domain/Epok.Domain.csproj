@@ -9,8 +9,4 @@
     <ProjectReference Include="..\Epok.Core\Epok.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Shops\Queries\" />
-  </ItemGroup>
-
 </Project>

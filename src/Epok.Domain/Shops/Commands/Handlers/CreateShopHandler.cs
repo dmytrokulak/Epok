@@ -30,6 +30,7 @@ namespace Epok.Domain.Shops.Commands.Handlers
             var manager = await _repository.LoadAsync<User>(command.ManagerId);
             if (manager.Shop != null)
                 throw new DomainException(UserIsAlreadyManager(manager));
+            manager.IsShopManager = true;
 
             var shop = new Shop(command.Id, command.Name)
             {
@@ -38,6 +39,9 @@ namespace Epok.Domain.Shops.Commands.Handlers
                 IsEntryPoint = command.IsEntryPoint,
                 IsExitPoint = command.IsExitPoint
             };
+
+            if (shopCategory.Shops.Count == 0)
+                shop.IsDefaultForCategory = true;
 
             shopCategory.Shops.Add(shop);
             await _repository.AddAsync(shop);

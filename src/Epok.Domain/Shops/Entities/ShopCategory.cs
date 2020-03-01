@@ -28,7 +28,8 @@ namespace Epok.Domain.Shops.Entities
         public virtual ShopType ShopType { get; set; }
 
         public virtual HashSet<Shop> Shops { get; set; }
-        public virtual Shop DefaultShop => Shops.Single(s => s.IsDefaultForCategory);
+        //ToDO:2 save default (primary) props in db, not query
+        public virtual Shop DefaultShop => Shops.SingleOrDefault(s => s.IsDefaultForCategory);
 
         /// <summary>
         /// Articles allowed in the shops.
