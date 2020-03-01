@@ -1,13 +1,15 @@
-﻿using Epok.Core.Domain.Commands;
+﻿using System;
+using Epok.Core.Domain.Commands;
 
 namespace Epok.Domain.Users.Commands
 {
     /// <summary>
-    /// Creates a user of the system.
+    /// Modifies a given user.
     /// </summary>
-    public class CreateUser : CreateEntityCommand
+    public class ChangeUserData : CommandBase
     {
-        public new string Name => $"{FirstName} {LastName}";
+        public Guid Id { get; set; }
+        public string Name => $"{FirstName} {LastName}";
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

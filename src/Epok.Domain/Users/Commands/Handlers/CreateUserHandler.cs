@@ -23,7 +23,13 @@ namespace Epok.Domain.Users.Commands.Handlers
 
         public async Task HandleAsync(CreateUser command)
         {
-            var user = new User(command.Id, command.Name);
+            var user = new User(command.Id, command.Name)
+            {
+                FirstName = command.FirstName,
+                LastName = command.LastName,
+                //UserType = command.UserType,
+                Email = command.Email
+            };
 
             await _repository.AddAsync(user);
             await _eventTransmitter.BroadcastAsync(new DomainEvent<User>(user, Trigger.Added, command.InitiatorId));

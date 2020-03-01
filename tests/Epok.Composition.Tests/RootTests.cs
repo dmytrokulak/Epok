@@ -43,12 +43,12 @@ namespace Epok.Composition.Tests
             var commandHandlers = registrations
                 .Where(r => typeof(ICommandHandler).IsAssignableFrom(r.ServiceType))
                 .ToList();
-            Assert.That(commandHandlers.Count, Is.EqualTo(36));
+            Assert.That(commandHandlers.Count, Is.EqualTo(37));
 
             var queryHandlers = registrations
                 .Where(r => typeof(IQueryHandler).IsAssignableFrom(r.ServiceType))
                 .ToList();
-            Assert.That(queryHandlers.Count, Is.EqualTo(1));
+            Assert.That(queryHandlers.Count, Is.EqualTo(2));
         }
     }
 }

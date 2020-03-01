@@ -19,7 +19,8 @@ namespace Epok.Domain.Tests.HandlerTests
             //arrange
             var command = new CreateUser
             {
-                Name = "User FirstName LastName",
+                FirstName = "FirstName",
+                LastName = "LastName",
                 InitiatorId = GlobalAdmin.Id
             };
             var handler = new CreateUserHandler(EntityRepository, EventTransmitter);

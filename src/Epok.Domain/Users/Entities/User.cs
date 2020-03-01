@@ -28,5 +28,7 @@ namespace Epok.Domain.Users.Entities
         public virtual Shop Shop { get; set; }
         public virtual UserType UserType { get; set; }
         public virtual string Email { get; set; }
+        public virtual string FirstName { get; set; }
+        public virtual string LastName { get; set; }
     }
 }
