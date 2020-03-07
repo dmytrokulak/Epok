@@ -42,7 +42,8 @@ namespace Epok.Domain.Suppliers.Commands.Handlers
                 requestedItems.Add(new InventoryItem(article, amount));
             }
 
-            var request = new MaterialRequest(command.Id, command.Name)
+            var name = $"To {supplier.Name} from {DateTimeOffset.Now}";
+            var request = new MaterialRequest(command.Id, name)
             {
                 Supplier = supplier,
                 Status = MaterialRequestStatus.Submitted,

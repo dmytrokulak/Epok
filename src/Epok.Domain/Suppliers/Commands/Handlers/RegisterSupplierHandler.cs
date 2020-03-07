@@ -36,14 +36,15 @@ namespace Epok.Domain.Suppliers.Commands.Handlers
                 Primary = true
             };
 
-            var address = new Address(command.Id, $"{command.Name} shipping address.")
+            var address = new Address(Guid.NewGuid(), $"{command.Name} shipping address.")
             {
                 AddressLine1 = command.ShippingAddressLine1,
                 AddressLine2 = command.ShippingAddressLine2,
                 City = command.ShippingAddressCity,
                 Province = command.ShippingAddressProvince,
                 Country = command.ShippingAddressCountry,
-                PostalCode = command.ShippingAddressPostalCode
+                PostalCode = command.ShippingAddressPostalCode,
+                CompanyId = command.Id
             };
 
             var articles = await _repository.GetSomeAsync<Article>(command.SuppliableArticleIds);
