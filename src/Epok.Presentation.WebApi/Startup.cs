@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SimpleInjector;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Epok.Presentation.WebApi
 {
@@ -54,6 +55,7 @@ namespace Epok.Presentation.WebApi
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Epok API V1");
                 c.RoutePrefix = string.Empty;
+                c.DocExpansion(DocExpansion.None);
             });
 
             app.UseSimpleInjector(Composition.Root.Container);

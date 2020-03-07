@@ -37,7 +37,7 @@ namespace Epok.Domain.Inventory.Entities
         /// <summary>
         /// Units of measurement.
         /// </summary>
-        public virtual Uom UoM { get; set; }
+        public virtual Uom UoM { get; set; } //ToDo:5 rename to 'Uom'
 
         /// <summary>
         /// Calculation of input of other articles 
