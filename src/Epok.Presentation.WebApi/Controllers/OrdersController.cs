@@ -2,45 +2,139 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using AutoMapper;
+using Epok.Core.Domain.Commands;
+using Epok.Core.Domain.Queries;
+using Epok.Core.Utilities;
+using Epok.Domain.Orders;
+using Epok.Domain.Orders.Commands;
+using Epok.Domain.Orders.Entities;
+using Epok.Domain.Orders.Queries;
+using Epok.Presentation.WebApi.Models.Orders;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Epok.Presentation.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    /// <summary>
+    /// Controller to manage order entities.
+    /// </summary>
+    [Route("api/orders")]
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        // GET: api/Orders
+        private readonly ICommandInvoker _commandInvoker;
+        private readonly IQueryInvoker _queryInvoker;
+        private readonly IMapper _mapper;
+
+        /// <summary>
+        /// Controller to manage order entities.
+        /// </summary>
+
+        public OrdersController(ICommandInvoker commandInvoker, IQueryInvoker queryInvoker, IMapper mapper)
+        {
+            _commandInvoker = commandInvoker;
+            _queryInvoker = queryInvoker;
+            _mapper = mapper;
+        }
+
+
+        /// <summary>
+        /// Returns a collection of Orders: all or filtered with the parameters in query string. 
+        /// </summary>
+        /// <param name="nameLike">Filter by partial equality.</param>
+        /// <param name="statusExact">Filter by exact equality.</param>
+        /// <param name="typeExact">Filter by exact equality.</param>
+        /// <param name="customer">Filter by exact equality.</param>
+        /// <returns></returns>
         [HttpGet]
-        public IEnumerable<string> GetAsync()
+        public async Task<IEnumerable<Order>> GetAsync([FromQuery] string nameLike,
+                [FromQuery] OrderType? typeExact, [FromQuery] OrderStatus? statusExact, [FromQuery] Guid? customer)
+            //ToDo:4 optionally include archived?
         {
-            return new string[] { "value1", "value2" };
+            var query = new OrdersQuery
+            {
+                FilterNameLike = nameLike,
+                FilterTypeExact = typeExact,
+                FilterStatusExact = statusExact,
+                FilterCustomerExact = customer
+            };
+            //ToDo:2 query.AsLazy(); ??
+            return await _queryInvoker.Execute<OrdersQuery, Order>(query);
         }
 
-        // GET: api/Orders/5
+
+        /// <summary>
+        /// Returns a single order by id.
+        /// </summary>
+        /// <param name="id">Order id.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public string GetAsync(Guid id)
+        public async Task<Order> GetAsync(Guid id)
         {
-            return "value";
+            var query = new OrdersQuery {FilterIds = id.Collect()};
+            return (await _queryInvoker.Execute<OrdersQuery, Order>(query)).SingleOrDefault();
         }
 
-        // POST: api/Orders
+        /// <summary>
+        /// Creates a new order
+        /// </summary>
+        /// <param name="model"></param>
         [HttpPost]
-        public void PostAsync([FromBody] string value)
+        public async Task PostAsync([FromBody] CreateOrderModel model)
         {
+            var command = _mapper.Map<CreateOrder>(model);
+            command.InitiatorId = Guid.NewGuid();
+            await _commandInvoker.Execute(command);
         }
 
-        // PUT: api/Orders/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        /// <summary>
+        /// Creates manufacturing (internal) suborders for
+        /// this customer (external) order.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost("{id}/suborders")]
+        public async Task PostCreateSubOrdersAsync(Guid id)
         {
+            var command = new CreateSubOrders()
+            {
+                OrderId = id,
+                InitiatorId = Guid.NewGuid()
+            };
+            await _commandInvoker.Execute(command);
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void DeleteAsync(Guid id)
+        /// <summary>
+        /// Signals that production process should start
+        /// for this order and its suborders.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPut("{id}/enact")]
+        public async Task PutOrderEnactAsync(Guid id)
         {
+            var command = new EnactOrder
+            {
+                OrderId = id,
+                InitiatorId = Guid.NewGuid()
+            };
+            await _commandInvoker.Execute(command);
+        }
+
+        /// <summary>
+        /// Ships orders.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}/ship")]
+        public async Task PutOrderShippedAsync(Guid id)
+        {
+            var command = new ShipOrder
+            {
+                Id = id,
+                InitiatorId = Guid.NewGuid()
+            };
+            await _commandInvoker.Execute(command);
         }
     }
 }
