@@ -10,6 +10,7 @@ using Epok.Domain.Users;
 using Epok.Domain.Users.Commands;
 using Epok.Domain.Users.Entities;
 using Epok.Domain.Users.Queries;
+using Epok.Presentation.WebApi.Models;
 using Epok.Presentation.WebApi.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 
@@ -113,6 +114,18 @@ namespace Epok.Presentation.WebApi.Controllers
         public async Task DeleteAsync(Guid id)
         {
             await _commandInvoker.Execute(new ArchiveUser {Id = id, InitiatorId = Guid.NewGuid()});
+        }
+
+
+        /// <summary>
+        /// Returns dictionary of user types.
+        /// </summary>
+        [HttpGet("types")]
+        public IEnumerable<EnumModel> GetUserTypes()
+        {
+            return Enum.GetValues(typeof(UserType))
+                .Cast<UserType>()
+                .Select(t => EnumModel.New((int)t, t.ToString()));
         }
     }
 }

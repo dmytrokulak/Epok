@@ -10,6 +10,7 @@ using Epok.Domain.Shops;
 using Epok.Domain.Shops.Commands;
 using Epok.Domain.Shops.Entities;
 using Epok.Domain.Shops.Queries;
+using Epok.Presentation.WebApi.Models;
 using Epok.Presentation.WebApi.Models.Shops;
 using Microsoft.AspNetCore.Mvc;
 
@@ -133,6 +134,17 @@ namespace Epok.Presentation.WebApi.Controllers
         public async Task DeleteAsync(Guid id)
         {
             await _commandInvoker.Execute(new ArchiveShopCategory {Id = id, InitiatorId = Guid.NewGuid()});
+        }
+
+        /// <summary>
+        /// Returns dictionary of shop types.
+        /// </summary>
+        [HttpGet("types")]
+        public IEnumerable<EnumModel> GetOrderTypes()
+        {
+            return Enum.GetValues(typeof(ShopType))
+                .Cast<ShopType>()
+                .Select(t => EnumModel.New((int)t, t.ToString()));
         }
     }
 }

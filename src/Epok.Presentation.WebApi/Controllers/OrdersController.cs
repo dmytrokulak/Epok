@@ -10,6 +10,7 @@ using Epok.Domain.Orders;
 using Epok.Domain.Orders.Commands;
 using Epok.Domain.Orders.Entities;
 using Epok.Domain.Orders.Queries;
+using Epok.Presentation.WebApi.Models;
 using Epok.Presentation.WebApi.Models.Orders;
 using Microsoft.AspNetCore.Mvc;
 
@@ -135,6 +136,28 @@ namespace Epok.Presentation.WebApi.Controllers
                 InitiatorId = Guid.NewGuid()
             };
             await _commandInvoker.Execute(command);
+        }
+
+        /// <summary>
+        /// Returns dictionary of order types.
+        /// </summary>
+        [HttpGet("types")]
+        public IEnumerable<EnumModel> GetOrderTypes()
+        {
+            return Enum.GetValues(typeof(OrderType))
+                .Cast<OrderType>()
+                .Select(t => EnumModel.New((int)t, t.ToString()));
+        }
+
+        /// <summary>
+        /// Returns dictionary of order statuses.
+        /// </summary>
+        [HttpGet("statuses")]
+        public IEnumerable<EnumModel> GetOrderStatuses()
+        {
+            return Enum.GetValues(typeof(OrderStatus))
+                .Cast<OrderStatus>()
+                .Select(t => EnumModel.New((int)t, t.ToString()));
         }
     }
 }

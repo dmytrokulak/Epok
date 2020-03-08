@@ -8,9 +8,11 @@ using Epok.Core.Domain.Queries;
 using Epok.Core.Utilities;
 using Epok.Domain.Contacts.Commands;
 using Epok.Domain.Contacts.Entities;
+using Epok.Domain.Suppliers;
 using Epok.Domain.Suppliers.Commands;
 using Epok.Domain.Suppliers.Entities;
 using Epok.Domain.Suppliers.Queries;
+using Epok.Presentation.WebApi.Models;
 using Epok.Presentation.WebApi.Models.Customers;
 using Epok.Presentation.WebApi.Models.Suppliers;
 using Microsoft.AspNetCore.Mvc;
@@ -281,6 +283,17 @@ namespace Epok.Presentation.WebApi.Controllers
         public async Task DeleteContactAsync(Guid id, Guid subId)
         {
             await _commandInvoker.Execute(new ArchiveContact { Id = subId, CompanyId = id, InitiatorId = Guid.NewGuid() });
+        }
+
+        /// <summary>
+        /// Returns dictionary of material request statuses.
+        /// </summary>
+        [HttpGet("requests/statuses")]
+        public IEnumerable<EnumModel> GetMaterialRequestStatuses()
+        {
+            return Enum.GetValues(typeof(MaterialRequestStatus))
+                .Cast<MaterialRequestStatus>()
+                .Select(t => EnumModel.New((int)t, t.ToString()));
         }
     }
 }

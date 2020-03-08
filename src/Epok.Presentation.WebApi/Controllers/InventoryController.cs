@@ -10,6 +10,7 @@ using Epok.Domain.Inventory;
 using Epok.Domain.Inventory.Commands;
 using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Inventory.Queries;
+using Epok.Presentation.WebApi.Models;
 using Epok.Presentation.WebApi.Models.Inventory;
 using Microsoft.AspNetCore.Mvc;
 
@@ -226,6 +227,17 @@ namespace Epok.Presentation.WebApi.Controllers
         public async Task DeleteBomAsync( /*[Required]*/ Guid id, Guid subId)
         {
             await _commandInvoker.Execute(new ArchiveBillOfMaterial() {Id = subId, InitiatorId = Guid.NewGuid()});
+        }
+
+        /// <summary>
+        /// Returns dictionary of article types.
+        /// </summary>
+        [HttpGet("types")]
+        public IEnumerable<EnumModel> GetArticleTypes()
+        {
+            return Enum.GetValues(typeof(ArticleType))
+                .Cast<ArticleType>()
+                .Select(t => EnumModel.New((int)t, t.ToString()));
         }
     }
 }

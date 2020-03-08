@@ -15,6 +15,7 @@ using Epok.Domain.Customers.Commands;
 using Epok.Domain.Customers.Entities;
 using Epok.Domain.Customers.Queries;
 using Epok.Domain.Orders.Entities;
+using Epok.Presentation.WebApi.Models;
 
 namespace Epok.Presentation.WebApi.Controllers
 {
@@ -222,6 +223,17 @@ namespace Epok.Presentation.WebApi.Controllers
         public async Task DeleteContactAsync(Guid id, Guid subId)
         {
             await _commandInvoker.Execute(new ArchiveContact { Id = subId, CompanyId = id, InitiatorId = Guid.NewGuid() });
+        }
+
+        /// <summary>
+        /// Returns dictionary of customer types.
+        /// </summary>
+        [HttpGet("types")]
+        public IEnumerable<EnumModel> GetCustomerTypes()
+        {
+            return Enum.GetValues(typeof(CustomerType))
+                .Cast<CustomerType>()
+                .Select(t => EnumModel.New((int)t,t.ToString()));
         }
     }
 }
