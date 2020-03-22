@@ -10,8 +10,8 @@ using Epok.Domain.Shops;
 using Epok.Domain.Shops.Commands;
 using Epok.Domain.Shops.Entities;
 using Epok.Domain.Shops.Queries;
-using Epok.Presentation.WebApi.Models;
-using Epok.Presentation.WebApi.Models.Shops;
+using Epok.Presentation.Model;
+using Epok.Presentation.Model.Shops;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Epok.Presentation.WebApi.Controllers

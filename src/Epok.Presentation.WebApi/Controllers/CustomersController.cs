@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Epok.Presentation.WebApi.Models.Customers;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Epok.Core.Domain.Commands;
@@ -15,7 +14,8 @@ using Epok.Domain.Customers.Commands;
 using Epok.Domain.Customers.Entities;
 using Epok.Domain.Customers.Queries;
 using Epok.Domain.Orders.Entities;
-using Epok.Presentation.WebApi.Models;
+using Epok.Presentation.Model;
+using Epok.Presentation.Model.Customers;
 
 namespace Epok.Presentation.WebApi.Controllers
 {
@@ -111,12 +111,13 @@ namespace Epok.Presentation.WebApi.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task PostAsync([FromBody] RegisterCustomerModel model)
+        public async Task<Guid> PostAsync([FromBody] RegisterCustomerModel model)
         {
             var command = _mapper.Map<RegisterCustomer>(model);
             //ToDo:3  command.InitiatorId = User.Identity.Id;
             command.InitiatorId = Guid.NewGuid();
             await _commandInvoker.Execute(command);
+            return command.Id;
         }
 
         /// <summary>
@@ -158,13 +159,14 @@ namespace Epok.Presentation.WebApi.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("{id}/contact")]
-        public async Task PostCustomerContactAsync(Guid id, [FromBody] ContactModel model)
+        public async Task<Guid> PostCustomerContactAsync(Guid id, [FromBody] ContactModel model)
         {
             var command = _mapper.Map<RegisterContact>(model);
             command.CompanyId = id;
             //ToDo:3  command.InitiatorId = User.Identity.Id;
             command.InitiatorId = Guid.NewGuid();
             await _commandInvoker.Execute(command);
+            return command.Id;
         }
 
         /// <summary>

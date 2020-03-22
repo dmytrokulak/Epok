@@ -20,10 +20,7 @@
     <ProjectReference Include="..\Epok.Composition\Epok.Composition.csproj" />
     <ProjectReference Include="..\Epok.Core\Epok.Core.csproj" />
     <ProjectReference Include="..\Epok.Domain\Epok.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\Users\" />
+    <ProjectReference Include="..\Epok.Presentation.Model\Epok.Presentation.Model.csproj" />
   </ItemGroup>
 
 

@@ -24,6 +24,8 @@ namespace Epok.Presentation.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
@@ -50,6 +52,8 @@ namespace Epok.Presentation.WebApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(opt => opt.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

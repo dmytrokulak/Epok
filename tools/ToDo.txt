@@ -1,0 +1,1 @@
+Check in postgresql and rabbitmq installers to set up remote environment for integration tests.

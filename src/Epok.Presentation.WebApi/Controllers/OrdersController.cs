@@ -10,8 +10,8 @@ using Epok.Domain.Orders;
 using Epok.Domain.Orders.Commands;
 using Epok.Domain.Orders.Entities;
 using Epok.Domain.Orders.Queries;
-using Epok.Presentation.WebApi.Models;
-using Epok.Presentation.WebApi.Models.Orders;
+using Epok.Presentation.Model;
+using Epok.Presentation.Model.Orders;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Epok.Presentation.WebApi.Controllers

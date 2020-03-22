@@ -6,7 +6,7 @@ namespace Epok.Domain.Contacts.Commands
     /// <summary>
     /// Adds new contact to the collection of customer's/supplier's contacts.
     /// </summary>
-    public class RegisterContact : CommandBase
+    public class RegisterContact : CreateEntityCommand
     {
         public Guid CompanyId { get; set; }
         public string FirstName { get; set; }

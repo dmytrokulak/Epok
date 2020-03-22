@@ -10,8 +10,8 @@ using Epok.Domain.Users;
 using Epok.Domain.Users.Commands;
 using Epok.Domain.Users.Entities;
 using Epok.Domain.Users.Queries;
-using Epok.Presentation.WebApi.Models;
-using Epok.Presentation.WebApi.Models.Users;
+using Epok.Presentation.Model;
+using Epok.Presentation.Model.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Epok.Presentation.WebApi.Controllers

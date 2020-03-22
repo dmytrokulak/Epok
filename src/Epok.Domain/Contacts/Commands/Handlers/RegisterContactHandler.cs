@@ -29,7 +29,7 @@ namespace Epok.Domain.Contacts.Commands.Handlers
             var supplier = await _repository.LoadAsync<Supplier>(command.CompanyId);
             var companyName = customer?.Name ?? supplier.Name;
 
-            var contact = new Contact(Guid.NewGuid(), $"{command.FirstName} {command.LastName} of {companyName}.")
+            var contact = new Contact(command.Id, $"{command.FirstName} {command.LastName} of {companyName}.")
             {
                 FirstName = command.FirstName,
                 LastName = command.LastName,

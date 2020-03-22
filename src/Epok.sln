@@ -7,27 +7,33 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Domain", "Epok.Domain\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Core", "Epok.Core\Epok.Core.csproj", "{57D098C1-3D56-41C5-9D96-474957DB8922}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Domain.Tests", "..\tests\Epok.Domain.Tests\Epok.Domain.Tests.csproj", "{9B801227-9FE4-4014-85E3-7F7ED6688080}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Domain.Tests", "..\tests\Modular\Epok.Domain.Tests\Epok.Domain.Tests.csproj", "{9B801227-9FE4-4014-85E3-7F7ED6688080}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Persistence.EF", "Epok.Persistence.EF\Epok.Persistence.EF.csproj", "{9F9614AD-6DB4-4D05-A06A-5F98837C6D3F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Persistence.EF.Tests", "..\tests\Epok.Persistence.EF.Tests\Epok.Persistence.EF.Tests.csproj", "{81AB61BB-033E-4DE0-8407-5356BDA5D08B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Persistence.EF.Tests", "..\tests\Modular\Epok.Persistence.EF.Tests\Epok.Persistence.EF.Tests.csproj", "{81AB61BB-033E-4DE0-8407-5356BDA5D08B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Core.Tests", "..\tests\Epok.Core.Tests\Epok.Core.Tests.csproj", "{E9064CC7-2D58-4695-BDA3-CA58F75B6104}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Core.Tests", "..\tests\Modular\Epok.Core.Tests\Epok.Core.Tests.csproj", "{E9064CC7-2D58-4695-BDA3-CA58F75B6104}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{47A07822-D011-4019-9235-5F66D5430173}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Messaging.RMQ", "Epok.Messaging.RMQ\Epok.Messaging.RMQ.csproj", "{942FCDEC-569E-4209-B6E5-DB2A4904A13F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Messaging.RMQ.Tests", "..\tests\Epok.Messaging.RMQ.Tests\Epok.Messaging.RMQ.Tests.csproj", "{645EB12C-078A-4B72-B951-134BAD6DF359}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Messaging.RMQ.Tests", "..\tests\Modular\Epok.Messaging.RMQ.Tests\Epok.Messaging.RMQ.Tests.csproj", "{645EB12C-078A-4B72-B951-134BAD6DF359}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Composition", "Epok.Composition\Epok.Composition.csproj", "{CB234F1F-7875-4C95-B3E2-9905EF7AC0EE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Composition.Tests", "..\tests\Epok.Composition.Tests\Epok.Composition.Tests.csproj", "{DDA2C9C5-F10B-4AF4-8450-A3668E6F5C12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Composition.Tests", "..\tests\Modular\Epok.Composition.Tests\Epok.Composition.Tests.csproj", "{DDA2C9C5-F10B-4AF4-8450-A3668E6F5C12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epok.Bogus", "..\tests\Epok.Bogus\Epok.Bogus.csproj", "{A33F5A61-15E7-4BD6-A765-D378CF96C33A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Bogus", "..\tests\Epok.Bogus\Epok.Bogus.csproj", "{A33F5A61-15E7-4BD6-A765-D378CF96C33A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epok.Presentation.WebApi", "Epok.Presentation.WebApi\Epok.Presentation.WebApi.csproj", "{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Presentation.WebApi", "Epok.Presentation.WebApi\Epok.Presentation.WebApi.csproj", "{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epok.Integration.Tests", "..\tests\Epok.Integration.Tests\Epok.Integration.Tests.csproj", "{A4D9E709-F563-450C-B05B-3DD4766C08A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modular", "Modular", "{C29A14E4-A58F-49FB-A917-7A96AF02753A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epok.Presentation.Model", "Epok.Presentation.Model\Epok.Presentation.Model.csproj", "{A74C565A-38F3-49C7-8B94-BA3DBBF29825}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,25 +81,35 @@ Global
 		{DDA2C9C5-F10B-4AF4-8450-A3668E6F5C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDA2C9C5-F10B-4AF4-8450-A3668E6F5C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDA2C9C5-F10B-4AF4-8450-A3668E6F5C12}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A33F5A61-15E7-4BD6-A765-D378CF96C33A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A33F5A61-15E7-4BD6-A765-D378CF96C33A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A33F5A61-15E7-4BD6-A765-D378CF96C33A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A33F5A61-15E7-4BD6-A765-D378CF96C33A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9DCADB3-B5E6-4365-8BC3-0254F13E5E63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4D9E709-F563-450C-B05B-3DD4766C08A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4D9E709-F563-450C-B05B-3DD4766C08A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4D9E709-F563-450C-B05B-3DD4766C08A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4D9E709-F563-450C-B05B-3DD4766C08A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A74C565A-38F3-49C7-8B94-BA3DBBF29825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A74C565A-38F3-49C7-8B94-BA3DBBF29825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A74C565A-38F3-49C7-8B94-BA3DBBF29825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A74C565A-38F3-49C7-8B94-BA3DBBF29825}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9B801227-9FE4-4014-85E3-7F7ED6688080} = {47A07822-D011-4019-9235-5F66D5430173}
-		{81AB61BB-033E-4DE0-8407-5356BDA5D08B} = {47A07822-D011-4019-9235-5F66D5430173}
-		{E9064CC7-2D58-4695-BDA3-CA58F75B6104} = {47A07822-D011-4019-9235-5F66D5430173}
-		{645EB12C-078A-4B72-B951-134BAD6DF359} = {47A07822-D011-4019-9235-5F66D5430173}
-		{DDA2C9C5-F10B-4AF4-8450-A3668E6F5C12} = {47A07822-D011-4019-9235-5F66D5430173}
+		{9B801227-9FE4-4014-85E3-7F7ED6688080} = {C29A14E4-A58F-49FB-A917-7A96AF02753A}
+		{81AB61BB-033E-4DE0-8407-5356BDA5D08B} = {C29A14E4-A58F-49FB-A917-7A96AF02753A}
+		{E9064CC7-2D58-4695-BDA3-CA58F75B6104} = {C29A14E4-A58F-49FB-A917-7A96AF02753A}
+		{645EB12C-078A-4B72-B951-134BAD6DF359} = {C29A14E4-A58F-49FB-A917-7A96AF02753A}
+		{DDA2C9C5-F10B-4AF4-8450-A3668E6F5C12} = {C29A14E4-A58F-49FB-A917-7A96AF02753A}
 		{A33F5A61-15E7-4BD6-A765-D378CF96C33A} = {47A07822-D011-4019-9235-5F66D5430173}
+		{A4D9E709-F563-450C-B05B-3DD4766C08A5} = {47A07822-D011-4019-9235-5F66D5430173}
+		{C29A14E4-A58F-49FB-A917-7A96AF02753A} = {47A07822-D011-4019-9235-5F66D5430173}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F70D1DEC-D52F-46A7-A6C7-0F8A15D53937}

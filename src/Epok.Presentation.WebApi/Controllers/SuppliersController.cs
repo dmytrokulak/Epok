@@ -12,9 +12,9 @@ using Epok.Domain.Suppliers;
 using Epok.Domain.Suppliers.Commands;
 using Epok.Domain.Suppliers.Entities;
 using Epok.Domain.Suppliers.Queries;
-using Epok.Presentation.WebApi.Models;
-using Epok.Presentation.WebApi.Models.Customers;
-using Epok.Presentation.WebApi.Models.Suppliers;
+using Epok.Presentation.Model;
+using Epok.Presentation.Model.Customers;
+using Epok.Presentation.Model.Suppliers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Epok.Presentation.WebApi.Controllers

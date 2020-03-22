@@ -35,7 +35,7 @@ namespace Epok.Domain.Customers.Commands.Handlers
                 customer.ShippingAddress.PostalCode == command.PostalCode)
                 return;
 
-            customer.ShippingAddress = new Address(Guid.NewGuid(), $"Shipping address for {customer}")
+            customer.ShippingAddress = new Address(customer.ShippingAddress.Id, $"Shipping address for {customer}")
             {
                 AddressLine1 = command.AddressLine1,
                 AddressLine2 = command.AddressLine2,

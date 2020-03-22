@@ -24,34 +24,20 @@ namespace Epok.Domain.Customers.Commands.Handlers
         {
             var contact = await _repository.LoadAsync<Contact>(command.Id);
 
-            var changed = false;
-            if (contact.FirstName != command.FirstName)
-            {
-                contact.FirstName = command.FirstName;
-                changed = true;
-            }
+            if (contact.FirstName == command.FirstName &&
+                contact.LastName == command.LastName &&
+                contact.Email == command.Email &&
+                contact.PhoneNumber == command.PhoneNumber)
+                return;
 
-            if (contact.LastName != command.LastName)
-            {
-                contact.LastName = command.LastName;
-                changed = true;
-            }
+            //ToDo:4 change name
+            contact.FirstName = command.FirstName;
+            contact.LastName = command.LastName;
+            contact.Email = command.Email;
+            contact.PhoneNumber = command.PhoneNumber;
 
-            if (contact.Email != command.Email)
-            {
-                contact.Email = command.Email;
-                changed = true;
-            }
-
-            if (contact.PhoneNumber != command.PhoneNumber)
-            {
-                contact.PhoneNumber = command.PhoneNumber;
-                changed = true;
-            }
-
-            if (changed)
-                await _eventTransmitter.BroadcastAsync(new DomainEvent<Contact>(contact, Trigger.Changed,
-                    command.InitiatorId));
+            await _eventTransmitter.BroadcastAsync(new DomainEvent<Contact>(contact, Trigger.Changed,
+                command.InitiatorId));
         }
     }
 }

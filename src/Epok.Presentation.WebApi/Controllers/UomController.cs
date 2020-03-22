@@ -10,8 +10,7 @@ using Epok.Domain.Inventory;
 using Epok.Domain.Inventory.Commands;
 using Epok.Domain.Inventory.Entities;
 using Epok.Domain.Inventory.Queries;
-using Epok.Presentation.WebApi.Models;
-using Epok.Presentation.WebApi.Models.Inventory;
+using Epok.Presentation.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Epok.Presentation.WebApi.Controllers
