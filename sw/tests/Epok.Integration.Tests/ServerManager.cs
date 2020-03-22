@@ -18,7 +18,7 @@ namespace Epok.Integration.Tests
                 if (_serverDirectoryPath == null)
                 {
                     var root = new DirectoryInfo(Directory.GetCurrentDirectory());
-                    while (root?.Name != "Epok")
+                    while (root?.Name != "sw")
                         root = root?.Parent;
                     _serverDirectoryPath = @$"{root}\src\Epok.Presentation.WebApi";
                 }

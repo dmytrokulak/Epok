@@ -3,7 +3,7 @@ using Epok.Domain.Customers.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Epok.Persistence.EF.Mappings
+namespace Epok.Persistence.EF.Configurations
 {
     public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {

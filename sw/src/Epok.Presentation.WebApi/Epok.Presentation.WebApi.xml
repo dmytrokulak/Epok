@@ -1,0 +1,650 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Epok.Presentation.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:Epok.Presentation.WebApi.Controllers.CustomersController">
+            <summary>
+            Controller to manage customer entities.
+            </summary>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.CustomersController.#ctor(Epok.Core.Domain.Commands.ICommandInvoker,Epok.Core.Domain.Queries.IQueryInvoker,AutoMapper.IMapper)">
+            <summary>
+            Controller to manage customer entities.
+            </summary>
+            <param name="commandInvoker"></param>
+            <param name="queryInvoker"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.CustomersController.GetAsync(System.String,System.Nullable{Epok.Domain.Customers.CustomerType},System.String,System.String,System.String)">
+            <summary>
+            Returns a collection of customers: all or filtered with the parameters in query string. 
+            </summary>
+            <param name="nameLike">Filter by partial equality.</param>
+            <param name="typeExact">Filter by strict equality.</param>
+            <param name="countryExact">Filter by strict equality.</param>
+            <param name="provinceExact">Filter by strict equality.</param>
+            <param name="cityExact">Filter by strict equality.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.CustomersController.GetAsync(System.Guid)">
+            <summary>
+            Returns a single customer by id.
+            </summary>
+            <param name="id">Customer id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.CustomersController.GetOrdersAsync(System.Guid)">
+            <summary>
+            Returns collection of customer's orders.
+            </summary>
+            <param name="id">Customer id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.CustomersController.GetContactsAsync(System.Guid)">
+            <summary>
+            Returns collection of customer's contacts.
+            </summary>
+            <param name="id">Customer id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.CustomersController.PostAsync(Epok.Presentation.Model.Customers.RegisterCustomerModel)">
+            <summary>
+            Creates a new customer in the system.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.CustomersController.PutCustomerTypeAsync(System.Guid,Epok.Presentation.Model.Customers.ChangeCustomerTypeModel)">
+            <summary>
+            Modifies customer by customer id.
+            </summary>
+            <param name="id">Customer id.</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.CustomersController.PutCustomerAddressAsync(System.Guid,Epok.Presentation.Model.Customers.ChangeCustomerAddressModel)">
+            <summary>
+            Modifies customer's shipping address by customer id.
+            </summary>
+            <param name="id">Customer id.</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.CustomersController.PostCustomerContactAsync(System.Guid,Epok.Presentation.Model.Customers.ContactModel)">
+            <summary>
+            Adds a new contact to customer's collection of contacts.
+            </summary>
+            <param name="id">Customer id.</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.CustomersController.PutCustomerContactAsync(System.Guid,System.Guid,Epok.Presentation.Model.Customers.ContactModel)">
+            <summary>
+            Modifies customer's contact by customer id and contact id.
+            </summary>
+            <param name="id">Customer id.</param>
+            <param name="subId">Contact id.</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.CustomersController.PutCustomerContactAsPrimaryAsync(System.Guid,System.Guid)">
+            <summary>
+            Sets specified contact as primary contact for the customer.
+            </summary>
+            <param name="id">Customer id.</param>
+            <param name="subId">Contact id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.CustomersController.DeleteAsync(System.Guid)">
+            <summary>
+            Removes customer from the system.
+            </summary>
+            <param name="id">Customer id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.CustomersController.DeleteContactAsync(System.Guid,System.Guid)">
+            <summary>
+            Removes contact from the system.
+            </summary>
+            <param name="id">Customer id.</param>
+            <param name="subId">Contact id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.CustomersController.GetCustomerTypes">
+            <summary>
+            Returns dictionary of customer types.
+            </summary>
+        </member>
+        <member name="T:Epok.Presentation.WebApi.Controllers.InventoryController">
+            <summary>
+            Controller to manage inventory entities: articles, bill of materials and spoilage.
+            </summary>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.InventoryController.#ctor(Epok.Core.Domain.Commands.ICommandInvoker,Epok.Core.Domain.Queries.IQueryInvoker,AutoMapper.IMapper)">
+            <summary>
+            Controller to manage inventory entities: articles, bill of materials and spoilage.
+            </summary>
+            <param name="commandInvoker"></param>
+            <param name="queryInvoker"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.InventoryController.GetAsync(System.String,System.Nullable{Epok.Domain.Inventory.ArticleType},System.Nullable{System.Guid},System.String)">
+            <summary>
+            Returns a collection of articles.
+            </summary>
+            <param name="nameLike"></param>
+            <param name="typeExact"></param>
+            <param name="uomExact"></param>
+            <param name="codeLike"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.InventoryController.GetAsync(System.Guid)">
+            <summary>
+             Return an article by id.
+            </summary>
+            <param name="id">Article id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.InventoryController.GetBillsOfMaterialAsync(System.Guid)">
+            <summary>
+             Return bills of material for this article.
+            </summary>
+            <param name="id">Article id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.InventoryController.PostArticleAsync(Epok.Presentation.Model.Inventory.RegisterArticleModel)">
+            <summary>
+            Creates a new article in the system.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.InventoryController.PostBomAsync(System.Guid,Epok.Presentation.Model.Inventory.BillOfMaterialUpsertModel)">
+            <summary>
+            Creates a new bom for the article.
+            </summary>
+            <param name="id">Article id.</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.InventoryController.PutBomAsync(System.Guid,System.Guid,Epok.Presentation.Model.Inventory.BillOfMaterialUpsertModel)">
+            <summary>
+            Modifies a given bill of material.
+            </summary>
+            <param name="id">Article id.</param>
+            <param name="subId">Bom id.</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.InventoryController.PutCustomerContactAsPrimaryAsync(System.Guid,System.Guid)">
+            <summary>
+            Sets specified bill of material as primary for the article.
+            </summary>
+            <param name="id">Customer id.</param>
+            <param name="subId">Contact id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.InventoryController.PutProduceAsync(System.Guid,Epok.Presentation.Model.Inventory.ProduceInventoryModel)">
+            <summary>
+            Produces an inventory item.
+            </summary>
+            <param name="id">Article id.</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.InventoryController.PutTransferAsync(System.Guid,Epok.Presentation.Model.Inventory.TransferInventoryModel)">
+            <summary>
+            Transfers an inventory item between two shops.
+            </summary>
+            <param name="id">Article id.</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.InventoryController.PostSpoilageAsync(System.Guid,Epok.Presentation.Model.Inventory.ReportSpoilageModel)">
+            <summary>
+            Creates a new spoilage report.
+            </summary>
+            <param name="id">Article id.</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.InventoryController.DeleteAsync(System.Guid)">
+            <summary>
+            Removes a given article from the system.
+            </summary>
+            <param name="id">Article id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.InventoryController.DeleteBomAsync(System.Guid,System.Guid)">
+            <summary>
+            Removes a given bom from the system.
+            </summary>
+            <param name="id">Article id.</param>
+            <param name="subId">Bill of material id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.InventoryController.GetArticleTypes">
+            <summary>
+            Returns dictionary of article types.
+            </summary>
+        </member>
+        <member name="T:Epok.Presentation.WebApi.Controllers.OrdersController">
+            <summary>
+            Controller to manage order entities.
+            </summary>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.OrdersController.#ctor(Epok.Core.Domain.Commands.ICommandInvoker,Epok.Core.Domain.Queries.IQueryInvoker,AutoMapper.IMapper)">
+            <summary>
+            Controller to manage order entities.
+            </summary>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.OrdersController.GetAsync(System.String,System.Nullable{Epok.Domain.Orders.OrderType},System.Nullable{Epok.Domain.Orders.OrderStatus},System.Nullable{System.Guid})">
+            <summary>
+            Returns a collection of Orders: all or filtered with the parameters in query string. 
+            </summary>
+            <param name="nameLike">Filter by partial equality.</param>
+            <param name="statusExact">Filter by exact equality.</param>
+            <param name="typeExact">Filter by exact equality.</param>
+            <param name="customer">Filter by exact equality.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.OrdersController.GetAsync(System.Guid)">
+            <summary>
+            Returns a single order by id.
+            </summary>
+            <param name="id">Order id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.OrdersController.PostAsync(Epok.Presentation.Model.Orders.CreateOrderModel)">
+            <summary>
+            Creates a new order
+            </summary>
+            <param name="model"></param>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.OrdersController.PostCreateSubOrdersAsync(System.Guid)">
+            <summary>
+            Creates manufacturing (internal) suborders for
+            this customer (external) order.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.OrdersController.PutOrderEnactAsync(System.Guid)">
+            <summary>
+            Signals that production process should start
+            for this order and its suborders.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.OrdersController.PutOrderShippedAsync(System.Guid)">
+            <summary>
+            Ships orders.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.OrdersController.GetOrderTypes">
+            <summary>
+            Returns dictionary of order types.
+            </summary>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.OrdersController.GetOrderStatuses">
+            <summary>
+            Returns dictionary of order statuses.
+            </summary>
+        </member>
+        <member name="T:Epok.Presentation.WebApi.Controllers.ShopCategoriesController">
+            <summary>
+            Controller to manage shop category entities.
+            </summary>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopCategoriesController.#ctor(Epok.Core.Domain.Commands.ICommandInvoker,Epok.Core.Domain.Queries.IQueryInvoker,AutoMapper.IMapper)">
+            <summary>
+            Controller to manage shop category entities.
+            </summary>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopCategoriesController.GetAsync(System.String,System.Nullable{Epok.Domain.Shops.ShopType})">
+            <summary>
+            Returns a collection of shop categories.
+            </summary>
+            <param name="nameLike">ShopCategory name.</param>
+            <param name="typeExact">ShopType.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopCategoriesController.GetAsync(System.Guid)">
+            <summary>
+            Returns a shop category by id.
+            </summary>
+            <param name="id">Shop category id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopCategoriesController.PostAsync(Epok.Presentation.Model.Shops.CreateShopCategoryModel)">
+            <summary>
+            Creates a new shop category in the system.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopCategoriesController.PutShopAsDefaultAsync(System.Guid,System.Guid)">
+            <summary>
+            Sets given shop as default for the category.
+            </summary>
+            <param name="id">Shop category id.</param>
+            <param name="subId">Shop id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopCategoriesController.PutArticleAllowedInShopCategoryAsync(System.Guid,System.Guid)">
+            <summary>
+            Allows article to be stored in shops of this category.
+            </summary>
+            <param name="id">Shop category id.</param>
+            <param name="subId">Article id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopCategoriesController.PutArticleDisallowedAllowedInShopCategoryAsync(System.Guid,System.Guid)">
+            <summary>
+            Disallows article to be stored in shops of this category.
+            </summary>
+            <param name="id">Shop category id.</param>
+            <param name="subId">Article id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopCategoriesController.DeleteAsync(System.Guid)">
+            <summary>
+            Removes shop category from the system.
+            </summary>
+            <param name="id">Shop category id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopCategoriesController.GetOrderTypes">
+            <summary>
+            Returns dictionary of shop types.
+            </summary>
+        </member>
+        <member name="T:Epok.Presentation.WebApi.Controllers.ShopsController">
+            <summary>
+            Controller to manage shop entities.
+            </summary>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopsController.#ctor(Epok.Core.Domain.Commands.ICommandInvoker,Epok.Core.Domain.Queries.IQueryInvoker,AutoMapper.IMapper)">
+            <summary>
+            Controller to manage shop entities.
+            </summary>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopsController.GetAsync(System.String,System.Nullable{System.Guid})">
+            <summary>
+            Returns a collection of shops.
+            </summary>
+            <param name="nameLike"> Shop name.</param>
+            <param name="categoryExact">ShopCategory id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopsController.GetAsync(System.Guid)">
+            <summary>
+            Returns a shop by id.
+            </summary>
+            <param name="id">Shop category id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopsController.PostAsync(Epok.Presentation.Model.Shops.CreateShopModel)">
+            <summary>
+            Creates a new shop in the system.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopsController.PutManagerAsync(System.Guid,System.Guid)">
+            <summary>
+            Assigns new manager to the shop.
+            </summary>
+            <param name="id"></param>
+            <param name="subId"></param>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.ShopsController.DeleteAsync(System.Guid)">
+            <summary>
+            Removes shop from the system.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Epok.Presentation.WebApi.Controllers.SuppliersController">
+            <summary>
+            Controller to manage supplier entities.
+            </summary>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.#ctor(Epok.Core.Domain.Commands.ICommandInvoker,Epok.Core.Domain.Queries.IQueryInvoker,AutoMapper.IMapper)">
+            <summary>
+            Controller to manage Supplier entities.
+            </summary>
+            <param name="commandInvoker"></param>
+            <param name="queryInvoker"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.GetAsync(System.String,System.Nullable{System.Guid},System.String,System.String,System.String)">
+            <summary>
+            Returns a collection of Suppliers: all or filtered with the parameters in query string. 
+            </summary>
+            <param name="nameLike">Filter by partial equality.</param>
+            <param name="articleExact">Filter by strict equality.</param>
+            <param name="countryExact">Filter by strict equality.</param>
+            <param name="provinceExact">Filter by strict equality.</param>
+            <param name="cityExact">Filter by strict equality.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.GetAsync(System.Guid)">
+            <summary>
+            Returns a single supplier by id.
+            </summary>
+            <param name="id">Supplier id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.GetMaterialRequestsAsync(System.Guid)">
+            <summary>
+            Returns a collection of material requests for this supplier.
+            </summary>
+            <param name="id">Supplier id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.GetContactsAsync(System.Guid)">
+            <summary>
+            Returns collection of supplier's contacts.
+            </summary>
+            <param name="id">Supplier id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.PutSupplierAddressAsync(System.Guid,Epok.Presentation.Model.Suppliers.ChangeSupplierAddressModel)">
+            <summary>
+            Modifies Supplier's shipping address by Supplier id.
+            </summary>
+            <param name="id">Supplier id.</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.PostSupplierContactAsync(System.Guid,Epok.Presentation.Model.Customers.ContactModel)">
+            <summary>
+            Adds a new contact to Supplier's collection of contacts.
+            </summary>
+            <param name="id">Supplier id.</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.PutSupplierContactAsync(System.Guid,System.Guid,Epok.Presentation.Model.Customers.ContactModel)">
+            <summary>
+            Modifies Supplier's contact by Supplier id and contact id.
+            </summary>
+            <param name="id">Supplier id.</param>
+            <param name="subId">Contact id.</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.PutSupplierContactAsPrimaryAsync(System.Guid,System.Guid)">
+            <summary>
+            Sets specified contact as primary contact for the Supplier.
+            </summary>
+            <param name="id">Supplier id.</param>
+            <param name="subId">Contact id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.PostMaterialRequestsAsync(System.Guid,Epok.Presentation.Model.Suppliers.CreateMaterialRequestModel)">
+            <summary>
+            Creates a new material request for this supplier.
+            </summary>
+            <param name="id">Supplier id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.PutMaterialRequestReceiveAsync(System.Guid,System.Guid)">
+            <summary>
+            Receive materials from the given request. 
+            </summary>
+            <param name="id">Supplier id.</param>
+            <param name="subId">Material request id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.PutMaterialAsSuppliableAsync(System.Guid,System.Guid)">
+            <summary>
+             Add article as suppliable by this supplier.
+            </summary>
+            <param name="id">Supplier id.</param>
+            <param name="subId">Article id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.PutMaterialAsNonSuppliableAsync(System.Guid,System.Guid)">
+            <summary>
+             Remove article from the collection of articles suppliable by this supplier.
+            </summary>
+            <param name="id">Supplier id.</param>
+            <param name="subId">Article id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.PostAsync(Epok.Presentation.Model.Suppliers.RegisterSupplierModel)">
+            <summary>
+            Creates a new supplier in the system.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.DeleteAsync(System.Guid)">
+            <summary>
+            Removes supplier from the system.
+            </summary>
+            <param name="id">Supplier id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.DeleteContactAsync(System.Guid,System.Guid)">
+            <summary>
+            Removes contact from the system.
+            </summary>
+            <param name="id">Supplier id.</param>
+            <param name="subId">Contact id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SuppliersController.GetMaterialRequestStatuses">
+            <summary>
+            Returns dictionary of material request statuses.
+            </summary>
+        </member>
+        <member name="T:Epok.Presentation.WebApi.Controllers.SystemController">
+            <summary>
+            Controller to retrieve system information.
+            </summary>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.SystemController.GetPing">
+            <summary>
+            Can be used for response testing.
+            </summary>
+        </member>
+        <member name="T:Epok.Presentation.WebApi.Controllers.UomController">
+            <summary>
+            Controller to manage unit of measurements.
+            </summary>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.UomController.#ctor(Epok.Core.Domain.Commands.ICommandInvoker,Epok.Core.Domain.Queries.IQueryInvoker,AutoMapper.IMapper)">
+            <summary>
+            Controller to manage unit of measurements.
+            </summary>
+            <param name="commandInvoker"></param>
+            <param name="queryInvoker"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.UomController.GetAsync(System.String,System.Nullable{Epok.Domain.Inventory.UomType})">
+            <summary>
+            Returns a collection of uoms.
+            </summary>
+            <param name="nameLike"></param>
+            <param name="typeExact"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.UomController.GetAsync(System.Guid)">
+            <summary>
+             Return an uom by id.
+            </summary>
+            <param name="id">Uom id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.UomController.GetUomTypes">
+            <summary>
+            Returns dictionary of unit of measurement types.
+            </summary>
+        </member>
+        <member name="T:Epok.Presentation.WebApi.Controllers.UsersController">
+            <summary>
+            Controller to manage user entities.
+            </summary>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.UsersController.#ctor(Epok.Core.Domain.Commands.ICommandInvoker,Epok.Core.Domain.Queries.IQueryInvoker,AutoMapper.IMapper)">
+            <summary>
+            Controller to manage user entities.
+            </summary>
+            <param name="commandInvoker"></param>
+            <param name="queryInvoker"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.UsersController.GetAsync(System.String,System.Nullable{Epok.Domain.Users.UserType},System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Returns a collection of users: all or filtered with the parameters in query string. 
+            </summary>
+            <param name="nameLike">Filter by partial equality.</param>
+            <param name="typeExact">Filter by strict equality.</param>
+            <param name="emailLike">Filter by partial equality.</param>
+            <param name="isShopManagerExact">Filter by strict equality.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.UsersController.GetAsync(System.Guid)">
+            <summary>
+            Returns a single User by id.
+            </summary>
+            <param name="id">User id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.UsersController.PostAsync(Epok.Presentation.Model.Users.UserModel)">
+            <summary>
+            Creates a new User in the system.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.UsersController.PutUserAsync(System.Guid,Epok.Presentation.Model.Users.UserModel)">
+            <summary>
+            Modifies User by User id.
+            </summary>
+            <param name="id">User id.</param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.UsersController.DeleteAsync(System.Guid)">
+            <summary>
+            Removes User from the system.
+            </summary>
+            <param name="id">User id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Epok.Presentation.WebApi.Controllers.UsersController.GetUserTypes">
+            <summary>
+            Returns dictionary of user types.
+            </summary>
+        </member>
+    </members>
+</doc>

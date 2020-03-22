@@ -49,7 +49,7 @@ namespace Epok.Integration.Tests
                 Consumer.Received -= ConsumerOnReceived;
                 return consumedEvent;
 
-                void ConsumerOnReceived(object? model, BasicDeliverEventArgs ea)
+                void ConsumerOnReceived(object model, BasicDeliverEventArgs ea)
                 {
                     using var stream = new MemoryStream(ea.Body);
                     consumedEvent = Formatter.Deserialize(stream) as T;

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Epok.Persistence.EF.Mappings //ToDo:5 rename to Configurations 
+namespace Epok.Persistence.EF.Configurations 
 {
     public class AddressConfiguration : IEntityTypeConfiguration<Address>
     {

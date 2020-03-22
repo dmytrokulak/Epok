@@ -1,10 +1,10 @@
-﻿using Epok.Domain.Inventory;
+﻿using System;
+using Epok.Domain.Inventory;
 using Epok.Domain.Inventory.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
-namespace Epok.Persistence.EF.Mappings
+namespace Epok.Persistence.EF.Configurations
 {
     public class UomConfiguration : IEntityTypeConfiguration<Uom>
     {

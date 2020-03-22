@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Epok.Persistence.EF.Mappings
+namespace Epok.Persistence.EF.Configurations
 {
     public class ShopCategoryConfiguration : IEntityTypeConfiguration<ShopCategory>
     {
