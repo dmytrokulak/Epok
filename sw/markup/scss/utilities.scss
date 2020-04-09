@@ -1,0 +1,267 @@
+// Variables
+$primary-color: #ffa500;
+$secondary-color: #0048cc;
+$light-color: #f4f4f4;
+$dark-color: #232323;
+$website-width: 1600px;
+$popup-width: 400px;
+
+//Functions
+@function set-text-color($color) {
+  @if (lightness($color) > 50) {
+    @return black;
+  } @else {
+    @return white;
+  }
+}
+
+//Utilities
+.container {
+  max-width: $website-width;
+  padding: 0 3rem;
+  margin: auto;
+  overflow: hidden;
+  .overlay {
+    display: none;
+    content: '';
+    background: transparentize($color: $dark-color, $amount: 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+}
+
+%btn-base {
+  font-size: 0.8rem;
+  line-height: 1.2;
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  transition: all 0.5s;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.btn {
+  &-primary {
+    @extend %btn-base;
+    background: $primary-color;
+    color: set-text-color($primary-color);
+    &:hover {
+      background: darken($primary-color, 15);
+    }
+  }
+
+  &-secondary {
+    @extend %btn-base;
+    background: $secondary-color;
+    color: set-text-color($secondary-color);
+    &:hover {
+      background: darken($secondary-color, 15);
+    }
+  }
+
+  &-dark {
+    @extend %btn-base;
+    background: $dark-color;
+    color: set-text-color($dark-color);
+    &:hover {
+      background: lighten($dark-color, 15);
+    }
+  }
+  &-light {
+    @extend %btn-base;
+    background: $light-color;
+    color: set-text-color($light-color);
+    &:hover {
+      background: darken($primary-color, 15);
+    }
+  }
+}
+
+.bg {
+  &-primary {
+    background: $primary-color;
+    color: set-text-color($primary-color);
+  }
+  &-secondary {
+    background: $secondary-color;
+    color: set-text-color($secondary-color);
+  }
+  &-dark {
+    background: $dark-color;
+    color: set-text-color($dark-color);
+  }
+  &-light {
+    background: $light-color;
+    color: set-text-color($light-color);
+  }
+}
+
+.lead {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.py {
+  &-1 {
+    padding: 1rem 0;
+  }
+  &-2 {
+    padding: 2rem 0;
+  }
+  &-3 {
+    padding: 3rem 0;
+  }
+  &-4 {
+    padding: 4rem 0;
+  }
+}
+
+.my {
+  &-1 {
+    margin: 1rem 0;
+  }
+  &-2 {
+    margin: 2rem 0;
+  }
+  &-3 {
+    margin: 3rem 0;
+  }
+  &-4 {
+    margin: 4rem 0;
+  }
+}
+
+.widget {
+  padding: 0.2rem;
+  background: lighten($color: $primary-color, $amount: 47);
+  border-radius: 10px;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
+
+  &-header {
+    text-align: center;
+    padding: 0.3rem 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: darken($color: $primary-color, $amount: 20);
+    background: inherit;
+  }
+
+  &-content {
+    padding: 0.3rem;
+
+    table {
+      width: 100%;
+      font-size: 0.9rem;
+      border-spacing: 0;
+      text-align: left;
+      border-radius: 5px;
+
+      td,
+      th {
+        padding: 0 0.3rem;
+        color: $dark-color;
+      }
+
+      thead {
+        tr {
+          background: lighten($color: $primary-color, $amount: 40);
+          border-bottom: 2px solid $primary-color;
+        }
+      }
+      tbody {
+        background: lighten($color: $secondary-color, $amount: 55);
+
+        tr {
+          border: 1px solid transparent;
+          &:nth-child(even) {
+            background: lighten($color: $secondary-color, $amount: 52);
+          }
+          &:hover {
+            cursor: pointer;
+            background: lighten($color: $secondary-color, $amount: 38);
+          }
+        }
+      }
+    }
+
+    &-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid $light-color;
+      &-key {
+        padding-right: 1rem;
+        font-weight: bold;
+      }
+      &:hover {
+        background: lighten($color: $primary-color, $amount: 30);
+      }
+    }
+
+    form {
+      display: flex;
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+
+        > * {
+          margin: 0.2rem;
+        }
+
+        p {
+          text-align: center;
+          text-transform: uppercase;
+          border-bottom: 1px solid $primary-color;
+        }
+      }
+
+      input,
+      select {
+        border-radius: 5px;
+        line-height: 1.7;
+      }
+    }
+  }
+}
+
+.container-mini {
+  max-width: $popup-width;
+  padding: 0 3rem;
+  margin: auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  .popup-form {
+    width: 100%;
+    background: $light-color;
+    display: none;
+    flex-direction: column;
+    align-self: center;
+    border-radius: 5px;
+    padding: 1rem;
+
+    & > * {
+      margin: 0.2rem 0;
+    }
+
+    input,
+    select {
+      border-radius: 5px;
+      line-height: 1.7;
+    }
+  }
+}

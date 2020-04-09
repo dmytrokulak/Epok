@@ -1,0 +1,81 @@
+@import 'layout';
+@import 'utilities';
+
+#main-content .widget-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2rem;
+  padding: 1.5rem 0;
+
+  .widget .widget-content {
+    max-height: 20rem;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+#customers-content .widget .widget-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem;
+}
+
+#customer-content {
+  .widget-grid {
+    display: grid;
+    grid-template-areas:
+      'basic-info basic-info basic-info'
+      'shipping-address primary-contact contacts'
+      'orders orders orders';
+    grid-gap: 1rem;
+
+    .widget {
+      min-width: 15rem;
+    }
+
+    .widget-header {
+      a {
+        float: right;
+        margin-right: 0.4rem;
+      }
+    }
+
+    #basic-info {
+      grid-area: basic-info;
+      width: 100%;
+      span {
+        padding: 0 0.2rem;
+      }
+    }
+
+    #shipping-address {
+      grid-area: shipping-address;
+    }
+
+    #primary-contact {
+      grid-area: primary-contact;
+    }
+
+    #contacts {
+      grid-area: contacts;
+    }
+
+    #orders {
+      grid-area: orders;
+    }
+  }
+}
+
+#customer-new-content {
+  .widget-content {
+    display: flex;
+    justify-content: center;
+
+    div:last-child {
+      margin: 1.5rem 0 0 1rem;
+    }
+  }
+}

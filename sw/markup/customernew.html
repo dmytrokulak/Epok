@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Epok | Customers</title>
+  </head>
+  <body>
+    <header id="header-main">
+      <div class="container">
+        <nav id="nav-main">
+          <div id="logo">
+            <a href="index.html">Epok</a>
+          </div>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="">Shops</a></li>
+            <li><a href="">Inventory</a></li>
+            <li><a href="">Orders</a></li>
+            <li><a href="customers.html">Customers</a></li>
+            <li><a href="">Suppliers</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="customer-new-content" class="py-1">
+      <div class="container">
+        <div class="widget">
+          <div class="widget-header">
+            New Customer
+          </div>
+          <div class="widget-content">
+            <form>
+              <div>
+                <p>Basic info</p>
+                <label for="number">Customer Number</label>
+                <input type="text" id="number" name="number" />
+                <label for="name">Customer Name</label>
+                <input type="text" id="name" name="name" />
+                <label for="type">Customer Type</label>
+                <select id="type" name="type">
+                  <option value="retailer">Retailer</option>
+                  <option value="wholesaler">Wholesaler</option>
+                  <option value="online">Online Store</option>
+                </select>
+              </div>
+              <div>
+                <p>Shipping address</p>
+                <label for="country">Country</label>
+                <input type="text" id="country" name="country" />
+                <label for="province">Province</label>
+                <input type="text" id="province" name="province" />
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" />
+                <label for="line1">Address line 1</label>
+                <input type="text" id="line1" name="line1" />
+                <label for="line2">Address line 2</label>
+                <input type="text" id="line2" name="line2" />
+                <label for="postal">Postal code</label>
+                <input type="text" id="postal" name="postal" />
+              </div>
+              <div>
+                <p>Primary contact</p>
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="fname" />
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" name="lname" />
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" />
+                <label for="position">Position</label>
+                <input type="text" id="position" name="position" />
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone" />
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" />
+                <label for="primary">Primary</label>
+                <select id="primary" name="primary">
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
+              </div>
+              <div>
+                <input
+                  class="btn-primary"
+                  type="button"
+                  value="Submit"
+                  onclick="javascript:window.location.href = 'customers.html';"
+                />
+                <input
+                  class="btn-secondary"
+                  type="button"
+                  value="Cancel"
+                  onclick="javascript:window.location.href = 'customers.html';"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+  <footer id="footer-main" class="text-center py-1">
+    EPOK: Enterprise Resource Planning in Pocket. &copy; 2020
+  </footer>
+</html>

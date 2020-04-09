@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Epok | Customers</title>
+  </head>
+  <body>
+    <header id="header-main">
+      <div class="container">
+        <nav id="nav-main">
+          <div id="logo">
+            <a href="index.html">Epok</a>
+          </div>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="">Shops</a></li>
+            <li><a href="">Inventory</a></li>
+            <li><a href="">Orders</a></li>
+            <li><a href="customers.html">Customers</a></li>
+            <li><a href="">Suppliers</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="customer-content">
+      <div class="container">
+        <div class="widget-grid my-1">
+        <div id="basic-info" class="widget">
+          <div class="widget-header">
+            <span>001</span>
+            <span>|</span>
+            <span>AB Apex</span>
+            <span>|</span>
+            <span>Retailer</span>
+            <a href="javascript:document.getElementsByClassName('overlay')[0].style.display = 'block';
+            document.getElementById('basic-info-form').style.display = 'flex'; preventDefault();" class="btn-primary">Edit</a>
+          </div>
+          <div class="widget-content"></div>
+        </div>
+        <div id="shipping-address" class="widget">
+          <div class="widget-header">
+            Shipping address
+            <a href="javascript:document.getElementsByClassName('overlay')[0].style.display = 'block';
+            document.getElementById('shipping-address-form').style.display = 'flex'; preventDefault();" 
+            class="btn-primary">Edit</a>
+          </div>
+          <div class="widget-content">
+            <div class="widget-content-row">
+              <span class="widget-content-row-key">Country:</span>
+              <span class="widget-content-row-value">Sweden</span>
+            </div>
+            <div class="widget-content-row">
+              <span class="widget-content-row-key">Province:</span>
+              <span class="widget-content-row-value">Västra Götaland</span>
+            </div>
+            <div class="widget-content-row">
+              <span class="widget-content-row-key">City:</span>
+              <span class="widget-content-row-value">Skara</span>
+            </div>
+            <div class="widget-content-row">
+              <span class="widget-content-row-key">Address line 1:</span>
+              <span class="widget-content-row-value">17 Första Långgatan</span>
+            </div>
+            <div class="widget-content-row">
+              <span class="widget-content-row-key">Address line 2:</span>
+              <span class="widget-content-row-value">Apt. 302</span>
+            </div>
+          <div class="widget-content-row">
+            <span class="widget-content-row-key">Postal code:</span>
+            <span class="widget-content-row-value">53294</span>
+          </div>
+        </div>
+       </div>
+        <div id="primary-contact" class="widget">
+          <div class="widget-header">Primary Contact  
+            <a href="javascript:document.getElementsByClassName('overlay')[0].style.display = 'block';
+            document.getElementById('contact-form').style.display = 'flex'; preventDefault();" 
+            class="btn-primary">Edit</a>
+              </div>
+          <div class="widget-content">
+            <div class="widget-content-row">
+              <span class="widget-content-row-key">First Name:</span>
+              <span class="widget-content-row-value">Dirch</span>
+            </div>
+            <div class="widget-content-row">
+              <span class="widget-content-row-key">Last Name:</span>
+              <span class="widget-content-row-value">Gustaffson</span>
+            </div>
+            <div class="widget-content-row">
+              <span class="widget-content-row-key">Position:</span>
+              <span class="widget-content-row-value">Procurement Manager</span>
+            </div>
+            <div class="widget-content-row">
+              <span class="widget-content-row-key">Phone Number:</span>
+              <span class="widget-content-row-value">4612345678</span>
+            </div>
+            <div class="widget-content-row">
+              <span class="widget-content-row-key">Email:</span>
+              <span class="widget-content-row-value">sales@apex.com</span>
+            </div>
+            <div class="widget-content-row">
+              <span class="widget-content-row-key">Primary:</span>
+              <span class="widget-content-row-value">Yes</span>
+            </div>
+          </div>
+        </div>
+        <div id="contacts" class="widget">
+          <div class="widget-header">Contacts</div>
+          <div class="widget-content">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Primary</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Dirch Gustaffson</td>
+                  <td>4612345678</td>
+                  <td>sales@apex.com</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>John Dow</td>
+                  <td>4612345679</td>
+                  <td>dow@apex.com</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Sara Rapas</td>
+                  <td>4612345670</td>
+                  <td>rapas@apex.com</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div id="orders" class="widget">
+          <div class="widget-header">Orders</div>
+          <div class="widget-content">
+            <table>
+              <thead>
+                <tr>
+                  <th>Number</th>
+                  <th>Items</th>
+                  <th>Qty</th>
+                  <th>Status</th>
+                  <th>Done %</th>
+                  <th>Shipment</th>
+                  <th>Created</th>
+                  <th>Comment</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>12078</td>
+                  <td>
+                    <ul>
+                      <li>Interior Door AG-1</li>
+                      <li>Interior Door AG-6</li>
+                      <li>Interior Door CS-2</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      <li>1 pcs.</li>
+                      <li>1 pcs.</li>
+                      <li>2 pcs.</li>
+                    </ul>
+                  </td>
+                  <td>In progress</td>
+                  <td>50%</td>
+                  <td>May 20, 2020</td>
+                  <td>May 12, 2020</td>
+                  <td>Paid in advance</td>
+                </tr>
+                <tr>
+                  <td>12078</td>
+                  <td>
+                    <ul>
+                      <li>Interior Door AG-1</li>
+                      <li>Interior Door AG-6</li>
+                      <li>Interior Door CS-2</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      <li>1 pcs.</li>
+                      <li>1 pcs.</li>
+                      <li>2 pcs.</li>
+                    </ul>
+                  </td>
+                  <td>In progress</td>
+                  <td>50%</td>
+                  <td>May 20, 2020</td>
+                  <td>May 12, 2020</td>
+                  <td>Paid in advance</td>
+                </tr>
+                <tr>
+                  <td>12078</td>
+                  <td>
+                    <ul>
+                      <li>Interior Door AG-1</li>
+                      <li>Interior Door AG-6</li>
+                      <li>Interior Door CS-2</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      <li>1 pcs.</li>
+                      <li>1 pcs.</li>
+                      <li>2 pcs.</li>
+                    </ul>
+                  </td>
+                  <td>In progress</td>
+                  <td>50%</td>
+                  <td>May 20, 2020</td>
+                  <td>May 12, 2020</td>
+                  <td>Paid in advance</td>
+                </tr>
+        </tbody>
+         </table>
+          </div>
+        </div>
+      </div>
+      <div class="overlay" 
+      onclick="javascript:document.getElementsByClassName('overlay')[0].style.display = 'none';
+      [].forEach.call(document.getElementsByClassName('popup-form'), function (el) {el.style.display='none'});">
+        <div class="container-mini">
+          <form id="basic-info-form" class="popup-form">
+            <label for="number">Customer Number</label>
+            <input type="text" id="number" name="number" value="001">
+            <label for="name">Customer Name</label>
+            <input type="text" id="name" name="name" value="Apex">
+            <label for="type">Customer Type</label>
+            <select id="type" name="type">
+              <option value="retailer">Retailer</option>
+              <option value="wholesaler">Wholesaler</option>
+              <option value="online">Online Store</option>
+            </select>
+            <input class="btn-primary" type="submit" value="Submit">
+            <input class="btn-secondary" type="submit"  value="Cancel">
+          </form>
+          <form id="shipping-address-form" class="popup-form">
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" value="Sweden">
+            <label for="province">Province</label>
+            <input type="text" id="province" name="province" value="Västra Götaland">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" value="Skara">
+            <label for="line1">Address line 1</label>
+            <input type="text" id="line1" name="line1" value="17 Första Långgatan">
+            <label for="line2">Address line 2</label>
+            <input type="text" id="line2" name="line2" value="Apt. 302">
+            <label for="postal">Postal code</label>
+            <input type="text" id="postal" name="postal" value="53294">
+            <input class="btn-primary" type="submit" value="Submit">
+            <input class="btn-secondary" type="submit"  value="Cancel">
+          </form>
+          <form id="contact-form" class="popup-form">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname" value="Dirch">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname" value="Gustaffson">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" value="Skara">
+            <label for="position">Position</label>
+            <input type="text" id="position" name="position" value="Procurement Manager">
+            <label for="phone">Phone Number</label>
+            <input type="text" id="phone" name="phone" value="4612345678">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="sales@apex.com">
+            <label for="primary">Primary</label>
+            <select id="primary" name="primary">
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+            <input class="btn-primary" type="submit" value="Submit">
+            <input class="btn-secondary" type="submit"  value="Cancel">
+          </form>
+        </div>
+      </div>
+        </div>
+      </div>
+    </main>
+  </body>
+  <footer id="footer-main" class="text-center py-1">
+    EPOK: Enterprise Resource Planning in Pocket. &copy; 2020
+  </footer>
+</html>
