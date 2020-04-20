@@ -253,11 +253,11 @@ namespace Epok.Domain.Tests.Setup
             #endregion
 
             var ids0 = Product1InteriorDoor.BillsOfMaterial.First().Input.Select(i => i.Article.Id);
-            A.CallTo(() => EntityRepository.LoadSomeAsync(A<IEnumerable<Guid>>.That.IsSameSequenceAs(ids0), A<Expression<Func<Article,bool>>>.Ignored))
+            A.CallTo(() => EntityRepository.LoadSomeAsync(A<IEnumerable<Guid>>.That.IsSameSequenceAs(ids0), A<Expression<Func<Article,bool>>>.Ignored, A<int?>.Ignored, A<int?>.Ignored, A<string>.Ignored, A<string>.Ignored))
                 .Returns(Product1InteriorDoor.BillsOfMaterial.First().Input.Select(i => i.Article).ToList());
 
             var ids1 = new[] { Component1Vertical.Id, Component2Horizontal.Id, Component3MdfFiller.Id, Material2Foil.Id };
-            A.CallTo(() => EntityRepository.LoadSomeAsync(A<IEnumerable<Guid>>.That.IsSameSequenceAs(ids1), A<Expression<Func<Article, bool>>>.Ignored))
+            A.CallTo(() => EntityRepository.LoadSomeAsync(A<IEnumerable<Guid>>.That.IsSameSequenceAs(ids1), A<Expression<Func<Article, bool>>>.Ignored, A<int?>.Ignored, A<int?>.Ignored, A<string>.Ignored, A<string>.Ignored))
                 .Returns(new List<Article> { Component1Vertical, Component2Horizontal, Component3MdfFiller, Material2Foil });
 
             A.CallTo(() => ArticleRepo.FindSpoiledCounterpartAsync(Product1InteriorDoor, true))
@@ -265,10 +265,10 @@ namespace Epok.Domain.Tests.Setup
             A.CallTo(() => ArticleRepo.FindSpoiledCounterpartAsync(Component1Vertical, true))
                 .Returns(Component1VerticalSpoiled);
 
-            A.CallTo(() => EntityRepository.GetSomeAsync(A<IEnumerable<Guid>>.That.Contains(Product1InteriorDoor.Id), A<Expression<Func<Article, bool>>>.Ignored))
+            A.CallTo(() => EntityRepository.GetSomeAsync(A<IEnumerable<Guid>>.That.Contains(Product1InteriorDoor.Id), A<Expression<Func<Article, bool>>>.Ignored, A<int?>.Ignored, A<int?>.Ignored, A<string>.Ignored, A<string>.Ignored))
                 .Returns(new[] { Product1InteriorDoor });
 
-            A.CallTo(() => EntityRepository.GetSomeAsync(A<IEnumerable<Guid>>.That.Contains(Material2Foil.Id), A<Expression<Func<Article, bool>>>.Ignored))
+            A.CallTo(() => EntityRepository.GetSomeAsync(A<IEnumerable<Guid>>.That.Contains(Material2Foil.Id), A<Expression<Func<Article, bool>>>.Ignored, A<int?>.Ignored, A<int?>.Ignored, A<string>.Ignored, A<string>.Ignored))
                 .Returns(new[] { Material2Foil });
 
             A.CallTo(() => EntityRepository.LoadAsync<Uom>(PieceUom.Id)).Returns(PieceUom);

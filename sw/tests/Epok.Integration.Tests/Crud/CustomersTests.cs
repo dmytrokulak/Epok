@@ -171,6 +171,34 @@ namespace Epok.Integration.Tests.Crud
 
             Console.WriteLine($"Query and filter by type completed: {testTypeIds.Count} in {sw.ElapsedMilliseconds} ms.");
 
+            const int toTake = 50;
+            const int toSkip = 20;
+            sw.Restart();
+            queried = WebApiClient.Customers.Get(take:toTake);
+            sw.Stop();
+            var taken = queried.ToHashSet();
+            Assert.That(taken, Has.Count.EqualTo(toTake));
+            Console.WriteLine($"Query and take {toTake} completed: {testTypeIds.Count} in {sw.ElapsedMilliseconds} ms.");
+
+            sw.Restart();
+            queried = WebApiClient.Customers.Get(skip:toSkip, take: toTake);
+            sw.Stop();
+            var skippedTaken = queried.ToHashSet();
+            Assert.That(skippedTaken, Has.Count.EqualTo(toTake));
+            Console.WriteLine($"Query, skip {toSkip} and take {toTake} completed: {testTypeIds.Count} in {sw.ElapsedMilliseconds} ms.");
+
+            taken.IntersectWith(skippedTaken);
+            Assert.That(taken, Has.Count.EqualTo(toTake - toSkip));
+
+
+            sw.Restart();
+            queried = WebApiClient.Customers.Get(take: toTake, orderBy:"shippingAddress.city", orderMode:"desc");
+            sw.Stop();
+            var ordered = queried.ToHashSet();
+            Assert.That(ordered, Has.Count.EqualTo(toTake));
+            var expected = customers.OrderByDescending(c => c.ShippingAddress.City).Take(toTake).ToHashSet();
+            Assert.True(ordered.SetEquals(expected));
+            Console.WriteLine($"Query, order by city and take {toTake} completed: {testTypeIds.Count} in {sw.ElapsedMilliseconds} ms.");
         }
     }
 }

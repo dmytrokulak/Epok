@@ -26,8 +26,8 @@ namespace Epok.Domain.Users.Queries.Handlers
                  (query.FilterIsShopManagerExact == null || user.IsShopManager == query.FilterIsShopManagerExact));
 
             if(query.Lazy)
-                return await _repository.LoadSomeAsync(query.FilterIds, predicate);
-            return await _repository.GetSomeAsync(query.FilterIds, predicate);
+                return await _repository.LoadSomeAsync(query.FilterIds, predicate, query.Skip, query.Take, query.OrderBy, query.OrderMode);
+            return await _repository.GetSomeAsync(query.FilterIds, predicate, query.Skip, query.Take, query.OrderBy, query.OrderMode);
         }
     }
 }

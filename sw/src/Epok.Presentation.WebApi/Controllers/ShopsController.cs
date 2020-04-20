@@ -40,13 +40,22 @@ namespace Epok.Presentation.WebApi.Controllers
         /// </summary>
         /// <param name="nameLike"> Shop name.</param>
         /// <param name="categoryExact">ShopCategory id.</param>
+        /// <param name="take">Number of entities to return in response.</param>
+        /// <param name="skip">Number of entities to skip when returning in response.</param>
+        /// <param name="orderBy">Property name. Sorted by "name" by default</param>
+        /// <param name="orderMode">Either "asc" or "desc", "asc" by default.</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<Shop>> GetAsync([FromQuery] string nameLike, [FromQuery] Guid? categoryExact)
+        public async Task<IEnumerable<Shop>> GetAsync([FromQuery] string nameLike, [FromQuery] Guid? categoryExact,
+                int? take, int? skip, string orderBy, string orderMode)
             //ToDo:4 optionally include archived?
         {
             var query = new ShopsQuery
             {
+                Take = take,
+                Skip = skip,
+                OrderBy = orderBy,
+                OrderMode = orderMode,
                 FilterNameLike = nameLike,
                 FilterShopCategoryExact = categoryExact,
             };

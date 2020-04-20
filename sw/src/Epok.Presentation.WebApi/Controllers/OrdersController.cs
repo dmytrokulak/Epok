@@ -43,17 +43,26 @@ namespace Epok.Presentation.WebApi.Controllers
         /// Returns a collection of Orders: all or filtered with the parameters in query string. 
         /// </summary>
         /// <param name="nameLike">Filter by partial equality.</param>
-        /// <param name="statusExact">Filter by exact equality.</param>
         /// <param name="typeExact">Filter by exact equality.</param>
+        /// <param name="statusExact">Filter by exact equality.</param>
         /// <param name="customer">Filter by exact equality.</param>
+        /// <param name="take">Number of entities to return in response.</param>
+        /// <param name="skip">Number of entities to skip when returning in response.</param>
+        /// <param name="orderBy">Property name. Sorted by "name" by default</param>
+        /// <param name="orderMode">Either "asc" or "desc", "asc" by default.</param>
         /// <returns></returns>
         [HttpGet]
         public async Task<IEnumerable<Order>> GetAsync([FromQuery] string nameLike,
-                [FromQuery] OrderType? typeExact, [FromQuery] OrderStatus? statusExact, [FromQuery] Guid? customer)
+                [FromQuery] OrderType? typeExact, [FromQuery] OrderStatus? statusExact, 
+                [FromQuery] Guid? customer, int? take, int? skip, string orderBy, string orderMode)
             //ToDo:4 optionally include archived?
         {
             var query = new OrdersQuery
             {
+                Take = take,
+                Skip = skip,
+                OrderBy = orderBy,
+                OrderMode = orderMode,
                 FilterNameLike = nameLike,
                 FilterTypeExact = typeExact,
                 FilterStatusExact = statusExact,

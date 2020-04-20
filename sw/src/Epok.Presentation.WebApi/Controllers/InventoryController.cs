@@ -47,13 +47,22 @@ namespace Epok.Presentation.WebApi.Controllers
         /// <param name="typeExact"></param>
         /// <param name="uomExact"></param>
         /// <param name="codeLike"></param>
+        /// <param name="take">Number of entities to return in response.</param>
+        /// <param name="skip">Number of entities to skip when returning in response.</param>
+        /// <param name="orderBy">Property name. Sorted by "name" by default</param>
+        /// <param name="orderMode">Either "asc" or "desc", "asc" by default.</param>
         /// <returns></returns>
         [HttpGet]
         public async Task<IEnumerable<ArticleModel>> GetAsync([FromQuery] string nameLike,
-            [FromQuery] ArticleType? typeExact, [FromQuery] Guid? uomExact, [FromQuery] string codeLike)
+            [FromQuery] ArticleType? typeExact, [FromQuery] Guid? uomExact, [FromQuery] string codeLike,
+            int? take, int? skip, string orderBy, string orderMode)
         {
             var query = new ArticlesQuery
             {
+                Take = take,
+                Skip = skip,
+                OrderBy = orderBy,
+                OrderMode = orderMode,
                 FilterNameLike = nameLike,
                 FilterArticleTypeExact = typeExact,
                 FilterUomExact = uomExact,

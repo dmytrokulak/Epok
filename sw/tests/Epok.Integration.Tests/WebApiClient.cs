@@ -72,14 +72,19 @@ namespace Epok.Integration.Tests
         internal static class Customers
         {
             internal static IEnumerable<Customer> Get(string nameLike = null, CustomerType? typeExact = null,
-            string countryExact = null, string provinceExact = null, string cityExact = null)
+            string countryExact = null, string provinceExact = null, string cityExact = null, int? skip = null, 
+            int? take = null, string orderBy = null, string orderMode = null)
             {
                 var dict = new Dictionary<string, string>
                 {
                     {nameof(nameLike), nameLike},
                     {nameof(countryExact), countryExact},
                     {nameof(provinceExact), provinceExact},
-                    {nameof(cityExact), cityExact}
+                    {nameof(cityExact), cityExact},
+                    {nameof(skip), skip?.ToString()},
+                    {nameof(take), take?.ToString()},
+                    {nameof(orderBy), orderBy},
+                    {nameof(orderMode), orderMode}
                 };
                 if(typeExact.HasValue)
                     dict.Add(nameof(typeExact),((int)typeExact.Value).ToString());

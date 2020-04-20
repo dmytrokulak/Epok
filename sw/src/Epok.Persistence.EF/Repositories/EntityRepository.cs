@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -43,7 +44,7 @@ namespace Epok.Persistence.EF.Repositories
             => await _dbContext.Set<T>().FindAsync(id);
 
         public async Task<IList<T>> LoadSomeAsync<T>(IEnumerable<Guid> ids = null, 
-            Expression<Func<T, bool>> predicate = null) where T : EntityBase
+            Expression<Func<T, bool>> predicate = null, int? skip = null, int? take = null, string orderBy = null, string orderMode = null) where T : EntityBase
         {
             var tracked = _dbContext.ChangeTracker.Entries<T>()
                 .Where(e => ids == null || ids.Contains(e.Entity.Id))
@@ -63,7 +64,18 @@ namespace Epok.Persistence.EF.Repositories
             }
 
             tracked.AddRange(toTrack);
-            return tracked;
+
+            var query = tracked.AsQueryable();
+
+            if (orderBy != null)
+                query = query.OrderBy($"{orderBy} {NormalizeOrderMode(orderMode)}");
+            else
+                query = query.OrderBy(s => s.Name);
+
+            if (!skip.HasValue && !take.HasValue)
+                return query.ToList();
+            else
+                return query.Skip(skip ?? 0).Take(take ?? tracked.Count).ToList();
         }
 
         public async Task<IList<T>> LoadAllAsync<T>() where T : EntityBase
@@ -100,7 +112,8 @@ namespace Epok.Persistence.EF.Repositories
         }
 
         public async Task<IList<T>> GetSomeAsync<T>(IEnumerable<Guid> ids = null, 
-            Expression<Func<T, bool>> predicate = null) where T : EntityBase
+            Expression<Func<T, bool>> predicate = null, int? skip = null, int? take = null,
+            string orderBy = null, string orderMode = null) where T : EntityBase
         {
             var set = _dbContext.Set<T>().AsQueryable();
 
@@ -111,9 +124,21 @@ namespace Epok.Persistence.EF.Repositories
                 set = set.Where(e => ids.Contains(e.Id));
             if(predicate != null)
                 set = set.Where(predicate);
+          
+            if(orderBy != null)
+                set = set.OrderBy($"{orderBy} {NormalizeOrderMode(orderMode)}");
+            else
+                set = set.OrderBy(s => s.Name);
+
+            if (skip != null)
+                set = set.Skip(skip.Value);
+            if (take != null)
+                set = set.Take(take.Value);
 
             return await set.ToListAsync();
         }
+
+        private string NormalizeOrderMode(string mode) => mode != "asc" && mode != "desc" ? "asc" : mode;
 
         public async Task<IList<T>> GetAllAsync<T>() where T : EntityBase
         {

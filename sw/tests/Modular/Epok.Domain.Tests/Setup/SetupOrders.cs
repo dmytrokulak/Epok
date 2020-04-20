@@ -68,7 +68,7 @@ namespace Epok.Domain.Tests.Setup
             A.CallTo(() => EntityRepository.LoadAsync<Order>(OrderReadyForShipment.Id)).Returns(OrderReadyForShipment);
             A.CallTo(() => EntityRepository.GetAsync<Order>(OrderReadyForShipment.Id)).Returns(OrderReadyForShipment);
 
-            A.CallTo(() => EntityRepository.GetSomeAsync(A<IEnumerable<Guid>>.That.Matches(x => x.Single() == Product1Order.Id), A<Expression<Func<Order, bool>>>.Ignored))
+            A.CallTo(() => EntityRepository.GetSomeAsync(A<IEnumerable<Guid>>.That.Matches(x => x.Single() == Product1Order.Id), A<Expression<Func<Order, bool>>>.Ignored, A<int?>.Ignored, A<int?>.Ignored, A<string>.Ignored, A<string>.Ignored))
                 .Returns(Product1Order.Collect().ToList());
         }
     }
