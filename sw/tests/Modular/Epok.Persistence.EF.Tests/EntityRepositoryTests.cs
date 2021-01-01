@@ -293,15 +293,22 @@ namespace Epok.Persistence.EF.Tests
             var repo = new EntityRepository(_dbContext, _idsKeeper);
             var customer = Bogus.CustomerFaker.Generate(1).Single();
 
-            using (work.Transact())
+            var unitOfWork = work.Transact();
+            {
                 await repo.AddAsync(customer);
+                await unitOfWork.SaveAsync();
+            }
             var address = await repo.GetAsync<Address>(customer.ShippingAddress.Id);
             Assert.That(address, Is.Not.Null);
             var contact = await repo.GetAsync<Contact>(customer.PrimaryContact.Id);
             Assert.That(contact, Is.Not.Null);
 
-            using (work.Transact())
+            unitOfWork = work.Transact();
+            {
                 await repo.RemoveAsync(customer);
+                await unitOfWork.SaveAsync();
+            }
+                
             var customerInDb = await repo.GetAsync<Customer>(customer.Id);
             Assert.That(customerInDb, Is.Null);
             address = await repo.GetAsync<Address>(customer.ShippingAddress.Id);

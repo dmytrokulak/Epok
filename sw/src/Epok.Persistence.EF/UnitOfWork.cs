@@ -2,6 +2,7 @@
 using Epok.Core.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Epok.Persistence.EF
 {
@@ -24,7 +25,7 @@ namespace Epok.Persistence.EF
         /// or leave the database unmodified if an error occurs.
         /// https://docs.microsoft.com/en-us/ef/core/saving/transactions
         /// </remarks>
-        public void Dispose()
+        public async Task SaveAsync()
         {
             var toRemove = _context.ChangeTracker.Entries()
                 .Where(e => e.State == EntityState.Deleted)
@@ -34,7 +35,7 @@ namespace Epok.Persistence.EF
                 .Where(e => e.State == EntityState.Added)
                 .Select(e => (e.Entity.GetType(), ((IEntity) e.Entity).Id)).ToHashSet();
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             if (toRemove.Count != 0)
                 _idsKeeper.Remove(toRemove);

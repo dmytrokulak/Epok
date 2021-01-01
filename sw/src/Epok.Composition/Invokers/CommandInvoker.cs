@@ -16,16 +16,17 @@ namespace Epok.Composition.Invokers
 
         public async Task Execute<T>(T command) where T : ICommand
         {
-            using (_work.Transact())
+            var unitOfWork = _work.Transact();
             {
                 var handler = Root.Container.GetInstance<ICommandHandler<T>>();
                 await handler.HandleAsync(command);
+                await unitOfWork.SaveAsync();
             }
         }
 
         public async Task Execute<T>(IEnumerable<T> commands) where T : ICommand
         {
-            using (_work.Transact())
+            var unitOfWork = _work.Transact();
             {
                 //ToDo:3 how to rollback events from the transmitter?
                 foreach (var command in commands)
@@ -33,6 +34,7 @@ namespace Epok.Composition.Invokers
                     var handler = Root.Container.GetInstance<ICommandHandler<T>>();
                     await handler.HandleAsync(command);
                 }
+                await unitOfWork.SaveAsync();
             }
         }
     }

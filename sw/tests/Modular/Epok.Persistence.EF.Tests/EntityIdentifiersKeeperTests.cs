@@ -74,8 +74,11 @@ namespace Epok.Persistence.EF.Tests
             var customers = await repo.GetAllAsync<Customer>();
 
             var customer = customers[0];
-            using (work.Transact())
+            var unitOfWork = work.Transact();
+            {
                 await repo.RemoveAsync(customer);
+                await unitOfWork.SaveAsync();
+            }
 
             Assert.That(_idsKeeper.Get<Customer>().Contains(customer.Id), Is.False);
         }
@@ -87,8 +90,11 @@ namespace Epok.Persistence.EF.Tests
             var repo = new EntityRepository(_dbContext, _idsKeeper);
 
             var newCustomer = Bogus.CustomerFaker.Generate(1).Single();
-            using (work.Transact())
+            var unitOfWork = work.Transact();
+            {
                 await repo.AddAsync(newCustomer);
+                await unitOfWork.SaveAsync();
+            }
 
             Assert.That(_idsKeeper.Get<Customer>().Contains(newCustomer.Id), Is.True);
         }
